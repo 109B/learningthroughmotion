@@ -1,3 +1,0 @@
-# learningthroughmotion
-# learningthroughmotion
-# learningthroughmotion
