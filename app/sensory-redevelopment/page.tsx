@@ -24,7 +24,7 @@ export default function SensoryRedevelopmentPage() {
       />
 
       <Section>
-        <div className="prose">
+        <div className="prose prose--columns">
           {programme.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

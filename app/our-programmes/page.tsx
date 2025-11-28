@@ -21,7 +21,7 @@ export default function OurProgrammesPage() {
       />
 
       <Section>
-        <div className="prose">
+        <div className="prose prose--columns">
           {PROGRAMMES_PAGE_COPY.intro.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

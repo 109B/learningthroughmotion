@@ -24,7 +24,7 @@ export default function MathsThroughSportPage() {
       />
 
       <Section>
-        <div className="prose">
+        <div className="prose prose--columns">
           {programme.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

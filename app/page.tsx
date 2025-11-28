@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { ImageMosaic } from "@/components/common/ImageMosaic";
 import { Section } from "@/components/common/Section";
 import { ProgrammeCards } from "@/components/common/ProgrammeCards";
+import { FadeIn } from "@/components/common/FadeIn";
+import { ImageCarousel } from "@/components/common/ImageCarousel";
 import {
   CONTACT_DETAILS,
-  HOME_ABOUT_PARAGRAPHS,
-  HOME_GALLERY,
+  HERO_HIGHLIGHTS,
+  HOME_ABOUT_CLUSTERS,
   HOME_HERO,
   PROGRAMMES,
 } from "@/content/siteContent";
@@ -13,49 +14,93 @@ import {
 export default function Home() {
   return (
     <>
-      <section className="hero">
-        <div className="shell hero__grid">
-          <div>
-            <p className="eyebrow">SEND focused active learning</p>
-            <h1>{HOME_HERO.title}</h1>
-            <p className="lead">{HOME_HERO.tagline}</p>
-            <p>{HOME_HERO.description}</p>
-            <div className="hero__actions">
-              <Link className="btn" href="/enquire-now">
-                Enquire now
-              </Link>
-              <Link className="link-arrow" href="/our-programmes">
-                Explore programmes
-              </Link>
+      <section className="hero hero--modern">
+        <div className="shell">
+          <div className="hero__content">
+            <div className="hero__text-section">
+              <p className="eyebrow">SEND Focused Active Learning</p>
+              <h1 className="hero__title">{HOME_HERO.title}</h1>
+              <p className="hero__tagline">{HOME_HERO.tagline}</p>
+              <p className="hero__description">{HOME_HERO.description}</p>
+
+              <div className="hero__trust">
+                <div className="trust-badge">
+                  <span className="trust-badge__icon">✓</span>
+                  <span className="trust-badge__text">Working with schools across Greater Manchester</span>
+                </div>
+                <div className="trust-badge">
+                  <span className="trust-badge__icon">✓</span>
+                  <span className="trust-badge__text">EHCP-aligned programmes</span>
+                </div>
+              </div>
+
+              <div className="hero__actions">
+                <Link className="btn btn--large" href="/enquire-now">
+                  Book a Free Discovery Call
+                </Link>
+                <Link className="link-arrow" href="/our-programmes">
+                  Explore our programmes
+                </Link>
+              </div>
+            </div>
+
+            <div className="hero__visual">
+              <ImageCarousel
+                images={[
+                  { src: "/images/carousel/coursel.jpg", alt: "Learning Through Motion session" },
+                  { src: "/images/carousel/coursel2.jpg", alt: "Active learning in progress" },
+                  { src: "/images/carousel/coursel3.jpg", alt: "SEND pupils engaged in sport" },
+                  { src: "/images/carousel/coursel4.jpg", alt: "Movement-based learning" },
+                  { src: "/images/carousel/coursel5.jpg", alt: "Sport and learning combined" },
+                  { src: "/images/carousel/coursel6.jpg", alt: "Pupils in action" },
+                  { src: "/images/carousel/coursel7.jpeg", alt: "Team activity session" },
+                  { src: "/images/carousel/coursel8.jpg", alt: "Inclusive sport session" },
+                  { src: "/images/carousel/coursel9.jpg", alt: "Learning through movement" },
+                ]}
+                interval={5000}
+              />
             </div>
           </div>
-          <div className="hero-card">
-            <p className="eyebrow">What we deliver</p>
-            <ul className="bullet-list">
-              <li>Cross curricular maths delivered through movement.</li>
-              <li>Sensory redevelopment journeys that rebuild regulation.</li>
-              <li>Year 7 mentoring that makes secondary transitions safe.</li>
-            </ul>
-            <p className="small-text">
-              Working with schools across Greater Manchester and Lancashire with
-              bespoke support for each EHCP.
-            </p>
+
+          <div className="hero-highlights hero-highlights--inline" aria-label="Key highlights">
+            {HERO_HIGHLIGHTS.map((highlight, index) => (
+              <FadeIn key={highlight.title} delay={100 * (index + 1)}>
+                <article className="hero-highlight-card hero-highlight-card--compact">
+                  <h3 className="hero-highlight-title">{highlight.title}</h3>
+                  <div className="hero-highlight-panel">
+                    {highlight.lines.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
+                </article>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
 
-      <Section title="About us" eyebrow="Why Learning Through Motion?">
-        <div className="split">
-          <div className="prose">
-            {HOME_ABOUT_PARAGRAPHS.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-          <ImageMosaic images={HOME_GALLERY} />
+      <Section
+        id="about"
+        title="About us"
+        eyebrow="Why Learning Through Motion?"
+      >
+        <div className="programme-grid about-card-grid" role="list">
+          {HOME_ABOUT_CLUSTERS.map((cluster) => (
+            <article className="programme-card" key={cluster.title} role="listitem">
+              <div className="programme-card__content">
+                <p className="eyebrow">About Learning Through Motion</p>
+                <h3>{cluster.title}</h3>
+                {cluster.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </article>
+          ))}
         </div>
       </Section>
 
       <Section
+        id="programmes"
         title="Our Programmes"
         intro="Every strand is built around movement, play, and purposeful mentoring so SEND pupils can access the curriculum in ways that feel exciting and achievable."
         tone="accent"
@@ -63,7 +108,7 @@ export default function Home() {
         <ProgrammeCards programmes={PROGRAMMES} />
       </Section>
 
-      <Section tone="muted">
+      <Section id="connect" tone="muted">
         <div className="hero-card">
           <h3>Ready to bring Learning Through Motion to your school?</h3>
           <p>

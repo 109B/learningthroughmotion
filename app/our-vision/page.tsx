@@ -13,7 +13,7 @@ export default function OurVisionPage() {
         ctaLabel="Partner with us"
       />
       <Section>
-        <div className="prose">
+        <div className="prose prose--columns">
           {VISION_PARAGRAPHS.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

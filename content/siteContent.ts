@@ -1,12 +1,14 @@
 export type NavLink = {
   label: string;
   href: string;
+  children?: NavLink[];
 };
 
 export type ProgrammeDetail = {
   slug: string;
   title: string;
   excerpt: string;
+  accent: string;
   heroImage?: string;
   paragraphs: string[];
   bulletHeading?: string;
@@ -23,6 +25,41 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Our Coaches", href: "/our-coaches" },
   { label: "Enquire now", href: "/enquire-now" },
 ];
+
+export const PROGRAMME_PAGES: NavLink[] = [
+  { label: "Maths Through Sport", href: "/maths-through-sport" },
+  { label: "Sensory Redevelopment", href: "/sensory-redevelopment" },
+  { label: "The Next Chapter", href: "/the-next-chapter" },
+];
+
+export const PRIMARY_NAV: NavLink[] = [
+  { label: "Home", href: "/" },
+  {
+    label: "Programmes",
+    href: "/our-programmes",
+    children: PROGRAMME_PAGES,
+  },
+  {
+    label: "Impact",
+    href: "/our-vision",
+    children: [
+      { label: "Vision", href: "/our-vision" },
+      { label: "Our Programmes", href: "/our-programmes" },
+    ],
+  },
+  {
+    label: "Coaches",
+    href: "/our-coaches",
+    children: [{ label: "Our Coaches", href: "/our-coaches" }],
+  },
+  {
+    label: "Contact",
+    href: "/enquire-now",
+    children: [{ label: "Enquire now", href: "/enquire-now" }],
+  },
+];
+
+export const PROGRAMME_SHORTCUTS = PROGRAMME_PAGES;
 
 export const CONTACT_DETAILS = {
   phone: "07356 074 072",
@@ -42,6 +79,17 @@ export const HOME_HERO = {
     "Cross-curricular learning delivered through movement, sport, and sensory experiences so every SEND pupil can thrive.",
 };
 
+export const VISION_PARAGRAPHS = [
+  "Learning Through Motion, Growing Toward Independence.",
+  "Our vision is to create a future where children with special educational needs and disabilities are empowered to learn, grow, and thrive through sport. We believe that sport is a powerful tool for development - not just physically, but emotionally, socially, and academically.",
+  "Through inclusive sports experiences we provide children with opportunities to build confidence, communication, resilience, and key life skills. By integrating cross curricular learning into every session we meet each child where they are and support them in an environment that suits their needs and learning style.",
+  "Our goal is to give every SEND child the best possible chance at leading an independent, fulfilling life. We celebrate every small win, nurture every unique ability, and walk alongside every child on their journey to becoming confident, capable, and independent.",
+  "Every child deserves the chance to succeed - in their own way, at their own pace, and in an environment that celebrates who they are.",
+];
+
+export const HOME_VISION_STATEMENT = VISION_PARAGRAPHS[0];
+export const HOME_VISION_SUPPORT = VISION_PARAGRAPHS[1];
+
 export const HOME_ABOUT_PARAGRAPHS: string[] = [
   "At Learning Through Motion, we believe every child deserves a rich, inclusive learning experience that nurtures both their educational and personal development. That is why we specialise in delivering cross-curricular learning through sport, designed especially for children with special educational needs and disabilities (SEND).",
   "Our programmes blend physical activity with classroom topics such as mathematics, creating engaging, active environments where SEND students can thrive. By using sport as a dynamic teaching tool we foster academic growth alongside communication, coordination, and social interaction.",
@@ -49,6 +97,44 @@ export const HOME_ABOUT_PARAGRAPHS: string[] = [
   "We work closely with schools, educators, and support staff to tailor each session to every child's needs and preferred learning approaches. By meeting each learner where they are, we celebrate their strengths and create an environment that amplifies their uniqueness.",
   "Inclusion is not an add-on for us - it is the foundation of every session. We are passionate about breaking down barriers and opening up new pathways for learning, helping every child reach their full potential through the power of sport.",
   "Our goal is to give every student the best possible chance at leading an independent, fulfilling life. We celebrate every small win, nurture every unique ability, and walk alongside each student on their journey toward becoming confident, capable, and independent. Every child deserves the chance to succeed at their own pace, in their own way.",
+];
+
+export const HERO_HIGHLIGHTS = [
+  {
+    title: "What we deliver",
+    lines: [
+      "Cross curricular maths delivered through movement.",
+      "Sensory redevelopment journeys that rebuild regulation.",
+      "Year 7 mentoring that makes secondary transitions safe.",
+    ],
+  },
+  {
+    title: "Our approach",
+    lines: [
+      HOME_ABOUT_PARAGRAPHS[3],
+      HOME_ABOUT_PARAGRAPHS[4],
+      "Working with schools across Greater Manchester and Lancashire with bespoke support for each EHCP.",
+    ],
+  },
+  {
+    title: "Our vision",
+    lines: VISION_PARAGRAPHS.slice(0, 3),
+  },
+];
+
+export const HOME_ABOUT_CLUSTERS = [
+  {
+    title: "Inclusive learning journeys",
+    paragraphs: HOME_ABOUT_PARAGRAPHS.slice(0, 2),
+  },
+  {
+    title: "Confidence through motion",
+    paragraphs: HOME_ABOUT_PARAGRAPHS.slice(2, 4),
+  },
+  {
+    title: "Our promise to every child",
+    paragraphs: HOME_ABOUT_PARAGRAPHS.slice(4),
+  },
 ];
 
 export const HOME_GALLERY = [
@@ -76,6 +162,7 @@ export const PROGRAMMES: ProgrammeDetail[] = [
     title: "Maths Through Sport",
     excerpt:
       "We make maths enjoyable by blending it into physical games and activities. Children practise counting, problem solving, and measuring through movement, which keeps them engaged and builds lasting confidence.",
+    accent: "#0f6d63",
     heroImage:
       "https://files.websitebuilder.prositehosting.co.uk/45/39/45397caf-ca8f-482b-98e6-01ca8bf50395.png",
     paragraphs: [
@@ -89,6 +176,7 @@ export const PROGRAMMES: ProgrammeDetail[] = [
     title: "Sensory Redevelopment",
     excerpt:
       "We strengthen the foundations for learning by retraining the sensory system. Targeted activities improve balance, body awareness, and regulation so children feel ready to learn.",
+    accent: "#c45f24",
     heroImage:
       "https://files.websitebuilder.prositehosting.co.uk/62/f8/62f87fc5-6c92-421c-93be-82a4720f8739.jpg",
     paragraphs: [
@@ -109,6 +197,7 @@ export const PROGRAMMES: ProgrammeDetail[] = [
     title: "The Next Chapter",
     excerpt:
       "A transition and mentoring programme that provides a trusted adult, builds emotional resilience, and makes the move to secondary school feel safe and exciting.",
+    accent: "#f4c95d",
     heroImage:
       "https://files.websitebuilder.prositehosting.co.uk/7e/44/7e446e97-fa38-4fda-902c-4a6346050a3f.jpg",
     paragraphs: [
@@ -134,14 +223,6 @@ export const PROGRAMMES_PAGE_COPY = {
   closing:
     "By integrating sport into everyday learning, our approach helps SEND pupils access the wider curriculum in motivating and accessible ways, empowering every child to progress at their own pace.",
 };
-
-export const VISION_PARAGRAPHS = [
-  "Learning Through Motion, Growing Toward Independence.",
-  "Our vision is to create a future where children with special educational needs and disabilities are empowered to learn, grow, and thrive through sport. We believe that sport is a powerful tool for development - not just physically, but emotionally, socially, and academically.",
-  "Through inclusive sports experiences we provide children with opportunities to build confidence, communication, resilience, and key life skills. By integrating cross curricular learning into every session we meet each child where they are and support them in an environment that suits their needs and learning style.",
-  "Our goal is to give every SEND child the best possible chance at leading an independent, fulfilling life. We celebrate every small win, nurture every unique ability, and walk alongside every child on their journey to becoming confident, capable, and independent.",
-  "Every child deserves the chance to succeed - in their own way, at their own pace, and in an environment that celebrates who they are.",
-];
 
 export const COACHES = [
   {

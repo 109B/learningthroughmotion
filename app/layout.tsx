@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Rubik } from "next/font/google";
+import { Playfair_Display, Atkinson_Hyperlegible } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { SkipNav } from "@/components/layout/SkipNav";
+import { StickyEnquiry } from "@/components/common/StickyEnquiry";
 
-const heading = Playfair_Display({
+// Using Atkinson Hyperlegible for headings too for better accessibility
+// Serif fonts like Playfair can be challenging for dyslexic readers
+const heading = Atkinson_Hyperlegible({
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["400", "700"],
   variable: "--font-heading",
 });
 
-const body = Rubik({
+const body = Atkinson_Hyperlegible({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "700"],
   variable: "--font-body",
 });
 
@@ -41,9 +45,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${heading.variable} ${body.variable}`}>
+        <SkipNav />
         <Header />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
+        <StickyEnquiry />
       </body>
     </html>
   );
