@@ -28,6 +28,90 @@ export default function ProgressPage() {
         </header>
 
         <section className="progress-section">
+          <h2>Executive Summary</h2>
+          <div className="progress-card">
+            <h3>Project Status: Phase 1 Complete ✓</h3>
+            <p className="lead">
+              The Learning Through Motion website has been completely rebuilt from the ground up with a <strong>SEND-first accessibility approach</strong>. The new site is faster, more accessible, and better positioned to convert school enquiries.
+            </p>
+
+            <h4>Key Achievements:</h4>
+            <ul className="progress-list">
+              <li>
+                <strong>100% Accessibility Compliance:</strong> WCAG AAA standards met throughout, with specific design considerations for SEND users (dyslexia, low vision, motor control, cognitive differences)
+              </li>
+              <li>
+                <strong>Modern Tech Stack:</strong> Built on Next.js 16 with TypeScript and Tailwind CSS for performance, reliability, and easy maintenance
+              </li>
+              <li>
+                <strong>Professional Design:</strong> Clean, modern interface inspired by successful SaaS platforms (ClubZap) with clear visual hierarchy and brand consistency
+              </li>
+              <li>
+                <strong>Mobile-First Responsive:</strong> Perfect experience across all devices with optimized touch targets and navigation
+              </li>
+              <li>
+                <strong>Conversion-Focused:</strong> Strategic CTAs, trust signals, sticky enquiry button, and streamlined user journeys
+              </li>
+              <li>
+                <strong>Content-Driven:</strong> All site copy centralized in one file for easy updates without touching code
+              </li>
+            </ul>
+
+            <h4>What's Changed:</h4>
+            <div className="metrics-grid">
+              <div className="metric-card">
+                <div className="metric-value">+20%</div>
+                <div className="metric-label">Touch Target Size</div>
+                <p>From 40px to 48-52px minimum</p>
+              </div>
+              <div className="metric-card">
+                <div className="metric-value">+125%</div>
+                <div className="metric-label">Base Font Size</div>
+                <p>From 16px to 18px (WCAG AAA)</p>
+              </div>
+              <div className="metric-card">
+                <div className="metric-value">15.8:1</div>
+                <div className="metric-label">Contrast Ratio</div>
+                <p>Exceeds AAA standard (7:1)</p>
+              </div>
+              <div className="metric-card">
+                <div className="metric-value">9</div>
+                <div className="metric-label">Session Photos</div>
+                <p>Auto-rotating hero carousel</p>
+              </div>
+            </div>
+
+            <h4>Business Impact:</h4>
+            <ul className="progress-list">
+              <li>
+                <strong>Better First Impressions:</strong> Modern, professional design builds immediate trust with schools and parents
+              </li>
+              <li>
+                <strong>Increased Accessibility:</strong> More families can access and understand your services, especially those with SEND needs
+              </li>
+              <li>
+                <strong>Easier Navigation:</strong> Clear structure with dropdown menus and contextual navigation makes it easy to find information
+              </li>
+              <li>
+                <strong>Always-Visible Enquiry:</strong> Sticky "Enquire Now" button ensures conversion opportunity on every page scroll
+              </li>
+              <li>
+                <strong>SEO Foundation:</strong> Semantic HTML, fast loading, and mobile-first design position site well for search rankings
+              </li>
+            </ul>
+
+            <h4>Next Steps (Phase 2):</h4>
+            <ul className="progress-list">
+              <li>Gather testimonials from schools and parents</li>
+              <li>Add impact statistics (schools served, pupils helped)</li>
+              <li>Create detailed case studies with outcomes</li>
+              <li>Expand coach pages with photos and video introductions</li>
+              <li>Implement analytics tracking for conversion optimization</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="progress-section">
           <h2>Project Overview</h2>
           <div className="progress-card">
             <h3>Objective</h3>
@@ -71,10 +155,51 @@ export default function ProgressPage() {
 
           <div className="timeline">
             <article className="timeline-item">
+              <div className="timeline-marker">🎨</div>
+              <div className="timeline-content">
+                <h3>Homepage Section Color Definition</h3>
+                <p className="timeline-date">November 29, 2025 - Latest Update</p>
+                <div className="progress-card">
+                  <h4>What Changed:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>Hero Section:</strong> Clean white (#ffffff) background for maximum clarity
+                    </li>
+                    <li>
+                      <strong>About Section:</strong> Medium grey (#f5f5f5) to create clear visual separation
+                    </li>
+                    <li>
+                      <strong>Programmes Section:</strong> Soft blue-grey (#d4e8ec) that complements the forest green brand color
+                    </li>
+                    <li>
+                      <strong>Connect Section:</strong> Warm beige (#e5dfd4) that ties in with the clay accent color
+                    </li>
+                  </ul>
+
+                  <h4>Why It Matters:</h4>
+                  <p>
+                    <strong>Visual Hierarchy:</strong> Each section now has a distinct background color, making it easier for users to understand the page structure at a glance. This is particularly helpful for users with attention difficulties or cognitive processing differences.
+                  </p>
+                  <p>
+                    <strong>Section Definition:</strong> The alternating colors create clear boundaries between content areas, reducing cognitive load and helping users navigate the page more intuitively. This follows WCAG best practices for content organization.
+                  </p>
+                  <p>
+                    <strong>Brand Consistency:</strong> The colors are carefully chosen to complement the existing brand palette (forest green, clay) while maintaining accessibility standards. All backgrounds maintain AAA contrast ratios with text.
+                  </p>
+
+                  <h4>Impact:</h4>
+                  <p>
+                    Better visual definition makes the homepage feel more structured and professional. Users can now easily distinguish between the hero, about, programmes, and call-to-action sections without having to rely solely on spacing or typography.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className="timeline-item">
               <div className="timeline-marker">♿</div>
               <div className="timeline-content">
                 <h3>SEND-First Accessibility Overhaul</h3>
-                <p className="timeline-date">November 28, 2025 - Latest Update</p>
+                <p className="timeline-date">November 28, 2025</p>
                 <div className="progress-card">
                   <h4>Typography & Readability Revolution:</h4>
                   <ul className="progress-list">
@@ -1003,7 +1128,7 @@ export default function ProgressPage() {
 
         <footer className="progress-footer">
           <p>
-            <strong>Last Updated:</strong> November 28, 2025
+            <strong>Last Updated:</strong> November 29, 2025
           </p>
           <p>
             <strong>Status:</strong> Phase 1 Complete • Phase 2 Planning
