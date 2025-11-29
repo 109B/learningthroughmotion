@@ -149,12 +149,16 @@ main {
   position: relative;
 }
 
+.section--default {
+  background: #f5f5f5;
+}
+
 .section--accent {
-  background: var(--color-mist);
+  background: #d4e8ec;
 }
 
 .section--muted {
-  background: #fafafa;
+  background: #e5dfd4;
 }
 
 .section__header {
