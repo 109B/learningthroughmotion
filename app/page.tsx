@@ -8,8 +8,13 @@ import {
   HERO_HIGHLIGHTS,
   HOME_ABOUT_CLUSTERS,
   HOME_HERO,
+  HOME_VISION_STATEMENT,
+  HOME_VISION_SUPPORT,
+  VISION_PARAGRAPHS,
   PROGRAMMES,
 } from "@/content/siteContent";
+
+import { TestimonialsSection } from "@/components/common/TestimonialsSection";
 
 export default function Home() {
   return (
@@ -78,6 +83,18 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Section tone="default" title="Key Highlights">
+        <FadeIn>
+          <div className="prose">
+            <p className="lead">{HOME_VISION_STATEMENT}</p>
+            <p>{HOME_VISION_SUPPORT}</p>
+            <p>{VISION_PARAGRAPHS[2]}</p>
+          </div>
+        </FadeIn>
+      </Section>
+
+      <TestimonialsSection limit={3} randomize showAllLink />
 
       <Section
         id="about"

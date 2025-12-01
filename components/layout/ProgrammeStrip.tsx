@@ -16,26 +16,33 @@ export function ProgrammeStrip({ contextLinks }: ProgrammeStripProps) {
     return null;
   }
 
+  const links = contextLinks ?? PROGRAMME_SHORTCUTS;
+
   return (
     <div className="programme-strip" aria-label="Programme quick links">
       <div className="shell programme-strip__inner">
-        <p className="programme-strip__label">Explore:</p>
-        <div className="programme-strip__links">
-          {(contextLinks ?? PROGRAMME_SHORTCUTS).map((link) => {
+        <nav className="programme-strip__nav">
+          {links.map((link, index) => {
             const isActive = pathname.startsWith(link.href);
             return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`programme-pill ${isActive ? "programme-pill--active" : ""}`}
-                aria-current={isActive ? "page" : undefined}
-                prefetch={false}
-              >
-                {link.label}
-              </Link>
+              <span key={link.href} className="programme-strip__item">
+                <Link
+                  href={link.href}
+                  className={`programme-link ${isActive ? "is-active" : ""}`}
+                  aria-current={isActive ? "page" : undefined}
+                  prefetch={false}
+                >
+                  {link.label}
+                </Link>
+                {index < links.length - 1 && (
+                  <span className="programme-strip__separator" aria-hidden="true">
+                    |
+                  </span>
+                )}
+              </span>
             );
           })}
-        </div>
+        </nav>
       </div>
     </div>
   );

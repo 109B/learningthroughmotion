@@ -34,19 +34,19 @@ export function ImageCarousel({ images, interval = 4000 }: ImageCarouselProps) {
         {images.map((image, index) => (
           <div
             key={image.src}
-            className={`carousel__slide ${
-              index === currentIndex ? "carousel__slide--active" : ""
-            }`}
+            className={`carousel__slide ${index === currentIndex ? "carousel__slide--active" : ""
+              }`}
           >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={320}
-              height={384}
-              sizes="(max-width: 768px) 100vw, 320px"
-              priority={index === 0}
-              className="carousel__image"
-            />
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 600px"
+                priority={index === 0}
+                className="carousel__image"
+              />
+            </div>
           </div>
         ))}
       </div>
@@ -56,9 +56,8 @@ export function ImageCarousel({ images, interval = 4000 }: ImageCarouselProps) {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`carousel__indicator ${
-              index === currentIndex ? "carousel__indicator--active" : ""
-            }`}
+            className={`carousel__indicator ${index === currentIndex ? "carousel__indicator--active" : ""
+              }`}
             aria-label={`Go to image ${index + 1}`}
           />
         ))}

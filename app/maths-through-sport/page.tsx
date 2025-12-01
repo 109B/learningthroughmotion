@@ -1,15 +1,17 @@
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/common/PageHero";
 import { Section } from "@/components/common/Section";
+import { FadeIn } from "@/components/common/FadeIn";
 import { PROGRAMMES } from "@/content/siteContent";
 
-export default function MathsThroughSportPage() {
-  const programme = PROGRAMMES.find(
-    (item) => item.slug === "maths-through-sport"
-  );
+import { getCarouselImages } from "@/lib/carousel";
+
+export default async function MathsThroughSportPage() {
+  const programme = PROGRAMMES.find((p) => p.slug === "maths-through-sport");
+  const carouselImages = await getCarouselImages("maths");
 
   if (!programme) {
-    notFound();
+    return null;
   }
 
   return (
@@ -21,14 +23,17 @@ export default function MathsThroughSportPage() {
         ctaHref="/enquire-now"
         ctaLabel="Book a discovery call"
         imageSrc={programme.heroImage}
+        carouselImages={carouselImages}
       />
 
       <Section>
-        <div className="prose prose--columns">
-          {programme.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
+        <FadeIn>
+          <div className="prose prose--columns">
+            {programme.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </FadeIn>
       </Section>
     </>
   );

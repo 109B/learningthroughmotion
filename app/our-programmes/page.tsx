@@ -1,13 +1,18 @@
 import { PageHero } from "@/components/common/PageHero";
 import { Section } from "@/components/common/Section";
 import { ProgrammeCards } from "@/components/common/ProgrammeCards";
+import { FadeIn } from "@/components/common/FadeIn";
 import {
   HOME_GALLERY,
   PROGRAMMES,
   PROGRAMMES_PAGE_COPY,
 } from "@/content/siteContent";
 
-export default function OurProgrammesPage() {
+import { getCarouselImages } from "@/lib/carousel";
+
+export default async function OurProgrammesPage() {
+  const carouselImages = await getCarouselImages("programmes");
+
   return (
     <>
       <PageHero
@@ -18,19 +23,24 @@ export default function OurProgrammesPage() {
         imageAlt={HOME_GALLERY[0]?.alt}
         ctaHref="/enquire-now"
         ctaLabel="Discuss availability"
+        carouselImages={carouselImages}
       />
 
       <Section>
-        <div className="prose prose--columns">
-          {PROGRAMMES_PAGE_COPY.intro.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-          <p>{PROGRAMMES_PAGE_COPY.closing}</p>
-        </div>
+        <FadeIn>
+          <div className="prose prose--columns">
+            {PROGRAMMES_PAGE_COPY.intro.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+            <p>{PROGRAMMES_PAGE_COPY.closing}</p>
+          </div>
+        </FadeIn>
       </Section>
 
       <Section tone="accent">
-        <ProgrammeCards programmes={PROGRAMMES} />
+        <FadeIn>
+          <ProgrammeCards programmes={PROGRAMMES} />
+        </FadeIn>
       </Section>
     </>
   );

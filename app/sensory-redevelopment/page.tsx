@@ -1,15 +1,19 @@
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/common/PageHero";
 import { Section } from "@/components/common/Section";
+import { FadeIn } from "@/components/common/FadeIn";
 import { PROGRAMMES } from "@/content/siteContent";
 
-export default function SensoryRedevelopmentPage() {
+import { getCarouselImages } from "@/lib/carousel";
+
+export default async function SensoryRedevelopmentPage() {
   const programme = PROGRAMMES.find(
     (item) => item.slug === "sensory-redevelopment"
   );
+  const carouselImages = await getCarouselImages("sensory");
 
   if (!programme) {
-    notFound();
+    return null;
   }
 
   return (
@@ -19,16 +23,19 @@ export default function SensoryRedevelopmentPage() {
         title={programme.title}
         intro={programme.excerpt}
         ctaHref="/enquire-now"
-        ctaLabel="Talk to us"
+        ctaLabel="Book a discovery call"
         imageSrc={programme.heroImage}
+        carouselImages={carouselImages}
       />
 
       <Section>
-        <div className="prose prose--columns">
-          {programme.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
+        <FadeIn>
+          <div className="prose prose--columns">
+            {programme.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </FadeIn>
         {programme.bulletHeading && programme.bullets && (
           <div>
             <h3>{programme.bulletHeading}</h3>

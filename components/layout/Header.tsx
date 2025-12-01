@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { PRIMARY_NAV } from "@/content/siteContent";
-import { ProgrammeStrip } from "@/components/layout/ProgrammeStrip";
 
 export function Header() {
   const pathname = usePathname();
@@ -36,25 +35,8 @@ export function Header() {
     setOpenSubmenu(null);
   };
 
-  const activeSection = PRIMARY_NAV.find((item) =>
-    item.href === "/"
-      ? pathname === "/"
-      : item.children
-      ? item.children.some((child) => pathname.startsWith(child.href))
-      : pathname.startsWith(item.href)
-  );
-
   return (
     <header className="site-header" role="banner">
-      <nav className="utility-bar" aria-label="Learning Through Motion utility links">
-        <div className="utility-bar__inner">
-          <ul className="utility-bar__list" role="list">
-            <li className="utility-bar__item">
-              <span className="utility-bar__placeholder">Secure logon area coming soon</span>
-            </li>
-          </ul>
-        </div>
-      </nav>
       <div className="shell header__inner">
         <Link className="brand" href="/" onClick={handleNavigate}>
           <div
@@ -63,11 +45,19 @@ export function Header() {
             onMouseLeave={() => setIsLogoHovered(false)}
           >
             <Image
-              src={isLogoHovered ? "/images/smile.png" : "/images/logo.png"}
+              src="/images/logo.png"
               alt="Learning Through Motion logo"
-              width={isLogoHovered ? 75 : 135}
-              height={isLogoHovered ? 75 : 135}
-              className="brand__mark"
+              width={135}
+              height={135}
+              className="brand__mark brand__mark--default"
+              priority
+            />
+            <Image
+              src="/images/smile.png"
+              alt="Learning Through Motion smile"
+              width={75}
+              height={75}
+              className="brand__mark brand__mark--hover"
               priority
             />
           </div>
@@ -156,7 +146,6 @@ export function Header() {
           </Link>
         </nav>
       </div>
-      <ProgrammeStrip contextLinks={activeSection?.children} />
     </header>
   );
 }

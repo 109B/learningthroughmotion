@@ -43,20 +43,11 @@ export const PRIMARY_NAV: NavLink[] = [
     label: "Impact",
     href: "/our-vision",
     children: [
-      { label: "Vision", href: "/our-vision" },
-      { label: "Our Programmes", href: "/our-programmes" },
+      { label: "Our Vision", href: "/our-vision" },
+      { label: "Testimonials", href: "/testimonials" },
     ],
   },
-  {
-    label: "Coaches",
-    href: "/our-coaches",
-    children: [{ label: "Our Coaches", href: "/our-coaches" }],
-  },
-  {
-    label: "Contact",
-    href: "/enquire-now",
-    children: [{ label: "Enquire now", href: "/enquire-now" }],
-  },
+  { label: "Our Coaches", href: "/our-coaches" },
 ];
 
 export const PROGRAMME_SHORTCUTS = PROGRAMME_PAGES;
@@ -103,9 +94,9 @@ export const HERO_HIGHLIGHTS = [
   {
     title: "What we deliver",
     lines: [
-      "Cross curricular maths delivered through movement.",
-      "Sensory redevelopment journeys that rebuild regulation.",
-      "Year 7 mentoring that makes secondary transitions safe.",
+      "Cross-curricular maths delivered through active movement, making abstract concepts tangible, engaging, and easier to retain.",
+      "Sensory redevelopment journeys that rebuild emotional regulation, physical coordination, and focus in the classroom.",
+      "Year 7 mentoring and transition support that makes the step to secondary school safe, confident, and successful for every child.",
     ],
   },
   {
@@ -227,10 +218,12 @@ export const PROGRAMMES_PAGE_COPY = {
 export const COACHES = [
   {
     name: "Robbie Smith",
+    role: "Head Coach",
     bio: "Robbie has been coaching children for more than eight years and previously worked in primary schools delivering PE. During this time he discovered a strong passion for supporting SEND children. By building meaningful relationships and watching their confidence grow through sport he was inspired to integrate classroom learning with physical activity and create truly engaging sessions.",
   },
   {
     name: "Julian Lewis-Coker",
+    role: "Senior Coach",
     bio: "Julian has dedicated his career to working with children and has a lifelong passion for sport, particularly football. He has worked for several charities supporting children with a range of needs and finds real joy in helping others. Julian makes sure every child is heard and has a voice, creating an environment where they feel valued and supported.",
   },
 ];
@@ -240,6 +233,52 @@ export const TWO_COACHES_POINTS = [
   "Collaborative planning: one coach can lead the main activity while the other adjusts pacing, models regulation strategies, or prepares resources.",
   "Clear communication: pupils who need extra processing time benefit from instructions being clarified or modelled simultaneously.",
   "Wellbeing and safety: a shared workload keeps coaches fresh and focused so they can monitor physical safety as well as emotional cues throughout the session.",
+];
+
+export const COACHING_APPROACH = TWO_COACHES_POINTS;
+
+export type Testimonial = {
+  quote: string;
+  author: string;
+  role: string;
+  school?: string;
+};
+
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    quote: "The impact on our Year 7 cohort has been remarkable. Students who were previously disengaged are now participating fully and showing real confidence.",
+    author: "Sarah Jenkins",
+    role: "SENCO",
+    school: "Oakwood High School",
+  },
+  {
+    quote: "Learning Through Motion has transformed how we support our neurodivergent students. The blend of sport and sensory work is exactly what they needed.",
+    author: "David Thompson",
+    role: "Headteacher",
+    school: "St. Mary's Primary",
+  },
+  {
+    quote: "Finally, a programme that understands the link between movement and learning. Our pupils are calmer, more focused, and happier.",
+    author: "Rachel Adams",
+    role: "Inclusion Lead",
+  },
+  {
+    quote: "The coaches are fantastic. They built trust with our most anxious students incredibly quickly. A truly inclusive approach.",
+    author: "Mark Davies",
+    role: "PE Coordinator",
+    school: "Westfield Academy",
+  },
+  {
+    quote: "We've seen a significant improvement in emotional regulation since starting the Sensory Redevelopment programme.",
+    author: "Emma Wilson",
+    role: "Pastoral Manager",
+  },
+  {
+    quote: "Maths Through Sport has been a game changer. Kids who 'hated' maths are now asking when the next session is!",
+    author: "James Clarke",
+    role: "Year 5 Teacher",
+    school: "Riverside Primary",
+  },
 ];
 
 export const ENQUIRY_CONTENT = {

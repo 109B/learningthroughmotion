@@ -1,15 +1,17 @@
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/common/PageHero";
 import { Section } from "@/components/common/Section";
+import { FadeIn } from "@/components/common/FadeIn";
 import { PROGRAMMES } from "@/content/siteContent";
 
-export default function TheNextChapterPage() {
-  const programme = PROGRAMMES.find(
-    (item) => item.slug === "the-next-chapter"
-  );
+import { getCarouselImages } from "@/lib/carousel";
+
+export default async function TheNextChapterPage() {
+  const programme = PROGRAMMES.find((p) => p.slug === "the-next-chapter");
+  const carouselImages = await getCarouselImages("next-chapter");
 
   if (!programme) {
-    notFound();
+    return null;
   }
 
   return (
@@ -19,16 +21,19 @@ export default function TheNextChapterPage() {
         title={programme.title}
         intro={programme.excerpt}
         ctaHref="/enquire-now"
-        ctaLabel="Arrange a visit"
+        ctaLabel="Book a discovery call"
         imageSrc={programme.heroImage}
+        carouselImages={carouselImages}
       />
 
       <Section>
-        <div className="prose prose--columns">
-          {programme.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
+        <FadeIn>
+          <div className="prose prose--columns">
+            {programme.paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </FadeIn>
         {programme.bulletHeading && programme.bullets && (
           <div>
             <h3>{programme.bulletHeading}</h3>

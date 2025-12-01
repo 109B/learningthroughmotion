@@ -1,45 +1,50 @@
 import { PageHero } from "@/components/common/PageHero";
 import { Section } from "@/components/common/Section";
-import { COACHES, HOME_GALLERY, TWO_COACHES_POINTS } from "@/content/siteContent";
+import { FadeIn } from "@/components/common/FadeIn";
+import { COACHES, COACHING_APPROACH } from "@/content/siteContent";
 
-export default function OurCoachesPage() {
+import { getCarouselImages } from "@/lib/carousel";
+
+export default async function OurCoachesPage() {
+  const carouselImages = await getCarouselImages("coaches");
+
   return (
     <>
       <PageHero
-        eyebrow="Team"
-        title="Meet the coaches"
-        intro="Relationships come first. Our coaching team blends teaching experience, mentoring, and a passion for sport that keeps every child engaged."
-        imageSrc={HOME_GALLERY[1]?.src}
-        imageAlt={HOME_GALLERY[1]?.alt}
+        eyebrow="The Team"
+        title="Expert coaches, dedicated mentors"
+        intro="Our two-coach model ensures every child gets the attention they need. We combine sporting expertise with deep SEND experience."
         ctaHref="/enquire-now"
-        ctaLabel="Book a taster session"
+        ctaLabel="Meet the team"
+        carouselImages={carouselImages}
       />
 
       <Section>
-        <div className="split">
-          {COACHES.map((coach) => (
-            <article key={coach.name} className="hero-card">
-              <p className="eyebrow">Coach</p>
-              <h3>{coach.name}</h3>
-              <p>{coach.bio}</p>
-            </article>
+        <div className="grid gap-12 md:grid-cols-2">
+          {COACHES.map((coach, index) => (
+            <FadeIn key={coach.name} delay={index * 100}>
+              <article className="coach-card">
+                <div className="coach-card__content">
+                  <h3>{coach.name}</h3>
+                  <p className="coach-role">{coach.role}</p>
+                  <p>{coach.bio}</p>
+                </div>
+              </article>
+            </FadeIn>
           ))}
         </div>
       </Section>
 
-      <Section tone="accent">
-        <div className="hero-card">
-          <h3>Why two coaches?</h3>
-          <p className="small-text">
-            Having two adults in each session means we can personalise support,
-            offer consistent reassurance, and adapt quickly to each learner.
-          </p>
-          <ul className="bullet-list">
-            {TWO_COACHES_POINTS.map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
-        </div>
+      <Section tone="accent" title="Our Approach">
+        <FadeIn>
+          <div className="prose">
+            <ul className="bullet-list">
+              {COACHING_APPROACH.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </div>
+        </FadeIn>
       </Section>
     </>
   );
