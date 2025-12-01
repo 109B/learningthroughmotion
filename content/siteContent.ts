@@ -39,14 +39,8 @@ export const PRIMARY_NAV: NavLink[] = [
     href: "/our-programmes",
     children: PROGRAMME_PAGES,
   },
-  {
-    label: "Impact",
-    href: "/our-vision",
-    children: [
-      { label: "Our Vision", href: "/our-vision" },
-      { label: "Testimonials", href: "/testimonials" },
-    ],
-  },
+  { label: "Our Vision", href: "/our-vision" },
+  { label: "Testimonials", href: "/testimonials" },
   { label: "Our Coaches", href: "/our-coaches" },
 ];
 

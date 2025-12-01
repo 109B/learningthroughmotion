@@ -22,7 +22,7 @@ export default function ProgressPage() {
           <div>
             <h1>Website Redesign Progress Report</h1>
             <p className="progress-subtitle">
-              Learning Through Motion • November 2025
+              Learning Through Motion • December 2025
             </p>
           </div>
         </header>
@@ -155,10 +155,79 @@ export default function ProgressPage() {
 
           <div className="timeline">
             <article className="timeline-item">
+              <div className="timeline-marker">✨</div>
+              <div className="timeline-content">
+                <h3>UX Refinements & Testimonials Integration</h3>
+                <p className="timeline-date">December 1, 2025 - Latest Update</p>
+                <div className="progress-card">
+                  <h4>What Changed:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>Refined Logo Interaction:</strong> Replaced animated "wiggle" effect with smooth fade transition between main logo and smile logo on hover. More professional and subtle.
+                    </li>
+                    <li>
+                      <strong>Streamlined Header:</strong> Removed utility bar and programme strip from header component for cleaner, more focused navigation experience.
+                    </li>
+                    <li>
+                      <strong>Enhanced Page Heroes:</strong> Added carousel support to hero sections across all pages. Heroes now support both static images and auto-rotating image galleries.
+                    </li>
+                    <li>
+                      <strong>New Testimonials Component:</strong> Built reusable TestimonialsSection with randomization, limit controls, and loading states to prevent hydration issues.
+                    </li>
+                    <li>
+                      <strong>Homepage Enhancements:</strong> Added "Key Highlights" section with vision content and integrated 3 random testimonials to build trust and social proof.
+                    </li>
+                    <li>
+                      <strong>Carousel Infrastructure:</strong> Created organized image directory structure (<code>/public/images/carousel/</code>) with subfolders for each page and helpful README for adding photos.
+                    </li>
+                    <li>
+                      <strong>Visual Refinements:</strong> Programme strip now uses pure white background, improved dropdown spacing, better visual consistency.
+                    </li>
+                  </ul>
+
+                  <h4>Why It Matters:</h4>
+                  <p>
+                    <strong>Professional Polish:</strong> The refined logo interaction is more sophisticated and aligns with modern web design trends. The fade transition feels intentional and controlled rather than playful.
+                  </p>
+                  <p>
+                    <strong>Reduced Clutter:</strong> Removing the utility bar and programme strip from the header creates more breathing room. Navigation is now cleaner and less overwhelming, especially on mobile devices.
+                  </p>
+                  <p>
+                    <strong>Engaging Visuals:</strong> Carousel support means every page can showcase multiple session photos, not just one static image. This brings the programmes to life and shows the variety of activities.
+                  </p>
+                  <p>
+                    <strong>Social Proof:</strong> Testimonials on the homepage provide immediate credibility. Randomization keeps the content fresh on repeat visits, and the component is built to handle real testimonials when they're gathered.
+                  </p>
+
+                  <h4>Technical Improvements:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>Image Preloading:</strong> Smile logo preloads for instant swap with zero flicker
+                    </li>
+                    <li>
+                      <strong>Hydration Safety:</strong> Testimonials component uses client-side loading to prevent React hydration mismatches
+                    </li>
+                    <li>
+                      <strong>Staggered Animations:</strong> PageHero text and visuals animate with 200ms delay for better perceived performance
+                    </li>
+                    <li>
+                      <strong>Organized Assets:</strong> Carousel image structure makes it easy to add programme-specific photos without code changes
+                    </li>
+                  </ul>
+
+                  <h4>Impact:</h4>
+                  <p>
+                    The site now feels more polished and professional. The testimonials integration provides a framework for showcasing real feedback from schools and parents. The carousel infrastructure means adding new session photos is as simple as dropping images into folders - no code required.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className="timeline-item">
               <div className="timeline-marker">🎨</div>
               <div className="timeline-content">
                 <h3>Homepage Section Color Definition</h3>
-                <p className="timeline-date">November 29, 2025 - Latest Update</p>
+                <p className="timeline-date">November 29, 2025</p>
                 <div className="progress-card">
                   <h4>What Changed:</h4>
                   <ul className="progress-list">
@@ -1128,7 +1197,7 @@ export default function ProgressPage() {
 
         <footer className="progress-footer">
           <p>
-            <strong>Last Updated:</strong> November 29, 2025
+            <strong>Last Updated:</strong> December 1, 2025
           </p>
           <p>
             <strong>Status:</strong> Phase 1 Complete • Phase 2 Planning
