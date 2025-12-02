@@ -1,21 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink: #1a202c;
-  --color-forest: #2d5a72;
-  --color-clay: #e1c9a9;
-  --color-clay-dark: #4a3520;
-  --color-sun: #dabd96;
+  /* Primary colors - bright and child-friendly */
+  --color-ink: #1a1a1a;
+  --color-forest: #0D7C66;
+  --color-sky: #2196F3;
+  --color-sunshine: #FFA726;
+  --color-coral: #FF6B6B;
+  --color-grass: #66BB6A;
+  --color-purple: #9C27B0;
+
+  /* Legacy mappings for backwards compatibility */
+  --color-clay: var(--color-sunshine);
+  --color-clay-dark: #D84315;
+  --color-sun: var(--color-sunshine);
   --color-sand: #ffffff;
-  --color-mist: #f7fafc;
-  --color-slate: #64748b;
-  --color-border: #e2e8f0;
+
+  /* Bright backgrounds with tints */
+  --color-mist: #E3F2FD;
+  --color-sky-light: #E1F5FE;
+  --color-sunshine-light: #FFF3E0;
+  --color-grass-light: #E8F5E9;
+  --color-coral-light: #FFEBEE;
+
+  /* Neutrals - darker for better contrast */
+  --color-slate: #37474F;
+  --color-text-secondary: #2a2a2a;
+  --color-border: #90A4AE;
+  --color-grey-light: #ECEFF1;
+
   --radius-lg: 16px;
   --radius-md: 12px;
-  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-soft: 0 2px 4px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
   --transition-speed: 0.2s;
-  --focus-ring: 3px solid #0066cc;
+  --focus-ring: 3px solid #2196F3;
   --focus-offset: 2px;
 }
 
@@ -27,6 +46,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Support browser text zoom up to 200% */
+  font-size: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -48,11 +69,12 @@ html {
 body {
   margin: 0;
   font-family: var(--font-body), "Atkinson Hyperlegible", Arial, sans-serif;
-  background: #fafafa;
+  background: #FFFFFF;
   color: #1a1a1a;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  font-size: 16px;
+  /* Use clamp for responsive body text that scales well */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   letter-spacing: 0.01em;
   word-spacing: 0.16em;
 }
@@ -151,17 +173,15 @@ main {
 }
 
 .section--default {
-  background: #f5f5f5;
+  background: var(--color-sky-light);
 }
 
 .section--accent {
-  background: #d4e8ec;
+  background: var(--color-grass-light);
 }
 
-
-
 .section--muted {
-  background: #e5dfd4;
+  background: var(--color-sunshine-light);
 }
 
 .section--compact-top {
@@ -193,13 +213,13 @@ main {
 
 .lead {
   font-size: 1.125rem;
-  color: #4a4a4a;
+  color: var(--color-text-secondary);
   line-height: 1.7;
 }
 
 .small-text {
   font-size: 1rem;
-  color: #4a4a4a;
+  color: var(--color-text-secondary);
 }
 
 .btn {
@@ -456,7 +476,7 @@ main {
 
 .brand__tagline {
   font-size: 1rem;
-  color: #63607A;
+  color: var(--color-slate);
   font-weight: 400;
   margin-top: 0.25rem;
   transition: font-size 0.3s ease;
@@ -541,7 +561,7 @@ main {
 .dropdown-arrow {
   font-size: 0.75rem;
   transition: transform 0.2s ease;
-  color: #63607A;
+  color: var(--color-slate);
 }
 
 .nav-link--dropdown[aria-expanded="true"] .dropdown-arrow {
@@ -603,7 +623,7 @@ main {
 }
 
 .dropdown-link:hover {
-  background: #f7f7f7;
+  background: var(--color-sky-light);
   color: var(--color-forest);
 }
 
@@ -906,7 +926,7 @@ main {
 .hero__description {
   font-size: 1.125rem;
   line-height: 1.6;
-  color: #4a4a4a;
+  color: var(--color-text-secondary);
   margin: 0;
   max-width: 65ch;
 }
@@ -1191,11 +1211,11 @@ main {
 }
 
 .hero-highlight-card {
-  background: #f5ead5;
+  background: linear-gradient(135deg, var(--color-sky-light) 0%, var(--color-sunshine-light) 100%);
   padding: 2rem;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(225, 201, 169, 0.4);
-  box-shadow: var(--shadow-soft);
+  border: 2px solid var(--color-sky);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -2119,7 +2139,7 @@ main {
 }
 
 .feature-card p {
-  color: #4a4a4a;
+  color: var(--color-text-secondary);
   line-height: 1.65;
   margin: 0;
 }
@@ -2138,7 +2158,7 @@ main {
 
 .cta-block p {
   font-size: 1.125rem;
-  color: #4a4a4a;
+  color: var(--color-text-secondary);
   margin: 0 auto 2rem;
   max-width: 60ch;
 }
@@ -2196,8 +2216,8 @@ main {
 
 .form-header {
   padding: 2rem 2rem 1.5rem;
-  border-bottom: 1px solid var(--color-border);
-  background: #fafafa;
+  border-bottom: 2px solid var(--color-sky);
+  background: var(--color-sky-light);
 }
 
 .form-header h2 {
@@ -2207,7 +2227,7 @@ main {
 
 .form-header p {
   margin: 0;
-  color: #4a4a4a;
+  color: var(--color-text-secondary);
   font-size: 1rem;
 }
 
@@ -2280,7 +2300,7 @@ main {
 }
 
 .contact-card__item span {
-  color: #4a4a4a;
+  color: var(--color-text-secondary);
 }
 
 .contact-card--highlight {
@@ -2400,7 +2420,7 @@ main {
 }
 
 .form-success p {
-  color: #4a4a4a;
+  color: var(--color-text-secondary);
   margin-bottom: 2rem;
   max-width: 100%;
 }
