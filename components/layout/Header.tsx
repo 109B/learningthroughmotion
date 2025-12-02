@@ -11,11 +11,26 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Preload the smile image for instant swap
   useEffect(() => {
     const img = new window.Image();
     img.src = "/images/smile.png";
+  }, []);
+
+  // Handle scroll to shrink header
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleToggle = () => {
@@ -36,7 +51,7 @@ export function Header() {
   };
 
   return (
-    <header className="site-header" role="banner">
+    <header className={`site-header ${isScrolled ? "is-scrolled" : ""}`} role="banner">
       <div className="shell header__inner">
         <Link className="brand" href="/" onClick={handleNavigate}>
           <div

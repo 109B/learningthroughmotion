@@ -21,58 +21,44 @@ export default function OurVisionPage() {
         ctaLabel="Partner with us"
       />
 
-      <Section tone="default" title="Our Commitment">
+      <Section tone="default" title="Our Vision for SEND Education">
         <FadeIn>
-          <div className="prose">
-            <p className="lead">
-              Our vision is to create a future where children with special educational needs and disabilities are empowered to learn, grow, and thrive through sport. We believe that sport is a powerful tool for development - not just physically, but emotionally, socially, and academically.
-            </p>
-          </div>
-        </FadeIn>
-      </Section>
-
-      <Section tone="muted" title="How We Make It Happen">
-        <FadeIn>
-          <div className="prose">
-            <p>
-              Through inclusive sports experiences we provide children with opportunities to build confidence, communication, resilience, and key life skills. By integrating cross curricular learning into every session we meet each child where they are and support them in an environment that suits their needs and learning style.
-            </p>
-            <p>
-              Our goal is to give every SEND child the best possible chance at leading an independent, fulfilling life. We celebrate every small win, nurture every unique ability, and walk alongside every child on their journey to becoming confident, capable, and independent.
-            </p>
-          </div>
-        </FadeIn>
-      </Section>
-
-      <Section tone="default">
-        <FadeIn>
-          <div className="vision-highlight">
-            <p className="vision-highlight__quote">
-              "Every child deserves the chance to succeed - in their own way, at their own pace, and in an environment that celebrates who they are."
-            </p>
+          <div className="vision-two-col">
+            <div className="vision-two-col__item">
+              <h3>Our Commitment</h3>
+              <p>
+                Our vision is to create a future where children with special educational needs and disabilities are empowered to learn, grow, and thrive through sport. We believe that sport is a powerful tool for development - not just physically, but emotionally, socially, and academically.
+              </p>
+            </div>
+            <div className="vision-two-col__item">
+              <h3>How We Make It Happen</h3>
+              <p>
+                Through inclusive sports experiences we provide children with opportunities to build confidence, communication, resilience, and key life skills. By integrating cross curricular learning into every session we meet each child where they are and support them in an environment that suits their needs and learning style.
+              </p>
+            </div>
           </div>
         </FadeIn>
       </Section>
 
       <Section tone="muted" title="What Sets Us Apart">
         <FadeIn>
-          <div className="grid grid--3-col">
-            <div className="feature-card">
-              <h3>SEND-First Approach</h3>
+          <div className="vision-two-col">
+            <div className="vision-two-col__item">
+              <h3>SEND-First Design</h3>
               <p>
-                We don't adapt mainstream programmes - we design everything from the ground up with SEND learners in mind, ensuring every activity is accessible and meaningful.
+                We don't adapt mainstream programmes - we design everything from the ground up with SEND learners in mind, ensuring every activity is accessible and meaningful. Our approach recognises that every child learns differently and deserves programmes built specifically for their needs.
+              </p>
+              <p>
+                <strong>This means:</strong> activities designed with sensory needs in mind, flexible learning approaches, and celebration of individual progress over standardised outcomes.
               </p>
             </div>
-            <div className="feature-card">
-              <h3>Cross-Curricular Learning</h3>
+            <div className="vision-two-col__item">
+              <h3>Cross-Curricular Integration</h3>
               <p>
-                Sport isn't just exercise - it's a vehicle for learning maths, communication, social skills, and life skills in an engaging, active environment.
+                Sport isn't just exercise - it's a vehicle for learning maths, communication, social skills, and life skills in an engaging, active environment. We seamlessly integrate curriculum objectives into every session, making learning active, fun, and memorable.
               </p>
-            </div>
-            <div className="feature-card">
-              <h3>Individual Progress</h3>
               <p>
-                We celebrate every child's unique journey, measuring success by personal growth and progress, not by standardised benchmarks.
+                <strong>The result:</strong> children develop academically while building physical fitness, social connections, and confidence - all through movement and play.
               </p>
             </div>
           </div>
@@ -81,13 +67,27 @@ export default function OurVisionPage() {
 
       <Section tone="default" title="Our Impact">
         <FadeIn>
-          <div className="prose">
-            <p>
-              When children engage with sport in a supportive, inclusive environment, the transformation is profound. We've seen children who were reluctant to participate become team leaders. We've watched students who struggled with maths concepts grasp them through physical activity. We've observed young people develop friendships, confidence, and independence they never thought possible.
-            </p>
-            <p>
-              This is why we do what we do. Every session, every programme, every interaction is designed to move children closer to independence - Growing Toward Independence through Learning Through Motion.
-            </p>
+          <div className="vision-two-col">
+            <div className="vision-two-col__item">
+              <h3>Transforming Lives</h3>
+              <p>
+                When children engage with sport in a supportive, inclusive environment, the transformation is profound. We've seen children who were reluctant to participate become team leaders. We've watched students who struggled with maths concepts grasp them through physical activity.
+              </p>
+              <p>
+                Our goal is to give every SEND child the best possible chance at leading an independent, fulfilling life. We celebrate every small win, nurture every unique ability, and walk alongside every child on their journey to becoming confident, capable, and independent.
+              </p>
+            </div>
+            <div className="vision-two-col__item">
+              <h3>Growing Toward Independence</h3>
+              <p>
+                We've observed young people develop friendships, confidence, and independence they never thought possible. This is why we do what we do. Every session, every programme, every interaction is designed to move children closer to independence.
+              </p>
+              <div className="vision-quote-box">
+                <p>
+                  "Every child deserves the chance to succeed - in their own way, at their own pace, and in an environment that celebrates who they are."
+                </p>
+              </div>
+            </div>
           </div>
         </FadeIn>
       </Section>
