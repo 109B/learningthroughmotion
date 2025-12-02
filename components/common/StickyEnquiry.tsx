@@ -9,10 +9,19 @@ export function StickyEnquiry() {
   useEffect(() => {
     const handleScroll = () => {
       // Show button after scrolling 400px down
-      setIsVisible(window.scrollY > 400);
+      const scrolled = window.scrollY > 400;
+
+      // Hide when near footer (within 300px of bottom)
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollPosition = window.scrollY + windowHeight;
+      const nearFooter = scrollPosition > documentHeight - 300;
+
+      setIsVisible(scrolled && !nearFooter);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Check on mount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

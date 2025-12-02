@@ -1549,6 +1549,29 @@ main {
   color: rgba(255, 255, 255, 0.76);
 }
 
+.footer__logo {
+  text-align: center;
+  padding: 1rem 0 1rem;
+}
+
+.footer__logo a {
+  display: inline-block;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.footer__logo a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.footer__logo img {
+  display: block;
+  filter: invert(1) brightness(0.9);
+}
+
 .contact-form {
   display: grid;
   gap: 1.25rem;

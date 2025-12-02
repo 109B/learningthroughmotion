@@ -72,6 +72,21 @@ export function Footer() {
         <span>© {new Date().getFullYear()} Learning Through Motion</span>
         <span>In school active learning for SEND pupils</span>
       </div>
+      <div className="footer__logo">
+        <a
+          href="https://1zero9.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Website by 1zero9"
+        >
+          <img
+            src="/images/109-logo-circle1.png"
+            alt="1zero9 logo"
+            width="50"
+            height="50"
+          />
+        </a>
+      </div>
     </footer>
   );
 }
