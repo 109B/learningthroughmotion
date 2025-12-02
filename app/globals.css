@@ -1928,8 +1928,38 @@ main {
   flex-direction: column;
   height: 100%;
   border: 1px solid #e2e8f0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   margin: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.testimonial-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--color-forest);
+}
+
+.testimonial-card::after {
+  content: "Click to read full testimonial";
+  position: absolute;
+  bottom: 0.75rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  color: var(--color-forest);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.testimonial-card:hover::after {
+  opacity: 0.7;
 }
 
 .testimonial-card:hover {
@@ -2419,15 +2449,23 @@ main {
 
 .modal-content {
   background: #fff;
-  padding: 3rem;
+  padding: 3.5rem;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  max-width: 700px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
   width: 100%;
   position: relative;
   transform: scale(0.95);
   opacity: 0;
   animation: scaleIn 0.3s ease 0.1s forwards;
+  border: 3px solid var(--color-forest);
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 2rem;
+    margin: 1rem;
+  }
 }
 
 .modal-close {
@@ -2449,12 +2487,58 @@ main {
 }
 
 .modal-quote {
-  font-size: 1.5rem;
-  line-height: 1.5;
-  color: var(--color-slate);
-  margin-bottom: 2rem;
+  font-size: 1.65rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  margin-bottom: 2.5rem;
   font-style: italic;
   font-family: var(--font-heading);
+  font-weight: 500;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.modal-quote::before {
+  content: "\201C";
+  position: absolute;
+  left: 0;
+  top: -0.25rem;
+  font-size: 3.5rem;
+  color: var(--color-forest);
+  opacity: 0.3;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+
+@media (max-width: 768px) {
+  .modal-quote {
+    font-size: 1.35rem;
+    padding-left: 1.5rem;
+  }
+
+  .modal-quote::before {
+    font-size: 2.5rem;
+  }
+}
+
+.modal-body {
+  margin: 0;
+}
+
+.modal-body .testimonial-card__author {
+  border-top: 2px solid var(--color-forest);
+  padding-top: 1.5rem;
+  margin-top: 0;
+}
+
+.modal-body .testimonial-card__name {
+  font-size: 1.25rem;
+  color: var(--color-forest);
+}
+
+.modal-body .testimonial-card__role {
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
 }
 
 @keyframes fadeIn {

@@ -50,6 +50,17 @@ export function TestimonialsSection({
         return () => window.removeEventListener("keydown", handleEsc);
     }, []);
 
+    useEffect(() => {
+        if (selectedTestimonial) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [selectedTestimonial]);
+
     // Initial render / loading state to prevent hydration mismatch
     if (!isLoaded) {
         return (
