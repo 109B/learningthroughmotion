@@ -146,7 +146,7 @@ main {
 }
 
 .section {
-  padding: clamp(5rem, 10vw, 8rem) 0;
+  padding: clamp(3rem, 6vw, 5rem) 0;
   position: relative;
 }
 
@@ -157,6 +157,8 @@ main {
 .section--accent {
   background: #d4e8ec;
 }
+
+
 
 .section--muted {
   background: #e5dfd4;
@@ -802,7 +804,7 @@ main {
 }
 
 .hero {
-  padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(4rem, 8vw, 6rem);
+  padding: clamp(2.5rem, 5vw, 3.5rem) 0 clamp(3rem, 6vw, 4.5rem);
   background: #ffffff;
 }
 
@@ -2206,7 +2208,7 @@ main {
   box-shadow: var(--shadow-soft);
 }
 
-.contact-card + .contact-card {
+.contact-card+.contact-card {
   margin-top: 2.5rem;
 }
 
@@ -2396,4 +2398,69 @@ main {
 
 .next-steps .process-list {
   margin-bottom: 0;
+}
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 3rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 700px;
+  width: 100%;
+  position: relative;
+  transform: scale(0.95);
+  opacity: 0;
+  animation: scaleIn 0.3s ease 0.1s forwards;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--color-text-light);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: var(--color-text);
+}
+
+.modal-quote {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--color-slate);
+  margin-bottom: 2rem;
+  font-style: italic;
+  font-family: var(--font-heading);
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  to { opacity: 1; transform: scale(1); }
 }
