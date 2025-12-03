@@ -31,21 +31,21 @@ export default async function SensoryRedevelopmentPage() {
       <Section>
         <FadeIn>
           <div className="prose prose--columns">
+            {programme.bulletHeading && programme.bullets && (
+              <>
+                <h3>{programme.bulletHeading}</h3>
+                <ul>
+                  {programme.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
+              </>
+            )}
             {programme.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
         </FadeIn>
-        {programme.bulletHeading && programme.bullets && (
-          <div>
-            <h3>{programme.bulletHeading}</h3>
-            <ul className="bullet-list">
-              {programme.bullets.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
       </Section>
     </>
   );

@@ -40,10 +40,13 @@ export default function Home() {
               </div>
 
               <div className="hero__actions">
-                <Link className="btn btn--large" href="/enquire-now">
+                <Link className="btn btn--ghost" href="/enquire-now">
                   Book a Free Discovery Call
                 </Link>
-                <Link className="link-arrow" href="/our-programmes">
+                <Link className="btn btn--ghost" href="/shop/sessions">
+                  Book Sessions
+                </Link>
+                <Link className="btn btn--ghost" href="/our-programmes">
                   Explore our programmes
                 </Link>
               </div>
@@ -123,6 +126,23 @@ export default function Home() {
         tone="accent"
       >
         <ProgrammeCards programmes={PROGRAMMES} />
+      </Section>
+
+      <Section tone="default">
+        <div className="hero-card">
+          <p className="eyebrow">For Parents</p>
+          <h3>Book Community Sessions</h3>
+          <p>
+            We run weekly 7-week programmes for children aged 5-10 with SEND.
+            Small groups (max 6 children), expert coaching, and a supportive environment
+            where every child can thrive.
+          </p>
+          <div className="hero__actions">
+            <Link className="btn" href="/shop/sessions">
+              View Sessions & Pricing
+            </Link>
+          </div>
+        </div>
       </Section>
 
       <Section id="connect" tone="muted">

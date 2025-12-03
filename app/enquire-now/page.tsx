@@ -96,6 +96,16 @@ export default function EnquireNowPage() {
                   </a>
                 </div>
               </div>
+
+              <div className="contact-card contact-card--orange">
+                <h3>Parents: Book Sessions</h3>
+                <p style={{ marginBottom: '1rem' }}>
+                  Weekly community sessions for children aged 5-10 with SEND. Small groups, expert coaching.
+                </p>
+                <a href="/shop/sessions" className="btn btn--small">
+                  View Sessions & Pricing
+                </a>
+              </div>
             </FadeIn>
           </div>
           </div>

@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SkipNav } from "@/components/layout/SkipNav";
 import { StickyEnquiry } from "@/components/common/StickyEnquiry";
+import { LogoBadge } from "@/components/common/LogoBadge";
 
 // Using Atkinson Hyperlegible for headings too for better accessibility
 // Serif fonts like Playfair can be challenging for dyslexic readers
@@ -44,12 +45,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/*
+        ╔══════════════════════════════════════════════════════════╗
+        ║                                                          ║
+        ║  Built with ❤️ by 1Zero9                                ║
+        ║  https://1zero9.com                                      ║
+        ║                                                          ║
+        ║  Thoughtfully crafted for accessibility and performance  ║
+        ║                                                          ║
+        ╚══════════════════════════════════════════════════════════╝
+      */}
       <body className={`${heading.variable} ${body.variable}`}>
         <SkipNav />
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
         <StickyEnquiry />
+        <LogoBadge />
       </body>
     </html>
   );

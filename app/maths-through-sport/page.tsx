@@ -29,6 +29,16 @@ export default async function MathsThroughSportPage() {
       <Section>
         <FadeIn>
           <div className="prose prose--columns">
+            {programme.bulletHeading && programme.bullets && (
+              <>
+                <h3>{programme.bulletHeading}</h3>
+                <ul>
+                  {programme.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
+              </>
+            )}
             {programme.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
