@@ -1,20 +1,32 @@
 // Learning Through Motion - Session Block Card Component
 
 import type { SessionBlock } from '@/lib/types/booking';
-import { formatDate, formatTimeRange, getDayName, formatDateRange } from '@/lib/utils/dates';
-import { formatPrice, calculateBlockTotal } from '@/lib/utils/pricing';
 import { ComingSoonModal } from '@/components/common/ComingSoonModal';
 
 type Props = {
   block: SessionBlock;
 };
 
+// Simple helper functions
+const formatPrice = (amount: number) => `£${amount.toFixed(2)}`;
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(date);
+};
+const getDayName = (dayIndex: number) => {
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return days[dayIndex];
+};
+const formatDateRange = (start: Date, end: Date | null | undefined) => {
+  if (!end) return formatDate(start);
+  return `${formatDate(start)} - ${formatDate(end)}`;
+};
+
 export function SessionBlockCard({ block }: Props) {
   const spotsRemaining = block.capacity - block.current_bookings;
-  const totalCost = calculateBlockTotal(block);
+  const totalCost = block.registration_fee + (block.session_fee * block.total_sessions);
   const dayName = getDayName(block.day_of_week);
   const dateRange = formatDateRange(block.start_date, block.end_date);
-  const timeRange = formatTimeRange(block.time_start, block.time_end);
+  const timeRange = `${block.time_start} - ${block.time_end}`;
   const isFull = block.status === 'full' || spotsRemaining === 0;
   const isAvailable = block.status === 'published' && !isFull;
 
