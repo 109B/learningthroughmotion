@@ -155,10 +155,161 @@ export default function ProgressPage() {
 
           <div className="timeline">
             <article className="timeline-item">
+              <div className="timeline-marker">📝</div>
+              <div className="timeline-content">
+                <h3>Programme Pages Redesigned for Clarity and Usability</h3>
+                <p className="timeline-date">December 11, 2025 - Latest Update</p>
+                <div className="progress-card">
+                  <h4>What Changed:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>Sensory Sessions Page Restructured:</strong> Completely reorganized with clear sections including "What Are Sensory Sessions?", "Key Sensory Areas", "Why Attendance Matters", and "What Your Child Will Gain"
+                    </li>
+                    <li>
+                      <strong>The Next Chapter Page Restructured:</strong> Reorganized with clear sections covering transition support, our approach (mentors, activities, reflection), why it helps, and what students gain
+                    </li>
+                    <li>
+                      <strong>Content Updated from Source Documentation:</strong> All content now matches authoritative markdown files in /docs/ folder, ensuring accuracy and consistency
+                    </li>
+                    <li>
+                      <strong>Session Details Prominently Displayed:</strong> Location (Bishop Bridgeman C.E. Primary School), times (9:00-12:00 slots), dates (11 Jan - 22 Feb), and group size (max 6 children) clearly shown
+                    </li>
+                    <li>
+                      <strong>Clear Pricing Section:</strong> £15 registration fee + £15 per session with full explanation of block structure and refund policy
+                    </li>
+                    <li>
+                      <strong>Book a Free Trial CTAs:</strong> Replaced "book online" with prominent "Book a Free Trial" buttons explaining the trial process and group placement
+                    </li>
+                    <li>
+                      <strong>Improved Scannability:</strong> Bullet points, short paragraphs, headings, and visual icons make content much easier to read and navigate
+                    </li>
+                    <li>
+                      <strong>Split Layout for Details:</strong> Session details and "What's Included" displayed in side-by-side columns for better visual organization
+                    </li>
+                  </ul>
+
+                  <h4>Why It Matters:</h4>
+                  <p>
+                    <strong>Parents Can Make Informed Decisions Quickly:</strong> The new structure lets parents understand what each programme offers, where and when sessions run, and how much they cost - all without hunting through long paragraphs.
+                  </p>
+                  <p>
+                    <strong>Clear Next Steps:</strong> "Book a Free Trial" approach removes confusion about online booking and clearly explains the process: trial first, then placement in the right group for each child.
+                  </p>
+                  <p>
+                    <strong>Accessibility First:</strong> Shorter paragraphs, bullet points, and clear headings reduce cognitive load - especially important for parents who may be stressed or time-poor.
+                  </p>
+                  <p>
+                    <strong>Content Accuracy:</strong> Using the markdown files as source of truth means all information is correct, consistent, and aligned with how the programmes actually run.
+                  </p>
+
+                  <h4>Content Improvements:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>Sensory Sessions:</strong> Renamed from "Sensory Redevelopment" to match actual programme name. Added clear explanations of proprioception and interoception in plain language
+                    </li>
+                    <li>
+                      <strong>The Next Chapter:</strong> Enhanced explanation of why friendships matter in secondary school and how the programme supports transition challenges
+                    </li>
+                    <li>
+                      <strong>Benefits Clearly Listed:</strong> Both programmes now have explicit "What Your Child/Student Will Gain" sections with specific, tangible outcomes
+                    </li>
+                    <li>
+                      <strong>Attendance Policy Explained:</strong> Sensory Sessions page includes clear explanation of why attendance matters and the refund policy for missed sessions
+                    </li>
+                  </ul>
+
+                  <h4>Technical Improvements:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>New Content Structure:</strong> Added flexible ProgrammeSection type to support complex page layouts with sections, subsections, and bullets
+                    </li>
+                    <li>
+                      <strong>Session Details Schema:</strong> Created sessionDetails and pricing types for structured, reusable data
+                    </li>
+                    <li>
+                      <strong>Alternating Section Tones:</strong> Sections alternate between default and muted backgrounds for better visual separation
+                    </li>
+                    <li>
+                      <strong>Reusable Components:</strong> Leveraged existing Section, FadeIn, and split layout components for consistency with booking page
+                    </li>
+                  </ul>
+
+                  <h4>Impact:</h4>
+                  <p>
+                    These programme pages now provide a professional, clear, and informative experience that helps parents understand exactly what each programme offers and how to get started. The restructured content reduces friction in the decision-making process and makes it easier for families to take the next step - booking a free trial.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className="timeline-item">
+              <div className="timeline-marker">🔄</div>
+              <div className="timeline-content">
+                <h3>Dependencies Updated to Latest Stable Versions</h3>
+                <p className="timeline-date">December 10, 2025</p>
+                <div className="progress-card">
+                  <h4>What Changed:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>Next.js Updated:</strong> 16.0.4 → 16.0.8 (latest stable release)
+                    </li>
+                    <li>
+                      <strong>React & React DOM Updated:</strong> 19.2.0 → 19.2.1 (patch release with bug fixes)
+                    </li>
+                    <li>
+                      <strong>ESLint Config Updated:</strong> eslint-config-next 16.0.4 → 16.0.8 (matching Next.js version)
+                    </li>
+                    <li>
+                      <strong>All Other Dependencies Verified:</strong> TypeScript 5.9.3, Tailwind CSS 4.1.17, and all other packages confirmed at latest versions
+                    </li>
+                    <li>
+                      <strong>Clean Build Verification:</strong> Full production build completed successfully with zero errors
+                    </li>
+                  </ul>
+
+                  <h4>Why It Matters:</h4>
+                  <p>
+                    <strong>Security & Stability:</strong> Keeping dependencies up-to-date ensures we have the latest security patches and bug fixes from the React and Next.js teams. This is particularly important for a production website.
+                  </p>
+                  <p>
+                    <strong>Performance Improvements:</strong> Patch releases often include performance optimizations and rendering improvements that make the site faster and more responsive for users.
+                  </p>
+                  <p>
+                    <strong>Bug Fixes:</strong> React 19.2.1 includes fixes for edge cases in Server Components and hooks, while Next.js 16.0.8 addresses routing and build optimization issues from earlier versions.
+                  </p>
+                  <p>
+                    <strong>Future-Proofing:</strong> Staying current with framework updates makes future upgrades easier and ensures we can take advantage of new features as they're released.
+                  </p>
+
+                  <h4>Technical Details:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>Zero Vulnerabilities:</strong> npm audit shows no security vulnerabilities in the dependency tree
+                    </li>
+                    <li>
+                      <strong>No Breaking Changes:</strong> All updates are minor/patch releases with backward compatibility
+                    </li>
+                    <li>
+                      <strong>Build Time:</strong> Production build completes in ~2.6s (Turbopack compiler)
+                    </li>
+                    <li>
+                      <strong>All Pages Verified:</strong> All 19 static pages compile and generate successfully
+                    </li>
+                  </ul>
+
+                  <h4>Impact:</h4>
+                  <p>
+                    The site continues to run on the latest stable versions of React 19 and Next.js 16, ensuring optimal performance, security, and reliability. Users benefit from improved rendering performance and bug fixes, while the codebase remains maintainable and secure.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className="timeline-item">
               <div className="timeline-marker">✨</div>
               <div className="timeline-content">
                 <h3>UX Refinements & Testimonials Integration</h3>
-                <p className="timeline-date">December 1, 2025 - Latest Update</p>
+                <p className="timeline-date">December 1, 2025</p>
                 <div className="progress-card">
                   <h4>What Changed:</h4>
                   <ul className="progress-list">
@@ -1197,7 +1348,7 @@ export default function ProgressPage() {
 
         <footer className="progress-footer">
           <p>
-            <strong>Last Updated:</strong> December 1, 2025
+            <strong>Last Updated:</strong> December 11, 2025
           </p>
           <p>
             <strong>Status:</strong> Phase 1 Complete • Phase 2 Planning

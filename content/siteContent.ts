@@ -4,6 +4,17 @@ export type NavLink = {
   children?: NavLink[];
 };
 
+export type ProgrammeSection = {
+  heading?: string;
+  content?: string;
+  bullets?: string[];
+  subsections?: {
+    heading: string;
+    content?: string;
+    bullets?: string[];
+  }[];
+};
+
 export type ProgrammeDetail = {
   slug: string;
   title: string;
@@ -13,6 +24,24 @@ export type ProgrammeDetail = {
   paragraphs: string[];
   bulletHeading?: string;
   bullets?: string[];
+  // New structured content for redesigned pages
+  sections?: ProgrammeSection[];
+  sessionDetails?: {
+    location?: string;
+    times?: string[];
+    dates?: string;
+    groupSize?: string;
+    coaches?: string;
+    equipment?: string;
+    parentInvolvement?: string;
+    blockStructure?: string;
+  };
+  pricing?: {
+    registration?: number;
+    perSession?: number;
+    notes?: string[];
+  };
+  trialInfo?: string;
 };
 
 export const NAV_LINKS: NavLink[] = [
@@ -158,9 +187,9 @@ export const PROGRAMMES: ProgrammeDetail[] = [
   },
   {
     slug: "sensory-redevelopment",
-    title: "Sensory Redevelopment",
+    title: "Sensory Sessions",
     excerpt:
-      "We strengthen the foundations for learning by retraining the sensory system. Targeted activities improve balance, body awareness, and regulation so children feel ready to learn.",
+      "Supporting children who are not neurotypical through fun, flexible activities that develop sensory processing, motor skills, and emotional regulation - working closely with EHCP goals.",
     accent: "#c45f24",
     heroImage:
       "https://files.websitebuilder.prositehosting.co.uk/62/f8/62f87fc5-6c92-421c-93be-82a4720f8739.jpg",
@@ -176,12 +205,81 @@ export const PROGRAMMES: ProgrammeDetail[] = [
       "Interoception to help children recognise and respond to internal body signals.",
       "Regulation strategies that support calmness, focus, and readiness to learn.",
     ],
+    // New structured content
+    sections: [
+      {
+        heading: "What Are Sensory Sessions?",
+        content:
+          "Our Sensory Development Sessions support children who are not neurotypical by working closely in line with their EHCP goals. Each session focuses on helping children achieve the aims of their individual plan through fun, flexible, and engaging activities that develop sensory processing, motor skills, and emotional regulation.",
+      },
+      {
+        heading: "Key Sensory Areas We Work On",
+        subsections: [
+          {
+            heading: "Proprioception",
+            content:
+              "Helping children understand where their bodies are in space and develop coordination",
+          },
+          {
+            heading: "Interoception",
+            content:
+              "Helping children recognise and respond to internal body signals such as hunger, thirst, and fatigue",
+          },
+        ],
+      },
+      {
+        heading: "Why Attendance Matters",
+        content:
+          "Regular attendance is essential to develop routine, practice skills, and give each child the best chance of success. Our supportive environment allows children to explore, gain confidence, and strengthen:",
+        bullets: [
+          "Sensory processing (including proprioception and interoception)",
+          "Motor skills",
+          "Emotional regulation",
+        ],
+      },
+      {
+        heading: "What Your Child Will Gain",
+        content:
+          "These sessions are designed to help children reach their EHCP goals while building:",
+        bullets: [
+          "Confidence in their abilities",
+          "Independence in everyday tasks",
+          "A sense of achievement and progress",
+          "Better focus and emotional regulation",
+          "Improved participation in school and daily life",
+        ],
+      },
+    ],
+    sessionDetails: {
+      location: "Bishop Bridgeman C.E. Primary School",
+      times: ["9:00 – 9:45", "9:45 – 10:30", "10:30 – 11:15", "11:15 – 12:00"],
+      dates: "First block: 11th January to 22nd February",
+      groupSize: "Small groups of up to 6 children for personalised attention",
+      coaches: "Two experienced coaches to guide and support every child",
+      equipment: "Variety of equipment to develop sensory, motor, and coordination skills",
+      parentInvolvement:
+        "Parents are involved in the sessions to support learning and reinforce skills at home",
+      blockStructure:
+        "Sessions run in half-termly blocks (6, 7, or 8 weeks depending on school holidays)",
+    },
+    pricing: {
+      registration: 15,
+      perSession: 15,
+      notes: [
+        "£15 registration fee paid at the start of each block. This secures your child's place and provides a personalised plan aligned with their EHCP.",
+        "£15 per session, paid at the start of each block for all sessions.",
+        "Paying for the full block ensures consistency and helps children build routine and make the best progress.",
+        "Because these are small fixed groups, if a child cannot attend a session, we are not able to offer a refund for that missed session. The place is reserved for the full term.",
+      ],
+    },
+    trialInfo:
+      "Free taster session available. If you decide to sign up afterwards, this session will not be charged, and your child will be placed in a group that best suits their needs.",
   },
   {
     slug: "the-next-chapter",
     title: "The Next Chapter",
     excerpt:
-      "A transition and mentoring programme that provides a trusted adult, builds emotional resilience, and makes the move to secondary school feel safe and exciting.",
+      "Transition and mentoring programme for Year 7 students. Building confidence, friendships, and social skills through activities and sport - helping students navigate secondary school successfully.",
     accent: "#f4c95d",
     heroImage:
       "https://files.websitebuilder.prositehosting.co.uk/7e/44/7e446e97-fa38-4fda-902c-4a6346050a3f.jpg",
@@ -197,6 +295,84 @@ export const PROGRAMMES: ProgrammeDetail[] = [
       "Emotional regulation skills that help students manage anxiety and change.",
       "Communication and independence so every pupil can share their voice.",
     ],
+    // New structured content
+    sections: [
+      {
+        heading: "Supporting the Transition to Secondary School",
+        content:
+          "Starting secondary school is an exciting step but it can also be challenging. Students face new teachers, classrooms, subjects, and responsibilities. For some, this change can create social pressures and make it harder to settle in or feel confident.",
+      },
+      {
+        content:
+          "The Next Chapter helps students navigate these challenges by giving them the skills and support they need to engage fully in school and have the best start possible. We do this through fun, active sessions and sport-based activities that encourage teamwork, communication, and social connection.",
+      },
+      {
+        heading: "Our Approach",
+        subsections: [
+          {
+            heading: "Trusted Mentor Support",
+            content:
+              "Each student is paired with a mentor who becomes a consistent, supportive adult during the transition. Mentors provide guidance, reassurance, and help students feel safe, understood, and valued within the school community.",
+          },
+          {
+            heading: "Activities and Sport",
+            content:
+              "Team games and active challenges give students opportunities to:",
+            bullets: [
+              "Practice communication skills",
+              "Work together with peers",
+              "Develop friendships and social confidence",
+              "Experience success and build self-esteem in a supportive environment",
+            ],
+          },
+          {
+            heading: "Guided Mentoring and Reflection",
+            content: "Through structured conversations and reflection, students learn to:",
+            bullets: [
+              "Navigate new social situations",
+              "Maintain meaningful friendships",
+              "Manage social pressures and responsibilities",
+              "Express themselves confidently",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Why The Next Chapter Helps",
+        content:
+          "Starting secondary school brings new social expectations and responsibilities. Students must navigate:",
+        bullets: [
+          "Larger peer groups and changing friendship dynamics",
+          "Increased independence and personal responsibility",
+          "Unfamiliar routines and rules",
+          "Social pressures that can affect confidence and engagement",
+        ],
+      },
+      {
+        content:
+          "Friendships in secondary school are especially important because they shape a student's overall school experience and can influence their future social and emotional development. Positive friendships help students feel safe, included, and confident, while supportive peer relationships can make the difference between a negative experience and a positive, fulfilling school life.",
+      },
+      {
+        content:
+          "The Next Chapter uses activities and sport to teach these essential skills in a practical, enjoyable way. This helps students build meaningful friendships, feel included, and remain engaged in school.",
+      },
+      {
+        heading: "What Students Gain",
+        bullets: [
+          "Stronger friendships and social connections",
+          "Improved communication skills",
+          "Greater confidence and self-esteem",
+          "Better emotional regulation",
+          "A sense of belonging and security in secondary school",
+        ],
+      },
+      {
+        content:
+          "By focusing on social skills, confidence, and friendship through activities and sport, The Next Chapter helps students engage fully in school and start secondary education on a positive, supported path that can shape their future well-being.",
+      },
+    ],
+    trialInfo:
+      "Contact us to arrange a free trial session. After the trial, we will place your child in the group that best suits their needs.",
   },
 ];
 
