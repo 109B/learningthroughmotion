@@ -1,0 +1,71 @@
+site_name: Learning Through Motion - Project Documentation
+site_description: Complete documentation of the Learning Through Motion website rebuild
+site_author: 1Zero9 Development Team
+site_url: https://learningthroughmotion.co.uk
+
+plugins:
+  - search
+  - encryptcontent:
+      global_password: '24Ch@t_LTM_2025!'
+      title_prefix: ''
+      summary: 'This documentation is password protected.'
+      placeholder: 'Enter password to access documentation'
+      decryption_failure_message: 'Incorrect password. Please try again.'
+      encryption_info_message: 'Contact the development team for access.'
+
+theme:
+  name: material
+  palette:
+    primary: teal
+    accent: orange
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Project Overview:
+    - Executive Summary: overview/summary.md
+    - Time & Effort: overview/time-estimate.md
+    - Tech Stack: overview/tech-stack.md
+  - Features Built:
+    - All Features: features/index.md
+    - Homepage: features/homepage.md
+    - Programme Pages: features/programmes.md
+    - Interactive Games: features/games.md
+    - Accessibility: features/accessibility.md
+    - Components: features/components.md
+  - Technical:
+    - Architecture: technical/architecture.md
+    - Content Management: technical/content.md
+    - Styling System: technical/styling.md
+  - Changelog:
+    - Full Timeline: changelog/index.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/learning-through-motion
+    - icon: fontawesome/brands/facebook
+      link: https://www.facebook.com/LearningThroughMotionUK
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/learningthroughmotion_uk
