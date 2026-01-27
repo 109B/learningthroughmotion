@@ -2,16 +2,16 @@ site_name: Learning Through Motion - Project Documentation
 site_description: Complete documentation of the Learning Through Motion website rebuild
 site_author: 1Zero9 Development Team
 site_url: https://learningthroughmotion.co.uk/docs/
+use_directory_urls: true
 
 plugins:
   - search
   - encryptcontent:
       global_password: '24Ch@t_LTM_2025!'
-      title_prefix: ''
       summary: 'This documentation is password protected.'
-      placeholder: 'Enter password to access documentation'
-      decryption_failure_message: 'Incorrect password. Please try again.'
-      encryption_info_message: 'Contact the development team for access.'
+      placeholder: 'Enter password'
+      decryption_failure_message: 'Incorrect password.'
+      encryption_info_message: 'Contact the team for access.'
 
 theme:
   name: material
