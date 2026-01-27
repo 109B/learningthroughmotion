@@ -113,12 +113,14 @@ export default function DocsLoginPage() {
 
 const styles: { [key: string]: React.CSSProperties } = {
   container: {
-    minHeight: "100vh",
+    position: "fixed" as const,
+    inset: 0,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#f5f5f5",
     padding: "20px",
+    zIndex: 9999,
   },
   card: {
     backgroundColor: "white",
@@ -180,9 +182,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     marginBottom: "0",
   },
   fullPage: {
-    height: "100vh",
+    position: "fixed" as const,
+    inset: 0,
     display: "flex",
     flexDirection: "column" as const,
+    zIndex: 9999,
+    backgroundColor: "white",
   },
   topBar: {
     display: "flex",
