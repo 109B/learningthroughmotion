@@ -1,0 +1,99 @@
+/* Override conflicting styles from parent Next.js site */
+
+/* Reset all elements within docs */
+.md-container *,
+.md-container *::before,
+.md-container *::after {
+  box-sizing: border-box;
+}
+
+/* Fix icon sizes */
+.md-icon svg,
+.md-header svg,
+.md-nav svg,
+.md-search svg,
+.md-footer svg,
+.md-content svg,
+.twemoji svg,
+[data-md-component] svg {
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+  max-width: 1.2rem !important;
+  max-height: 1.2rem !important;
+  fill: currentColor;
+}
+
+.md-header__button svg {
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+}
+
+.md-logo svg {
+  width: 2rem !important;
+  height: 2rem !important;
+  max-width: 2rem !important;
+  max-height: 2rem !important;
+}
+
+.md-nav__icon svg {
+  width: 0.6rem !important;
+  height: 0.6rem !important;
+  max-width: 0.6rem !important;
+  max-height: 0.6rem !important;
+}
+
+/* Reset font sizes */
+.md-typeset {
+  font-size: 0.8rem !important;
+  line-height: 1.6 !important;
+}
+
+.md-typeset h1 {
+  font-size: 2rem !important;
+}
+
+.md-typeset h2 {
+  font-size: 1.5rem !important;
+}
+
+.md-typeset h3 {
+  font-size: 1.25rem !important;
+}
+
+.md-typeset h4 {
+  font-size: 1rem !important;
+}
+
+/* Navigation font sizes */
+.md-nav {
+  font-size: 0.7rem !important;
+}
+
+.md-nav__link {
+  font-size: 0.7rem !important;
+}
+
+/* Header */
+.md-header {
+  font-size: 0.8rem !important;
+}
+
+.md-header__title {
+  font-size: 0.9rem !important;
+}
+
+/* Search */
+.md-search__input {
+  font-size: 0.9rem !important;
+}
+
+/* Ensure proper isolation */
+.md-container {
+  all: initial;
+  display: block;
+  font-family: var(--md-text-font, "Roboto"), -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+}
+
+.md-container * {
+  font-family: inherit;
+}
