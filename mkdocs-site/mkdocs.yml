@@ -1,7 +1,7 @@
 site_name: Learning Through Motion - Project Documentation
 site_description: Complete documentation of the Learning Through Motion website rebuild
 site_author: 1Zero9 Development Team
-site_url: https://learningthroughmotion.co.uk
+site_url: https://learningthroughmotion.co.uk/docs/
 
 plugins:
   - search

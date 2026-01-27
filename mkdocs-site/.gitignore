@@ -1,6 +1,9 @@
 # Built site
 site/
 
+# Encryption cache
+encryptcontent.cache
+
 # Python
 __pycache__/
 *.py[cod]
