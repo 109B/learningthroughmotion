@@ -18,16 +18,20 @@ export default function AdminLoginPage() {
       const response = await fetch("/api/admin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password: password.trim() }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         router.push("/admin/images");
+        router.refresh();
       } else {
-        setError("Invalid password");
+        setError(data.error || "Invalid password");
       }
-    } catch {
-      setError("Something went wrong");
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Something went wrong - please try again");
     } finally {
       setLoading(false);
     }

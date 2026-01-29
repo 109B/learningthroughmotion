@@ -3,6 +3,16 @@ import fs from 'fs';
 import path from 'path';
 import { list } from '@vercel/blob';
 
+// Helper to add timeout to promises
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error('Timeout')), timeoutMs)
+    )
+  ]);
+}
+
 // Get images from Vercel Blob storage for a specific section
 async function getBlobImages(context: string) {
   try {
@@ -11,7 +21,8 @@ async function getBlobImages(context: string) {
       return [];
     }
 
-    const { blobs } = await list();
+    // Add 5 second timeout to prevent hanging when rate limited
+    const { blobs } = await withTimeout(list(), 5000);
 
     // Filter blobs that match this context/section
     const sectionBlobs = blobs.filter(blob => {
@@ -24,7 +35,8 @@ async function getBlobImages(context: string) {
       alt: `${getContextLabel(context)} session in action`
     }));
   } catch (error) {
-    console.error('Failed to fetch blob images:', error);
+    // Silently fail and return empty - will use local images instead
+    console.warn('Blob storage unavailable, using local images only');
     return [];
   }
 }
@@ -105,7 +117,8 @@ export async function getHeroVideo(section: string): Promise<string | null> {
       return null;
     }
 
-    const { blobs } = await list();
+    // Add 5 second timeout to prevent hanging when rate limited
+    const { blobs } = await withTimeout(list(), 5000);
 
     // Find video in the hero section
     const videoExtensions = ['.mp4', '.mov', '.webm'];
@@ -118,7 +131,8 @@ export async function getHeroVideo(section: string): Promise<string | null> {
 
     return heroVideo?.url || null;
   } catch (error) {
-    console.error('Failed to fetch hero video:', error);
+    // Silently fail - video section just won't show
+    console.warn('Blob storage unavailable for video');
     return null;
   }
 }
