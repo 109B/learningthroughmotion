@@ -68,6 +68,7 @@ export const PRIMARY_NAV: NavLink[] = [
     href: "/our-programmes",
     children: PROGRAMME_PAGES,
   },
+  { label: "Weekend Sessions", href: "/shop/sessions" },
   { label: "Our Vision", href: "/our-vision" },
   { label: "Testimonials", href: "/testimonials" },
   { label: "Our Coaches", href: "/our-coaches" },
@@ -175,13 +176,13 @@ export const PROGRAMMES: ProgrammeDetail[] = [
     slug: "maths-through-sport",
     title: "Maths Through Sport",
     excerpt:
-      "We make maths enjoyable by blending it into physical games and activities. Children practise counting, problem solving, and measuring through movement, which keeps them engaged and builds lasting confidence.",
-    accent: "#0f6d63",
+      "Maths Through Sport helps neurodiverse children learn maths through movement, games, and sport. By turning maths into active, fun challenges, children build confidence, stay engaged, and enjoy learning in a way that works for them.",
+    accent: "#1e3a5f",
     heroImage:
       "https://files.websitebuilder.prositehosting.co.uk/45/39/45397caf-ca8f-482b-98e6-01ca8bf50395.png",
     paragraphs: [
-      "Our Maths Through Sport programme transforms the way children with special educational needs experience learning. By embedding core maths concepts into movement, games, and sporting activities we create an environment where maths feels exciting, achievable, and fun.",
-      "Children develop essential skills such as counting, addition, measurement, and problem solving - not through worksheets, but through active challenges that keep them engaged and motivated. Each activity is carefully designed to build confidence for children who learn differently, while also encouraging teamwork and physical development.",
+      "Our Maths Through Sport programme transforms the way neurodiverse children experience learning. By embedding core maths concepts into movement, games, and sporting activities, we create an environment where maths feels exciting, achievable, and fun.",
+      "Children develop essential skills such as counting, addition, measurement, and problem solving not through worksheets, but through active challenges that keep them engaged and motivated. Each activity is carefully designed to build confidence for children who learn differently, while also encouraging teamwork and physical development.",
       "Learners who may have once felt anxious about maths begin to approach it with enjoyment and success. Schools and parents see measurable progress as pupils reconnect with the subject and build a positive attitude toward learning.",
     ],
   },
@@ -189,64 +190,55 @@ export const PROGRAMMES: ProgrammeDetail[] = [
     slug: "sensory-redevelopment",
     title: "Sensory Sessions",
     excerpt:
-      "Supporting children who are not neurotypical through fun, flexible activities that develop sensory processing, motor skills, and emotional regulation - working closely with EHCP goals.",
-    accent: "#c45f24",
+      "Our Sensory Redevelopment Programme helps neurodivergent children build focus, coordination, and emotional regulation through carefully designed physical activities. By strengthening key sensory systems, children gain confidence, control, and a stronger foundation for learning and everyday life.",
+    accent: "#8b6914",
     heroImage:
       "https://files.websitebuilder.prositehosting.co.uk/62/f8/62f87fc5-6c92-421c-93be-82a4720f8739.jpg",
     paragraphs: [
-      "Our Sensory Redevelopment programme supports children with special educational needs and neurodivergent profiles by retraining the sensory nervous system - the foundation for movement, focus, and emotional regulation.",
-      "Through carefully designed physical activities we strengthen key sensory systems such as balance, proprioception, fine motor control, and interoception. Sessions are engaging and accessible, gently guiding the brain and body to work together more smoothly.",
-      "Over time children gain greater control, confidence, and the ability to participate more fully in both school and everyday life. The result is improved focus, calmer behaviour, and stronger building blocks for learning and wellbeing.",
+      "Our Sensory Development Programme supports children with special educational needs and neurodivergent profiles by retraining the sensory nervous system, which forms the foundation for movement, focus, and emotional regulation.",
+      "Through carefully designed physical activities, we strengthen key sensory systems. Each activity is engaging and accessible, gently guiding the brain and body to work together more smoothly.",
+      "Over time, children gain greater control, confidence, and the ability to participate more fully in both school and everyday life. The result is improved focus, calmer behaviour, and stronger foundations for learning, development, and overall wellbeing.",
     ],
-    bulletHeading: "We target four core areas:",
+    bulletHeading: "Key sensory systems we strengthen:",
     bullets: [
-      "Balance and proprioception to build body awareness, coordination, and posture.",
-      "Fine motor skills for writing, fastening clothing, and handling classroom tools.",
-      "Interoception to help children recognise and respond to internal body signals.",
-      "Regulation strategies that support calmness, focus, and readiness to learn.",
+      "Balance and proprioception, building body awareness, coordination, and control over gross motor skills including running, jumping, and posture.",
+      "Fine motor skills, refining smaller and more precise movements such as writing, buttoning, and manipulating objects.",
+      "Interoception, helping children recognise and respond to signals from inside their body.",
+      "Regulation, supporting calmness, focus, and readiness to learn.",
     ],
     // New structured content
     sections: [
       {
         heading: "What Are Sensory Sessions?",
         content:
-          "Our Sensory Development Sessions support children who are not neurotypical by working closely in line with their EHCP goals. Each session focuses on helping children achieve the aims of their individual plan through fun, flexible, and engaging activities that develop sensory processing, motor skills, and emotional regulation.",
+          "Our Weekend Sensory Sessions provide small, supportive group experiences for neurodivergent children, working alongside each child's EHCP or IEP. With a maximum of six children per group, sessions offer focused support, meaningful interaction, and a calm environment where children can grow in confidence and regulation.",
       },
       {
-        heading: "Key Sensory Areas We Work On",
-        subsections: [
-          {
-            heading: "Proprioception",
-            content:
-              "Helping children understand where their bodies are in space and develop coordination",
-          },
-          {
-            heading: "Interoception",
-            content:
-              "Helping children recognise and respond to internal body signals such as hunger, thirst, and fatigue",
-          },
+        heading: "Key Areas We Work On",
+        bullets: [
+          "Proprioception, supporting body awareness, coordination, and movement control",
+          "Interoception, helping children recognise and respond to signals from within their body",
+          "Regulation, supporting calmness, focus, and emotional readiness for learning",
         ],
       },
       {
         heading: "Why Attendance Matters",
-        content:
-          "Regular attendance is essential to develop routine, practice skills, and give each child the best chance of success. Our supportive environment allows children to explore, gain confidence, and strengthen:",
         bullets: [
-          "Sensory processing (including proprioception and interoception)",
-          "Motor skills",
-          "Emotional regulation",
+          "Builds consistency and routine, helping children feel safe and settled",
+          "Allows sensory systems to develop gradually and effectively over time",
+          "Supports progress in regulation, focus, and body awareness",
+          "Helps children gain confidence as skills are practised and reinforced",
+          "Creates stronger connections with coaches and familiar peers",
         ],
       },
       {
-        heading: "What Your Child Will Gain",
-        content:
-          "These sessions are designed to help children reach their EHCP goals while building:",
+        heading: "What Your Child Gains",
         bullets: [
-          "Confidence in their abilities",
-          "Independence in everyday tasks",
-          "A sense of achievement and progress",
-          "Better focus and emotional regulation",
-          "Improved participation in school and daily life",
+          "Improved body awareness, coordination, and movement confidence, aligned with their EHCP or IEP goals",
+          "Greater emotional regulation and ability to stay calm and focused, supporting personalised targets",
+          "Increased confidence through positive, supported experiences tailored to individual needs",
+          "Stronger social skills and comfort interacting with others, reinforcing personalised learning objectives",
+          "A sense of achievement and readiness for learning and everyday life, in line with each child's EHCP or IEP",
         ],
       },
     ],
@@ -266,10 +258,8 @@ export const PROGRAMMES: ProgrammeDetail[] = [
       registration: 15,
       perSession: 15,
       notes: [
-        "£15 registration fee paid at the start of each block. This secures your child's place and provides a personalised plan aligned with their EHCP.",
-        "£15 per session, paid at the start of each block for all sessions.",
-        "Paying for the full block ensures consistency and helps children build routine and make the best progress.",
-        "Because these are small fixed groups, if a child cannot attend a session, we are not able to offer a refund for that missed session. The place is reserved for the full term.",
+        "£15 registration at the start of each block",
+        "£15 per session from then on with blocks of 6/7 weeks",
       ],
     },
     trialInfo:
@@ -279,21 +269,23 @@ export const PROGRAMMES: ProgrammeDetail[] = [
     slug: "the-next-chapter",
     title: "The Next Chapter",
     excerpt:
-      "Transition and mentoring programme for Year 7 students. Building confidence, friendships, and social skills through activities and sport - helping students navigate secondary school successfully.",
-    accent: "#f4c95d",
+      "The Next Chapter supports Year 7 students as they transition from primary to secondary school, with a strong focus on building friendships and belonging. Through shared activities, mentoring, and reflection, students form meaningful connections while developing confidence, emotional regulation, and readiness for this new stage of learning.",
+    accent: "#2d4a6f",
     heroImage:
       "https://files.websitebuilder.prositehosting.co.uk/7e/44/7e446e97-fa38-4fda-902c-4a6346050a3f.jpg",
     paragraphs: [
-      "The move from primary to secondary school marks an exciting new beginning, but it can also feel daunting for many students. The Next Chapter guides Year 7 pupils, particularly those with SEND or neurodivergent profiles, as they take their first steps into this new stage of learning and personal growth.",
-      "Each student is paired with a dedicated mentor who becomes a trusted, familiar face throughout their transition - someone who listens, supports, and helps them find their place within the school community.",
-      "Through a blend of team based physical activities, guided mentoring, and reflective discussions, students build the social, emotional, and sensory foundations needed for a successful start to secondary school.",
+      "The move from primary to secondary school marks an exciting new beginning, but it can also feel daunting for many students. The Next Chapter is designed to guide Year 7 students, particularly those with SEND or neurodivergent profiles, as they take their first steps into this new stage of learning and personal growth.",
+      "In primary school, children spend most of their time with one teacher for five full days a week, creating a strong sense of safety and consistency. In secondary school, that structure changes. New teachers, subjects, and routines appear all at once, and for some students this shift can feel overwhelming.",
+      "That is where The Next Chapter comes in. Each student is paired with a dedicated mentor who becomes a trusted and familiar face throughout their transition. Alongside this support, the programme places strong emphasis on friendship, helping students feel connected, accepted, and part of the school community from the very start.",
+      "Through a blend of team-based physical activities, guided mentoring, and reflective discussions, students are given opportunities to interact naturally, work together, and form friendships in a relaxed and supportive environment. These shared experiences allow relationships to grow at a comfortable pace, reducing pressure and building trust.",
+      "By combining movement, mentoring, and mindfulness, The Next Chapter helps students strengthen the social, emotional, and sensory foundations needed for a successful start to secondary school. The result is a smoother transition, stronger friendships, and a confident, supported beginning to the next chapter in learning and life.",
     ],
-    bulletHeading: "We focus on:",
+    bulletHeading: "Students develop essential skills such as:",
     bullets: [
-      "Confidence and self esteem so pupils feel ready for new challenges.",
-      "Social connection through inclusive group sessions and teamwork.",
-      "Emotional regulation skills that help students manage anxiety and change.",
-      "Communication and independence so every pupil can share their voice.",
+      "Confidence and self-esteem, building a sense of belonging and readiness for new challenges.",
+      "Friendship and social connection, forming meaningful relationships and learning teamwork through inclusive and active sessions.",
+      "Emotional regulation, managing change, anxiety, and new routines with calm and confidence.",
+      "Communication and independence, empowering students to express themselves and take ownership of their journey.",
     ],
     // New structured content
     sections: [

@@ -34,6 +34,10 @@ nav:
     - Interactive Games: features/games.md
     - Accessibility: features/accessibility.md
     - Components: features/components.md
+  - Admin Portal:
+    - Overview: admin/index.md
+    - Media Management: admin/media.md
+    - Authentication: admin/auth.md
   - Technical:
     - Architecture: technical/architecture.md
     - Content Management: technical/content.md

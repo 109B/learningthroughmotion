@@ -28,11 +28,13 @@ export default async function OurProgrammesPage() {
 
       <Section>
         <FadeIn>
-          <div className="prose prose--columns">
-            {PROGRAMMES_PAGE_COPY.intro.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            <p>{PROGRAMMES_PAGE_COPY.closing}</p>
+          <div className="content-box">
+            <div className="prose prose--columns">
+              {PROGRAMMES_PAGE_COPY.intro.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+              <p>{PROGRAMMES_PAGE_COPY.closing}</p>
+            </div>
           </div>
         </FadeIn>
       </Section>

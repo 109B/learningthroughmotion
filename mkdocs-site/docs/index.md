@@ -6,12 +6,12 @@
 
 | Metric | Value |
 |--------|-------|
-| **Project Duration** | 17 days (Nov 26 - Dec 12, 2025) |
-| **Total Commits** | 24 |
-| **Lines of Code** | ~9,700 |
-| **Pages Built** | 13 |
-| **Components Created** | 20+ |
-| **Estimated Development Hours** | 80-100 hours |
+| **Project Duration** | Nov 26, 2025 - Present |
+| **Total Commits** | 33+ |
+| **Lines of Code** | ~12,000 |
+| **Pages Built** | 15 |
+| **Components Created** | 25+ |
+| **Estimated Development Hours** | 100-120 hours |
 
 ## What Was Built
 
@@ -19,12 +19,15 @@ A complete **SEND-focused educational website** for Learning Through Motion, fea
 
 - **Modern Next.js 16** architecture with App Router
 - **Accessibility-first design** (WCAG AAA compliance)
-- **3 programme detail pages** with rich content
+- **3 programme detail pages** with rich content and content boxing
 - **4 interactive educational games** for SEND learners
-- **Dynamic image carousels** across the site
+- **Dynamic image carousels** across the site with Vercel Blob storage
+- **Video showcase** with expandable modal
 - **Testimonials system** with modal expansion
 - **Contact/enquiry system** with multiple CTAs
 - **Community session booking** information pages
+- **Admin portal** with media management
+- **Password-protected documentation** system
 
 ## Quick Links
 

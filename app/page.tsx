@@ -3,6 +3,7 @@ import { Section } from "@/components/common/Section";
 import { ProgrammeCards } from "@/components/common/ProgrammeCards";
 import { FadeIn } from "@/components/common/FadeIn";
 import { ImageCarousel } from "@/components/common/ImageCarousel";
+import { VideoShowcase } from "@/components/common/VideoShowcase";
 import {
   CONTACT_DETAILS,
   HERO_HIGHLIGHTS,
@@ -13,12 +14,14 @@ import {
   VISION_PARAGRAPHS,
   PROGRAMMES,
 } from "@/content/siteContent";
-import { getMixedCarouselImages } from "@/lib/carousel";
+import { getMixedCarouselImages, getHeroVideo } from "@/lib/carousel";
 
 import { TestimonialsSection } from "@/components/common/TestimonialsSection";
 
 export default async function Home() {
   const carouselImages = await getMixedCarouselImages();
+  const heroVideoUrl = await getHeroVideo("hero-homepage");
+
   return (
     <>
       <section className="hero hero--modern">
@@ -81,10 +84,12 @@ export default async function Home() {
 
       <Section tone="default" title="Key Highlights">
         <FadeIn>
-          <div className="prose">
-            <p className="lead">{HOME_VISION_STATEMENT}</p>
-            <p>{HOME_VISION_SUPPORT}</p>
-            <p>{VISION_PARAGRAPHS[2]}</p>
+          <div className="content-box">
+            <div className="prose">
+              <p className="lead">{HOME_VISION_STATEMENT}</p>
+              <p>{HOME_VISION_SUPPORT}</p>
+              <p>{VISION_PARAGRAPHS[2]}</p>
+            </div>
           </div>
         </FadeIn>
       </Section>
@@ -136,6 +141,14 @@ export default async function Home() {
           </div>
         </div>
       </Section>
+
+      {heroVideoUrl && (
+        <Section tone="default" title="See Us In Action" eyebrow="Our Sessions">
+          <FadeIn>
+            <VideoShowcase src={heroVideoUrl} />
+          </FadeIn>
+        </Section>
+      )}
 
       <Section id="connect" tone="muted">
         <div className="hero-card">

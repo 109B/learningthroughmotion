@@ -33,32 +33,34 @@ export default async function SensoryRedevelopmentPage() {
           {programme.sections.map((section, index) => (
             <Section key={index} tone={index % 2 === 0 ? "default" : "muted"}>
               <FadeIn>
-                {section.heading && <h2>{section.heading}</h2>}
-                {section.content && <p className="lead">{section.content}</p>}
-                {section.bullets && (
-                  <ul className="feature-list">
-                    {section.bullets.map((bullet) => (
-                      <li key={bullet}>✓ {bullet}</li>
-                    ))}
-                  </ul>
-                )}
-                {section.subsections && (
-                  <div className="split">
-                    {section.subsections.map((subsection) => (
-                      <div key={subsection.heading} className="split__content">
-                        <h3>{subsection.heading}</h3>
-                        {subsection.content && <p>{subsection.content}</p>}
-                        {subsection.bullets && (
-                          <ul>
-                            {subsection.bullets.map((bullet) => (
-                              <li key={bullet}>{bullet}</li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div className="content-box">
+                  {section.heading && <h2>{section.heading}</h2>}
+                  {section.content && <p className="lead">{section.content}</p>}
+                  {section.bullets && (
+                    <ul className="feature-list">
+                      {section.bullets.map((bullet) => (
+                        <li key={bullet}>✓ {bullet}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {section.subsections && (
+                    <div className="content-boxes content-boxes--2col" style={{ marginTop: '1.5rem' }}>
+                      {section.subsections.map((subsection) => (
+                        <div key={subsection.heading} className="content-box content-box--beige">
+                          <h3>{subsection.heading}</h3>
+                          {subsection.content && <p>{subsection.content}</p>}
+                          {subsection.bullets && (
+                            <ul>
+                              {subsection.bullets.map((bullet) => (
+                                <li key={bullet}>{bullet}</li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </FadeIn>
             </Section>
           ))}
@@ -69,8 +71,8 @@ export default async function SensoryRedevelopmentPage() {
       {programme.sessionDetails && (
         <Section title="Session Details" tone="default">
           <FadeIn>
-            <div className="split">
-              <div className="split__content">
+            <div className="content-boxes content-boxes--2col">
+              <div className="content-box">
                 <h3>
                   <span className="icon" aria-hidden="true">📍</span> Location & Times
                 </h3>
@@ -90,7 +92,7 @@ export default async function SensoryRedevelopmentPage() {
                 )}
               </div>
 
-              <div className="split__content">
+              <div className="content-box">
                 <h3>
                   <span className="icon" aria-hidden="true">👥</span> What's Included
                 </h3>
@@ -121,30 +123,32 @@ export default async function SensoryRedevelopmentPage() {
       {programme.pricing && (
         <Section title="Pricing" tone="muted" intro="Clear, affordable pricing for quality SEND support">
           <FadeIn>
-            <div className="pricing-breakdown-large">
-              <div className="pricing-item">
-                <div className="pricing-label">Registration Fee</div>
-                <div className="pricing-amount">£{programme.pricing.registration?.toFixed(2)}</div>
-                <div className="pricing-note">Per block</div>
+            <div className="content-box">
+              <div className="pricing-breakdown-large">
+                <div className="pricing-item">
+                  <div className="pricing-label">Registration Fee</div>
+                  <div className="pricing-amount">£{programme.pricing.registration?.toFixed(2)}</div>
+                  <div className="pricing-note">Per block</div>
+                </div>
+                <div className="pricing-plus">+</div>
+                <div className="pricing-item">
+                  <div className="pricing-label">Per Session</div>
+                  <div className="pricing-amount">£{programme.pricing.perSession?.toFixed(2)}</div>
+                  <div className="pricing-note">Paid for full block</div>
+                </div>
               </div>
-              <div className="pricing-plus">+</div>
-              <div className="pricing-item">
-                <div className="pricing-label">Per Session</div>
-                <div className="pricing-amount">£{programme.pricing.perSession?.toFixed(2)}</div>
-                <div className="pricing-note">Paid for full block</div>
-              </div>
-            </div>
 
-            {programme.pricing.notes && (
-              <div className="programme-details" style={{ marginTop: '3rem' }}>
-                <h3>Important Information</h3>
-                <ul>
-                  {programme.pricing.notes.map((note) => (
-                    <li key={note}>{note}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              {programme.pricing.notes && (
+                <div className="programme-details" style={{ marginTop: '2rem' }}>
+                  <h3>Important Information</h3>
+                  <ul>
+                    {programme.pricing.notes.map((note) => (
+                      <li key={note}>{note}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </FadeIn>
         </Section>
       )}

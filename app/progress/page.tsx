@@ -22,7 +22,7 @@ export default function ProgressPage() {
           <div>
             <h1>Website Redesign Progress Report</h1>
             <p className="progress-subtitle">
-              Learning Through Motion • December 2025
+              Learning Through Motion • January 2026
             </p>
           </div>
         </header>
@@ -155,10 +155,87 @@ export default function ProgressPage() {
 
           <div className="timeline">
             <article className="timeline-item">
+              <div className="timeline-marker">🎨</div>
+              <div className="timeline-content">
+                <h3>Major Design Update: Navy Color Scheme, Content Boxing, Admin Portal & Media Features</h3>
+                <p className="timeline-date">January 29, 2026 - Latest Update</p>
+                <div className="progress-card">
+                  <h4>What Changed:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>New Color Scheme:</strong> Updated brand colors to beiges, white, and navy. Primary accent changed from forest green to navy blue (#1e3a5f) for a cleaner, more professional look
+                    </li>
+                    <li>
+                      <strong>Content Boxing:</strong> All programme pages now feature white content boxes with subtle shadows, making text easier to read with clear visual sections. Subsections use beige boxes for hierarchy
+                    </li>
+                    <li>
+                      <strong>Admin Portal:</strong> Secure admin area with password-protected login at /admin. Includes image upload management for all site carousels and video upload for homepage
+                    </li>
+                    <li>
+                      <strong>Footer Admin Link:</strong> Subtle admin access link added to footer for easy portal access
+                    </li>
+                    <li>
+                      <strong>Weekend Sessions Navigation:</strong> New nav item added for Weekend Sensory Sessions programme
+                    </li>
+                    <li>
+                      <strong>Video Showcase Section:</strong> Homepage now includes "See Us In Action" video section with click-to-expand modal for larger viewing
+                    </li>
+                    <li>
+                      <strong>Image Modal with Navigation:</strong> Carousel images can now be clicked to view full-size with left/right arrows and keyboard navigation (arrow keys + Escape)
+                    </li>
+                    <li>
+                      <strong>Blurred Background Modal:</strong> When viewing expanded images/videos, the site blurs behind the modal using React Portal for proper z-index handling
+                    </li>
+                    <li>
+                      <strong>Vercel Blob Storage:</strong> Images and videos stored in Vercel Blob for reliable CDN-backed hosting with upload/delete management
+                    </li>
+                  </ul>
+
+                  <h4>Updated Content:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>Maths Through Sport:</strong> Complete content refresh from updated source document
+                    </li>
+                    <li>
+                      <strong>Sensory Development:</strong> Renamed from "Sensory Redevelopment" with comprehensive session details
+                    </li>
+                    <li>
+                      <strong>The Next Chapter:</strong> Enhanced transition programme content
+                    </li>
+                    <li>
+                      <strong>Pricing Updated:</strong> Registration fee £15 + £15 per session structure clearly displayed
+                    </li>
+                  </ul>
+
+                  <h4>Technical Improvements:</h4>
+                  <ul className="progress-list">
+                    <li>
+                      <strong>React Portal:</strong> MediaModal uses createPortal to render outside the main DOM tree, enabling proper blur effects
+                    </li>
+                    <li>
+                      <strong>Next.js Middleware:</strong> Route protection for admin area with cookie-based authentication
+                    </li>
+                    <li>
+                      <strong>Content-Box CSS:</strong> New utility classes for consistent boxing across all pages with 2-column grid support
+                    </li>
+                    <li>
+                      <strong>Vercel Blob Integration:</strong> API routes for upload, list, delete, and migrate operations
+                    </li>
+                  </ul>
+
+                  <h4>Impact:</h4>
+                  <p>
+                    The site now has a cleaner, more professional appearance with the navy/beige/white color scheme. Content boxing dramatically improves readability by providing clear visual boundaries. The admin portal enables easy content management without code changes. Media features bring the site to life with expandable images and video content.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article className="timeline-item">
               <div className="timeline-marker">📝</div>
               <div className="timeline-content">
                 <h3>Programme Pages Redesigned for Clarity and Usability</h3>
-                <p className="timeline-date">December 11, 2025 - Latest Update</p>
+                <p className="timeline-date">December 11, 2025</p>
                 <div className="progress-card">
                   <h4>What Changed:</h4>
                   <ul className="progress-list">
@@ -1348,10 +1425,10 @@ export default function ProgressPage() {
 
         <footer className="progress-footer">
           <p>
-            <strong>Last Updated:</strong> December 11, 2025
+            <strong>Last Updated:</strong> January 29, 2026
           </p>
           <p>
-            <strong>Status:</strong> Phase 1 Complete • Phase 2 Planning
+            <strong>Status:</strong> Phase 2 In Progress • Admin Portal & Media Features Complete
           </p>
           <p>
             <strong>Developer:</strong> Claude Code + Stephen Cranfield

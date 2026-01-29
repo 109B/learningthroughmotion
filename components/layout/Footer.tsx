@@ -71,6 +71,9 @@ export function Footer() {
       <div className="shell footer__base">
         <span>© {new Date().getFullYear()} Learning Through Motion</span>
         <span>In school active learning for SEND pupils</span>
+        <Link href="/admin/login" className="footer__admin-link">
+          Admin
+        </Link>
       </div>
     </footer>
   );

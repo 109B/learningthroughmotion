@@ -17,7 +17,7 @@ export const SESSION_BLOCKS: SessionBlock[] = [
     current_bookings: 3,
     location: 'Bolton Arena Sports Hall',
     status: 'published',
-    registration_fee: 30.00,
+    registration_fee: 15.00,
     session_fee: 15.00,
     total_sessions: 7,
     created_at: new Date('2024-12-01'),
@@ -36,7 +36,7 @@ export const SESSION_BLOCKS: SessionBlock[] = [
     current_bookings: 1,
     location: 'Bolton Arena Sports Hall',
     status: 'published',
-    registration_fee: 30.00,
+    registration_fee: 15.00,
     session_fee: 15.00,
     total_sessions: 7,
     created_at: new Date('2024-12-01'),
@@ -55,7 +55,7 @@ export const SESSION_BLOCKS: SessionBlock[] = [
     current_bookings: 0,
     location: 'Bolton Arena Sports Hall',
     status: 'published',
-    registration_fee: 30.00,
+    registration_fee: 15.00,
     session_fee: 15.00,
     total_sessions: 7,
     created_at: new Date('2024-12-01'),
@@ -71,9 +71,9 @@ export const PROGRAMME_INFO = {
   ageRange: '5-10 years',
   frequency: 'Once per week',
   pricing: {
-    registration: 30.00,
+    registration: 15.00,
     perSession: 15.00,
-    total: 135.00,
+    total: 120.00,  // £15 registration + (7 x £15 sessions) = £120
   },
   includes: [
     'Expert coaching from SEND-trained professionals',
@@ -111,7 +111,7 @@ export const PROGRAMME_INFO = {
     },
     {
       question: 'What does the registration fee cover?',
-      answer: 'The £30 registration fee covers your child\'s place on the programme, initial assessment, and administration. Then it\'s just £15 per session for the 7-week block.',
+      answer: 'The £15 registration fee at the start of each block secures your child\'s place on the programme. Sessions are then £15 each, with blocks running for 6 or 7 weeks.',
     },
     {
       question: 'Can I try a session before committing?',

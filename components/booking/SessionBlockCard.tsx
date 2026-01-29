@@ -1,7 +1,7 @@
 // Learning Through Motion - Session Block Card Component
 
 import type { SessionBlock } from '@/lib/types/booking';
-import { ComingSoonModal } from '@/components/common/ComingSoonModal';
+import Link from 'next/link';
 
 type Props = {
   block: SessionBlock;
@@ -72,15 +72,13 @@ export function SessionBlockCard({ block }: Props) {
               Fully Booked
             </button>
           ) : isAvailable ? (
-            <ComingSoonModal
-              trigger={
-                <button className="btn" aria-label={`Book ${block.name}`}>
-                  Book Now
-                </button>
-              }
-              title="Online Booking Coming Soon"
-              message="We're setting up our online booking system! In the meantime, please contact us directly to reserve your child's place on this programme."
-            />
+            <Link
+              href="/enquire-now"
+              className="btn"
+              aria-label={`Book ${block.name}`}
+            >
+              Book Now
+            </Link>
           ) : (
             <button className="btn" disabled aria-label={`${block.name} is not available`}>
               Not Available

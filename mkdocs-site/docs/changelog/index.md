@@ -17,8 +17,53 @@ Day-by-day timeline of all work completed on the Learning Through Motion website
 | Dec 4, 2025 | 1 | Image fixes |
 | Dec 11, 2025 | 2 | **Major:** Programme pages revamp |
 | Dec 12, 2025 | 1 | Carousel enhancements |
+| Jan 27, 2026 | 3 | **Major:** Documentation system, password protection |
+| Jan 29, 2026 | 5 | **Major:** Admin portal, media management, color scheme |
 
-**Total Commits:** 24
+**Total Commits:** 33+
+
+---
+
+## January 29, 2026
+
+### Admin Portal & Media Management (Major Update)
+
+**Changes:**
+
+- Added secure admin portal with password authentication
+- Media management dashboard at `/admin/images`
+- Color-coded image sections (sky blue, green, amber, pink, indigo, purple)
+- Color-coded video section (red)
+- Bulk video upload with progress bars
+- Vercel Blob storage integration for all media
+- Updated site color scheme to navy, beige, and white
+- Content boxing across all programme pages
+- Added Weekend Sessions to navigation
+- MediaModal with React Portal for proper blur effects
+- Footer admin link for easy portal access
+- Updated content from latest programme documents
+
+**Files Changed:** 20+
+**Lines:** +2,500 / -500
+
+**Impact:** Major admin functionality and visual update
+
+---
+
+## January 27, 2026
+
+### MkDocs Documentation System
+
+**Changes:**
+
+- Added MkDocs site with Material theme
+- Password-protected documentation at `/docs`
+- Complete project documentation
+- Feature documentation
+- Technical architecture documentation
+
+**Files Changed:** 15+
+**Lines:** +3,000
 
 ---
 

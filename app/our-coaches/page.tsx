@@ -20,10 +20,10 @@ export default async function OurCoachesPage() {
       />
 
       <Section>
-        <div className="grid gap-12 md:grid-cols-2">
+        <div className="content-boxes content-boxes--2col">
           {COACHES.map((coach, index) => (
             <FadeIn key={coach.name} delay={index * 100}>
-              <article className="coach-card">
+              <article className="content-box coach-card">
                 <div className="coach-card__content">
                   <h3>{coach.name}</h3>
                   <p className="coach-role">{coach.role}</p>
@@ -37,7 +37,7 @@ export default async function OurCoachesPage() {
 
       <Section tone="accent" title="Our Approach">
         <FadeIn>
-          <div className="prose">
+          <div className="content-box">
             <ul className="bullet-list">
               {COACHING_APPROACH.map((point) => (
                 <li key={point}>{point}</li>
