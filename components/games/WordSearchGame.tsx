@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 type Cell = {
   letter: string;
@@ -54,11 +54,7 @@ export function WordSearchGame() {
 
   const currentWordList = WORD_LISTS[level];
 
-  useEffect(() => {
-    initializeGame();
-  }, [level]);
-
-  const initializeGame = () => {
+  const initializeGame = useCallback(() => {
     const newGrid: Cell[][] = [];
 
     // Initialize empty grid
@@ -92,7 +88,11 @@ export function WordSearchGame() {
     setWords(placedWords);
     setSelectedCells([]);
     setCompleted(false);
-  };
+  }, [currentWordList]);
+
+  useEffect(() => {
+    initializeGame();
+  }, [initializeGame]);
 
   const placeWord = (grid: Cell[][], word: string): boolean => {
     const directions = [
@@ -146,7 +146,6 @@ export function WordSearchGame() {
       markCellsSelected([cell]);
     } else if (selectedCells.length === 1) {
       // Second cell - check if it forms a valid line
-      const newSelected = [...selectedCells, cell];
       const cells = getCellsBetween(selectedCells[0], cell);
 
       if (cells.length > 0) {

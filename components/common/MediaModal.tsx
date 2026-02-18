@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useRef, useState } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 
 type MediaModalProps = {
@@ -63,13 +63,7 @@ export function MediaModal({
     };
   }, [isOpen, handleKeyDown]);
 
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!isOpen || !mounted) return null;
+  if (!isOpen || typeof document === "undefined") return null;
 
   const modalContent = (
     <div className="media-modal" onClick={onClose}>

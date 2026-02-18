@@ -29,6 +29,13 @@ const IMAGE_SECTIONS = [
   { id: "coaches", label: "Our Coaches", description: "Carousel on /our-coaches page" },
 ] as const;
 
+// Programme card sections - for the homepage programme cards
+const PROGRAMME_CARD_SECTIONS = [
+  { id: "programme-card-maths", slug: "maths-through-sport", label: "Maths Through Sport", description: "Card image on homepage" },
+  { id: "programme-card-sensory", slug: "sensory-redevelopment", label: "Sensory Sessions", description: "Card image on homepage" },
+  { id: "programme-card-next-chapter", slug: "the-next-chapter", label: "The Next Chapter", description: "Card image on homepage" },
+] as const;
+
 // Video sections - for showcase videos
 const VIDEO_SECTIONS = [
   { id: "hero-homepage", label: "Homepage Video", description: "\"See Us In Action\" video on homepage (MP4 recommended)" },
@@ -36,6 +43,7 @@ const VIDEO_SECTIONS = [
 
 type ImageSectionId = typeof IMAGE_SECTIONS[number]["id"];
 type VideoSectionId = typeof VIDEO_SECTIONS[number]["id"];
+type ProgrammeCardSectionId = typeof PROGRAMME_CARD_SECTIONS[number]["id"];
 
 type MediaData = {
   url: string;
@@ -59,11 +67,14 @@ export default function ImageAdminPage() {
   const [selectedSection, setSelectedSection] = useState<ImageSectionId>("homepage");
   const [images, setImages] = useState<Record<string, MediaData[]>>({});
   const [videos, setVideos] = useState<Record<string, MediaData[]>>({});
+  const [programmeCardImages, setProgrammeCardImages] = useState<Record<string, MediaData | null>>({});
   const [uploading, setUploading] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [uploadingProgrammeCard, setUploadingProgrammeCard] = useState<string | null>(null);
   const [migrating, setMigrating] = useState(false);
   const [status, setStatus] = useState<string>("");
   const [videoStatus, setVideoStatus] = useState<string>("");
+  const [programmeCardStatus, setProgrammeCardStatus] = useState<string>("");
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedVideoFiles, setSelectedVideoFiles] = useState<File[]>([]);
   const [modalContent, setModalContent] = useState<ModalContent>(null);
@@ -81,6 +92,14 @@ export default function ImageAdminPage() {
         const data = await response.json();
         setImages(data.images || {});
         setVideos(data.videos || {});
+
+        // Extract programme card images from the response
+        const cardImages: Record<string, MediaData | null> = {};
+        PROGRAMME_CARD_SECTIONS.forEach(section => {
+          const sectionImages = data.images?.[section.id] || [];
+          cardImages[section.id] = sectionImages.length > 0 ? sectionImages[0] : null;
+        });
+        setProgrammeCardImages(cardImages);
       }
     } catch (error) {
       console.error("Failed to load media:", error);
@@ -131,6 +150,60 @@ export default function ImageAdminPage() {
     }
   };
 
+  const handleProgrammeCardUpload = async (sectionId: ProgrammeCardSectionId, file: File) => {
+    setUploadingProgrammeCard(sectionId);
+    setProgrammeCardStatus(`Uploading ${file.name}...`);
+
+    try {
+      // Delete existing image first if there is one
+      const existingImage = programmeCardImages[sectionId];
+      if (existingImage) {
+        await fetch("/api/blob/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: existingImage.url }),
+        });
+      }
+
+      // Upload new image
+      await upload(`${sectionId}/${file.name}`, file, {
+        access: "public",
+        handleUploadUrl: "/api/blob/upload",
+      });
+
+      setProgrammeCardStatus("Image uploaded successfully!");
+      await loadAllMedia();
+    } catch (error) {
+      setProgrammeCardStatus(`Upload failed: ${(error as Error).message}`);
+    } finally {
+      setUploadingProgrammeCard(null);
+    }
+  };
+
+  const handleProgrammeCardDelete = async (sectionId: ProgrammeCardSectionId) => {
+    const existingImage = programmeCardImages[sectionId];
+    if (!existingImage) return;
+
+    if (!confirm("Are you sure you want to delete this programme card image?")) return;
+
+    try {
+      const response = await fetch("/api/blob/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: existingImage.url }),
+      });
+
+      if (response.ok) {
+        setProgrammeCardStatus("Image deleted");
+        await loadAllMedia();
+      } else {
+        setProgrammeCardStatus("Failed to delete image");
+      }
+    } catch (error) {
+      setProgrammeCardStatus(`Delete failed: ${(error as Error).message}`);
+    }
+  };
+
   const handleMigrate = async () => {
     if (!confirm("This will copy all existing local carousel images to Vercel Blob storage. Continue?")) {
       return;
@@ -167,14 +240,26 @@ export default function ImageAdminPage() {
       });
 
       if (response.ok) {
-        type === "video" ? setVideoStatus("Video deleted") : setStatus("Image deleted");
+        if (type === "video") {
+          setVideoStatus("Video deleted");
+        } else {
+          setStatus("Image deleted");
+        }
         await loadAllMedia();
       } else {
-        type === "video" ? setVideoStatus("Failed to delete video") : setStatus("Failed to delete image");
+        if (type === "video") {
+          setVideoStatus("Failed to delete video");
+        } else {
+          setStatus("Failed to delete image");
+        }
       }
     } catch (error) {
       const msg = `Delete failed: ${(error as Error).message}`;
-      type === "video" ? setVideoStatus(msg) : setStatus(msg);
+      if (type === "video") {
+        setVideoStatus(msg);
+      } else {
+        setStatus(msg);
+      }
     }
   };
 
@@ -310,7 +395,7 @@ export default function ImageAdminPage() {
               fontSize: "14px",
             }}
           >
-            📚 Documentation
+            Documentation
           </Link>
           <button
             onClick={handleLogout}
@@ -370,7 +455,7 @@ export default function ImageAdminPage() {
                 padding: "10px",
               }}
             >
-              ✕ Close
+              Close
             </button>
             {modalContent.type === "image" ? (
               <img
@@ -401,6 +486,144 @@ export default function ImageAdminPage() {
           </div>
         </div>
       )}
+
+      {/* ==================== PROGRAMME CARD IMAGES SECTION ==================== */}
+      <div style={{
+        border: "2px solid #8b5cf6",
+        borderRadius: "12px",
+        padding: "30px",
+        marginBottom: "40px",
+        backgroundColor: "#faf5ff",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+          <span style={{ fontSize: "28px" }}>🎴</span>
+          <h2 style={{ margin: 0, fontSize: "20px", color: "#6b21a8" }}>Programme Card Images</h2>
+        </div>
+        <p style={{ color: "#666", marginBottom: "20px", fontSize: "14px" }}>
+          These images appear on the programme cards on the homepage. Upload one image per programme to replace the default.
+        </p>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap: "20px",
+        }}>
+          {PROGRAMME_CARD_SECTIONS.map((section) => {
+            const currentImage = programmeCardImages[section.id];
+            const isUploading = uploadingProgrammeCard === section.id;
+
+            return (
+              <div
+                key={section.id}
+                style={{
+                  backgroundColor: "#fff",
+                  padding: "20px",
+                  borderRadius: "8px",
+                  border: "2px solid #c4b5fd",
+                }}
+              >
+                <h3 style={{ margin: "0 0 5px 0", fontSize: "16px", color: "#6b21a8" }}>
+                  {section.label}
+                </h3>
+                <p style={{ margin: "0 0 15px 0", color: "#666", fontSize: "12px" }}>
+                  {section.description}
+                </p>
+
+                {/* Current Image Preview */}
+                {currentImage ? (
+                  <div style={{ marginBottom: "15px" }}>
+                    <img
+                      src={currentImage.url}
+                      alt={`${section.label} card`}
+                      onClick={() => openModal("image", currentImage.url, section.label)}
+                      style={{
+                        width: "100%",
+                        height: "120px",
+                        objectFit: "cover",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        border: "1px solid #e5e5e5",
+                      }}
+                    />
+                    <button
+                      onClick={() => handleProgrammeCardDelete(section.id)}
+                      style={{
+                        marginTop: "8px",
+                        padding: "6px 12px",
+                        backgroundColor: "#fee2e2",
+                        color: "#dc2626",
+                        border: "none",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                        fontSize: "12px",
+                        width: "100%",
+                      }}
+                    >
+                      Remove Image
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{
+                    width: "100%",
+                    height: "120px",
+                    backgroundColor: "#f5f5f5",
+                    borderRadius: "6px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "15px",
+                    color: "#999",
+                    fontSize: "13px",
+                  }}>
+                    No custom image set
+                  </div>
+                )}
+
+                {/* Upload Button */}
+                <input
+                  id={`programme-card-input-${section.id}`}
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      handleProgrammeCardUpload(section.id, file);
+                      e.target.value = "";
+                    }
+                  }}
+                  style={{ display: "none" }}
+                />
+                <label
+                  htmlFor={`programme-card-input-${section.id}`}
+                  style={{
+                    display: "block",
+                    textAlign: "center",
+                    padding: "10px",
+                    backgroundColor: isUploading ? "#ccc" : "#8b5cf6",
+                    color: "white",
+                    borderRadius: "6px",
+                    cursor: isUploading ? "not-allowed" : "pointer",
+                    fontSize: "13px",
+                  }}
+                >
+                  {isUploading ? "Uploading..." : currentImage ? "Replace Image" : "Upload Image"}
+                </label>
+              </div>
+            );
+          })}
+        </div>
+
+        {programmeCardStatus && (
+          <p style={{
+            marginTop: "15px",
+            textAlign: "center",
+            color: programmeCardStatus.includes("failed") ? "#dc2626" : "#666",
+            fontSize: "13px"
+          }}>
+            {programmeCardStatus}
+          </p>
+        )}
+      </div>
 
       {/* ==================== IMAGE MANAGEMENT SECTION ==================== */}
       <div style={{
@@ -585,7 +808,7 @@ export default function ImageAdminPage() {
                         fontSize: "10px",
                       }}
                     >
-                      ✕
+                      X
                     </button>
                   </div>
                 </div>
@@ -824,8 +1047,8 @@ export default function ImageAdminPage() {
                             color: item.status === "complete" ? "#16a34a" : item.status === "error" ? "#dc2626" : "#666",
                             fontWeight: "500",
                           }}>
-                            {item.status === "complete" ? "✓ Done" :
-                             item.status === "error" ? "✕ Failed" :
+                            {item.status === "complete" ? "Done" :
+                             item.status === "error" ? "Failed" :
                              item.status === "uploading" ? `${item.progress}%` : "Waiting..."}
                           </span>
                         </div>

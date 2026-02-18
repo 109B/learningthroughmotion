@@ -1,30 +1,49 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 
-const CORRECT_PASSWORD = "24Ch@t_LTM_2025!";
 const STORAGE_KEY = "docs_authenticated";
+const AUTH_EVENT = "ltm-docs-auth-change";
+const DOCS_PASSWORD = process.env.NEXT_PUBLIC_DOCS_PASSWORD;
+
+function subscribeToDocsAuth(onStoreChange: () => void) {
+  if (typeof window === "undefined") return () => {};
+
+  const handleStoreChange = () => onStoreChange();
+  window.addEventListener("storage", handleStoreChange);
+  window.addEventListener(AUTH_EVENT, handleStoreChange);
+
+  return () => {
+    window.removeEventListener("storage", handleStoreChange);
+    window.removeEventListener(AUTH_EVENT, handleStoreChange);
+  };
+}
+
+function getClientSnapshot() {
+  if (typeof window === "undefined") return false;
+  return sessionStorage.getItem(STORAGE_KEY) === "true";
+}
 
 export default function DocsLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Check if already authenticated
-    const auth = sessionStorage.getItem(STORAGE_KEY);
-    if (auth === "true") {
-      setIsAuthenticated(true);
-    }
-    setIsLoading(false);
-  }, []);
+  const isAuthenticated = useSyncExternalStore(
+    subscribeToDocsAuth,
+    getClientSnapshot,
+    () => false
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === CORRECT_PASSWORD) {
+
+    if (!DOCS_PASSWORD) {
+      setError("Documentation password is not configured.");
+      return;
+    }
+
+    if (password === DOCS_PASSWORD) {
       sessionStorage.setItem(STORAGE_KEY, "true");
-      setIsAuthenticated(true);
+      window.dispatchEvent(new Event(AUTH_EVENT));
       setError("");
     } else {
       setError("Incorrect password. Please try again.");
@@ -33,11 +52,11 @@ export default function DocsLoginPage() {
 
   const handleLogout = () => {
     sessionStorage.removeItem(STORAGE_KEY);
-    setIsAuthenticated(false);
+    window.dispatchEvent(new Event(AUTH_EVENT));
     setPassword("");
   };
 
-  if (isLoading) {
+  if (typeof window === "undefined") {
     return (
       <div style={styles.container}>
         <div style={styles.card}>

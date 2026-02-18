@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import { PageHero } from "@/components/common/PageHero";
 import { Section } from "@/components/common/Section";
 import { FadeIn } from "@/components/common/FadeIn";

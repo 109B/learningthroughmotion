@@ -1,4 +1,3 @@
-import { Section } from "@/components/common/Section";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { FadeIn } from "@/components/common/FadeIn";
 import { CONTACT_DETAILS, ENQUIRY_CONTENT } from "@/content/siteContent";

@@ -15,12 +15,23 @@ import {
   PROGRAMMES,
 } from "@/content/siteContent";
 import { getMixedCarouselImages, getHeroVideo } from "@/lib/carousel";
+import { getProgrammeCardImages } from "@/lib/programmeImages";
 
 import { TestimonialsSection } from "@/components/common/TestimonialsSection";
 
 export default async function Home() {
   const carouselImages = await getMixedCarouselImages();
   const heroVideoUrl = await getHeroVideo("hero-homepage");
+  const programmeCardImages = await getProgrammeCardImages();
+
+  // Merge dynamic images with programme data
+  const programmesWithDynamicImages = PROGRAMMES.map((programme) => {
+    const dynamicImage = programmeCardImages.find((img) => img.slug === programme.slug);
+    return {
+      ...programme,
+      heroImage: dynamicImage?.imageUrl || programme.heroImage,
+    };
+  });
 
   return (
     <>
@@ -122,7 +133,7 @@ export default async function Home() {
         intro="Every strand is built around movement, play, and purposeful mentoring so SEND pupils can access the curriculum in ways that feel exciting and achievable."
         tone="accent"
       >
-        <ProgrammeCards programmes={PROGRAMMES} />
+        <ProgrammeCards programmes={programmesWithDynamicImages} />
       </Section>
 
       <Section tone="default">

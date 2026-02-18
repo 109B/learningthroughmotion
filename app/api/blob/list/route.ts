@@ -1,7 +1,12 @@
 import { list } from '@vercel/blob';
 import { NextResponse } from 'next/server';
+import { requireAdminSession } from '@/lib/adminSession';
 
-const IMAGE_SECTIONS = ['homepage', 'maths', 'sensory', 'next-chapter', 'programmes', 'coaches'];
+const IMAGE_SECTIONS = [
+  'homepage', 'maths', 'sensory', 'next-chapter', 'programmes', 'coaches',
+  // Programme card images (homepage cards)
+  'programme-card-maths', 'programme-card-sensory', 'programme-card-next-chapter',
+];
 const VIDEO_SECTIONS = ['hero-homepage'];
 
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.heic', '.heif'];
@@ -13,6 +18,9 @@ function getExtension(pathname: string): string {
 }
 
 export async function GET(): Promise<NextResponse> {
+  const unauthorized = await requireAdminSession();
+  if (unauthorized) return unauthorized;
+
   try {
     // List all blobs
     const { blobs } = await list();

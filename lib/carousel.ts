@@ -34,7 +34,7 @@ async function getBlobImages(context: string) {
       src: blob.url,
       alt: `${getContextLabel(context)} session in action`
     }));
-  } catch (error) {
+  } catch {
     // Silently fail and return empty - will use local images instead
     console.warn('Blob storage unavailable, using local images only');
     return [];
@@ -130,7 +130,7 @@ export async function getHeroVideo(section: string): Promise<string | null> {
     });
 
     return heroVideo?.url || null;
-  } catch (error) {
+  } catch {
     // Silently fail - video section just won't show
     console.warn('Blob storage unavailable for video');
     return null;

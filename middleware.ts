@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   ) {
     const adminSession = request.cookies.get("admin_session");
 
-    if (!adminSession || adminSession.value !== "authenticated") {
+    if (!adminSession) {
       // Redirect to login
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Atkinson_Hyperlegible } from "next/font/google";
+import { Atkinson_Hyperlegible } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";

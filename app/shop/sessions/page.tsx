@@ -1,15 +1,15 @@
-// Learning Through Motion - Browse Sessions Page
+// Learning Through Motion - Weekend Sensory Sessions Page
 
 import type { Metadata } from 'next';
 import { SessionBlockCard } from '@/components/booking/SessionBlockCard';
-import { SESSION_BLOCKS, PROGRAMME_INFO } from '@/content/sessionData';
+import { SESSION_BLOCKS, PROGRAMME_INFO, SESSION_TIMES } from '@/content/sessionData';
 import { Section } from '@/components/common/Section';
 import { FadeIn } from '@/components/common/FadeIn';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Book Sessions',
-  description: 'Browse and book our 7-week session blocks for children with SEND. Small group sizes, expert coaching, and a supportive environment.',
+  title: 'Weekend Sensory Sessions',
+  description: 'Weekend sensory sessions for children aged 4-12 with SEND at Bishop Bridgeman C.E. Primary School. Small group sizes, expert coaching, and a supportive environment.',
 };
 
 export default function SessionsPage() {
@@ -22,9 +22,9 @@ export default function SessionsPage() {
           <FadeIn>
             <div className="hero__text-section">
               <p className="eyebrow">For Parents</p>
-              <h1 className="hero__title">Community Sessions</h1>
+              <h1 className="hero__title">Weekend Sensory Sessions</h1>
               <p className="hero__description">
-                Weekly 7-week programmes for children aged 5-10 with SEND. Small groups of maximum 6 children,
+                Weekly sessions for children aged 4-12 with SEND. Small groups of maximum 6 children,
                 expert coaching, and a supportive environment where every child can thrive.
               </p>
 
@@ -39,7 +39,7 @@ export default function SessionsPage() {
                 </div>
                 <div className="trust-badge">
                   <span className="trust-badge__icon">✓</span>
-                  <span className="trust-badge__text">7 weeks of progressive development</span>
+                  <span className="trust-badge__text">Parent involvement welcomed</span>
                 </div>
               </div>
             </div>
@@ -47,15 +47,42 @@ export default function SessionsPage() {
         </div>
       </section>
 
+      {/* Location & Times Section */}
+      <Section title="Location & Session Times" tone="muted">
+        <FadeIn>
+          <div className="content-boxes content-boxes--2col">
+            <div className="content-box">
+              <h3>
+                <span className="icon" aria-hidden="true">📍</span> Location
+              </h3>
+              <p><strong>Bishop Bridgeman C.E. Primary School</strong></p>
+              <p>Sessions run on weekends throughout the school year in half-termly blocks.</p>
+            </div>
+
+            <div className="content-box">
+              <h3>
+                <span className="icon" aria-hidden="true">🕐</span> Session Times
+              </h3>
+              <p>Choose the time slot that works best for your family:</p>
+              <ul>
+                {SESSION_TIMES.map((time) => (
+                  <li key={time}><strong>{time}</strong></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </FadeIn>
+      </Section>
+
       <Section
         title="Available Session Blocks"
-        intro="Choose from our upcoming 7-week programmes running on Sunday mornings at Bolton Arena."
+        intro="Choose from our upcoming programmes. Sessions run in half-termly blocks."
       >
         {blocks.length === 0 ? (
           <div className="empty-state">
             <h2>No Sessions Available</h2>
             <p>
-              We don't have any sessions available for booking right now.
+              We don&apos;t have any sessions available for booking right now.
               Please check back soon or <Link href="/enquire-now" className="link-arrow">get in touch</Link> to
               express your interest in future sessions.
             </p>
@@ -72,7 +99,7 @@ export default function SessionsPage() {
       </Section>
 
       <Section
-        title="What's Included"
+        title="What&apos;s Included"
         tone="muted"
       >
         <FadeIn>
@@ -100,26 +127,50 @@ export default function SessionsPage() {
 
       <Section
         title="Pricing"
-        intro="Transparent, affordable pricing for quality SEND support"
+        intro="Simple, transparent pricing for quality SEND support"
       >
         <FadeIn>
-          <div className="pricing-breakdown-large">
-            <div className="pricing-item">
-              <div className="pricing-label">Registration Fee</div>
-              <div className="pricing-amount">£{PROGRAMME_INFO.pricing.registration.toFixed(2)}</div>
-              <div className="pricing-note">One-time fee per programme</div>
+          <div className="content-box">
+            <div className="pricing-breakdown-large">
+              <div className="pricing-item">
+                <div className="pricing-label">Registration Fee</div>
+                <div className="pricing-amount">£{PROGRAMME_INFO.pricing.registration.toFixed(2)}</div>
+                <div className="pricing-note">One-time fee (not charged again)</div>
+              </div>
             </div>
-            <div className="pricing-plus">+</div>
-            <div className="pricing-item">
-              <div className="pricing-label">7 Weekly Sessions</div>
-              <div className="pricing-amount">£{(PROGRAMME_INFO.pricing.perSession * 7).toFixed(2)}</div>
-              <div className="pricing-note">£{PROGRAMME_INFO.pricing.perSession.toFixed(2)} per session</div>
+
+            <div style={{ marginTop: '2rem' }}>
+              <h3>Session Pricing Options</h3>
+              <div className="content-boxes content-boxes--2col" style={{ marginTop: '1rem' }}>
+                <div className="content-box content-box--beige">
+                  <h4>Pay As You Attend</h4>
+                  <p className="pricing-amount" style={{ fontSize: '1.5rem', margin: '0.5rem 0' }}>
+                    £{PROGRAMME_INFO.pricing.perSessionPayAsYouGo.toFixed(2)}
+                  </p>
+                  <p style={{ fontSize: '0.9rem', color: '#666' }}>
+                    per session - flexible option with no commitment
+                  </p>
+                </div>
+
+                <div className="content-box content-box--beige" style={{ borderColor: '#16a34a' }}>
+                  <h4>Book the Full Block</h4>
+                  <p className="pricing-amount" style={{ fontSize: '1.5rem', margin: '0.5rem 0', color: '#16a34a' }}>
+                    £{PROGRAMME_INFO.pricing.perSessionFullBlock.toFixed(2)}
+                  </p>
+                  <p style={{ fontSize: '0.9rem', color: '#666' }}>
+                    per session - save £3 per session when booking the full block
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="pricing-equals">=</div>
-            <div className="pricing-item pricing-total">
-              <div className="pricing-label">Total Programme Cost</div>
-              <div className="pricing-amount">£{PROGRAMME_INFO.pricing.total.toFixed(2)}</div>
-              <div className="pricing-note">For 7 weeks of coaching</div>
+
+            <div className="programme-details" style={{ marginTop: '2rem' }}>
+              <h3>Example Costs</h3>
+              <ul>
+                <li><strong>7-week block (pay as you go):</strong> £10 registration + (7 × £15) = £115 total</li>
+                <li><strong>7-week block (full block):</strong> £10 registration + (7 × £12) = £94 total</li>
+                <li><strong>6-week block (full block):</strong> £10 registration + (6 × £12) = £82 total</li>
+              </ul>
             </div>
           </div>
         </FadeIn>
@@ -144,14 +195,14 @@ export default function SessionsPage() {
       <Section tone="default">
         <FadeIn>
           <div className="hero-card">
-            <h3>Ready to book?</h3>
+            <h3>Ready to get started?</h3>
             <p>
-              Choose a session block above and reserve your child's place. Our small group sizes fill up quickly,
-              so we recommend booking early to secure your preferred dates.
+              Contact us to book your child&apos;s place or arrange a taster session. Our small group sizes fill up quickly,
+              so we recommend getting in touch early to secure your preferred time slot.
             </p>
             <div className="hero__actions">
               <Link className="btn" href="/enquire-now">
-                Have questions? Contact us
+                Book a discovery call
               </Link>
             </div>
           </div>

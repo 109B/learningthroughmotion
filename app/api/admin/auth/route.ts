@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { createAdminSessionToken } from "@/lib/adminSession";
 
 export async function POST(request: Request) {
   try {
@@ -16,9 +17,16 @@ export async function POST(request: Request) {
     }
 
     if (password === adminPassword) {
+      const sessionToken = createAdminSessionToken();
+      if (!sessionToken) {
+        return NextResponse.json({
+          error: "Server configuration error - session secret missing"
+        }, { status: 500 });
+      }
+
       // Set a secure cookie for the session
       const cookieStore = await cookies();
-      cookieStore.set("admin_session", "authenticated", {
+      cookieStore.set("admin_session", sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",

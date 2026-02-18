@@ -1,7 +1,6 @@
 import { PageHero } from "@/components/common/PageHero";
 import { Section } from "@/components/common/Section";
 import { FadeIn } from "@/components/common/FadeIn";
-import { VISION_PARAGRAPHS } from "@/content/siteContent";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

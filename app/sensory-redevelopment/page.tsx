@@ -22,7 +22,7 @@ export default async function SensoryRedevelopmentPage() {
         title={programme.title}
         intro={programme.excerpt}
         ctaHref="/enquire-now"
-        ctaLabel="Book a free trial"
+        ctaLabel="Book a discovery call"
         imageSrc={programme.heroImage}
         carouselImages={carouselImages}
       />
@@ -153,15 +153,15 @@ export default async function SensoryRedevelopmentPage() {
         </Section>
       )}
 
-      {/* Book a Free Trial CTA */}
+      {/* Book a Discovery Call CTA */}
       <Section tone="default">
         <FadeIn>
           <div className="hero-card">
-            <h3>Book a Free Trial</h3>
-            {programme.trialInfo && <p>{programme.trialInfo}</p>}
+            <h3>Book a Discovery Call</h3>
+            <p>Ready to learn more? Book a discovery call and we&apos;ll discuss how our sensory sessions can support your child&apos;s development.</p>
             <div className="hero__actions">
               <Link className="btn" href="/enquire-now">
-                Contact us to book a trial
+                Book a discovery call
               </Link>
             </div>
           </div>

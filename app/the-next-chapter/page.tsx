@@ -20,7 +20,7 @@ export default async function TheNextChapterPage() {
         title={programme.title}
         intro={programme.excerpt}
         ctaHref="/enquire-now"
-        ctaLabel="Book a free trial"
+        ctaLabel="Book a discovery call"
         imageSrc={programme.heroImage}
         carouselImages={carouselImages}
       />
@@ -71,15 +71,15 @@ export default async function TheNextChapterPage() {
         </>
       )}
 
-      {/* Book a Free Trial CTA */}
+      {/* Book a Discovery Call CTA */}
       <Section tone="default">
         <FadeIn>
           <div className="hero-card">
-            <h3>Book a Free Trial</h3>
-            {programme.trialInfo && <p>{programme.trialInfo}</p>}
+            <h3>Book a Discovery Call</h3>
+            <p>Ready to support your Year 7 students? Book a discovery call and we&apos;ll discuss how The Next Chapter can help with their transition to secondary school.</p>
             <div className="hero__actions">
               <Link className="btn" href="/enquire-now">
-                Contact us to book a trial
+                Book a discovery call
               </Link>
             </div>
           </div>

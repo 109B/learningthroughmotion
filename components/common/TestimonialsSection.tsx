@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Section } from "@/components/common/Section";
 import { FadeIn } from "@/components/common/FadeIn";
@@ -19,11 +19,9 @@ export function TestimonialsSection({
     title = "What schools say about us",
     showAllLink = false,
 }: TestimonialsSectionProps) {
-    const [displayTestimonials, setDisplayTestimonials] = useState<Testimonial[]>([]);
-    const [isLoaded, setIsLoaded] = useState(false);
     const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
 
-    useEffect(() => {
+    const displayTestimonials = useMemo(() => {
         let items = [...TESTIMONIALS];
 
         if (randomize) {
@@ -38,8 +36,7 @@ export function TestimonialsSection({
             items = items.slice(0, limit);
         }
 
-        setDisplayTestimonials(items);
-        setIsLoaded(true);
+        return items;
     }, [limit, randomize]);
 
     useEffect(() => {
@@ -60,23 +57,6 @@ export function TestimonialsSection({
             document.body.style.overflow = 'unset';
         };
     }, [selectedTestimonial]);
-
-    // Initial render / loading state to prevent hydration mismatch
-    if (!isLoaded) {
-        return (
-            <Section tone="muted" title={title}>
-                <div className="testimonials-grid">
-                    {[...Array(limit || 3)].map((_, i) => (
-                        <div key={i} className="testimonial-card testimonial-card--loading">
-                            <div className="skeleton-text" />
-                            <div className="skeleton-text" />
-                            <div className="skeleton-text short" />
-                        </div>
-                    ))}
-                </div>
-            </Section>
-        );
-    }
 
     return (
         <Section tone="muted" title={title}>

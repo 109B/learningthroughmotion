@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 type Piece = {
   id: number;
@@ -58,11 +58,7 @@ export function JigsawGame() {
 
   const currentPuzzle = PUZZLES[level];
 
-  useEffect(() => {
-    initializeGame();
-  }, [level]);
-
-  const initializeGame = () => {
+  const initializeGame = useCallback(() => {
     // Create shuffled pieces
     const newPieces: Piece[] = currentPuzzle.pieces.map((piece, index) => ({
       id: index,
@@ -81,7 +77,11 @@ export function JigsawGame() {
     setPieces(newPieces);
     setSelectedPiece(null);
     setCompleted(false);
-  };
+  }, [currentPuzzle]);
+
+  useEffect(() => {
+    initializeGame();
+  }, [initializeGame]);
 
   const handlePieceClick = (pieceId: number) => {
     if (selectedPiece === null) {

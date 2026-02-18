@@ -9,9 +9,20 @@ import {
 } from "@/content/siteContent";
 
 import { getCarouselImages } from "@/lib/carousel";
+import { getProgrammeCardImages } from "@/lib/programmeImages";
 
 export default async function OurProgrammesPage() {
   const carouselImages = await getCarouselImages("programmes");
+  const programmeCardImages = await getProgrammeCardImages();
+
+  // Merge dynamic images with programme data
+  const programmesWithDynamicImages = PROGRAMMES.map((programme) => {
+    const dynamicImage = programmeCardImages.find((img) => img.slug === programme.slug);
+    return {
+      ...programme,
+      heroImage: dynamicImage?.imageUrl || programme.heroImage,
+    };
+  });
 
   return (
     <>
@@ -41,7 +52,7 @@ export default async function OurProgrammesPage() {
 
       <Section tone="accent">
         <FadeIn>
-          <ProgrammeCards programmes={PROGRAMMES} />
+          <ProgrammeCards programmes={programmesWithDynamicImages} />
         </FadeIn>
       </Section>
     </>

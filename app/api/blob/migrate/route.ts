@@ -2,10 +2,14 @@ import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { requireAdminSession } from '@/lib/adminSession';
 
 const SECTIONS = ['homepage', 'maths', 'sensory', 'next-chapter', 'programmes', 'coaches'];
 
 export async function POST(): Promise<NextResponse> {
+  const unauthorized = await requireAdminSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const results: { section: string; file: string; url: string }[] = [];
     const errors: { section: string; file: string; error: string }[] = [];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 type Card = {
   id: number;
@@ -47,11 +47,7 @@ export function MemoryCardGame() {
   const currentSet = CARD_SETS[level];
   const totalPairs = currentSet.length;
 
-  useEffect(() => {
-    initializeGame();
-  }, [level]);
-
-  const initializeGame = () => {
+  const initializeGame = useCallback(() => {
     // Create pairs of cards
     const cardPairs = currentSet.flatMap((item, index) => [
       { ...item, id: index * 2, isFlipped: false, isMatched: false },
@@ -70,7 +66,11 @@ export function MemoryCardGame() {
     setMatches(0);
     setCompleted(false);
     setCanFlip(true);
-  };
+  }, [currentSet]);
+
+  useEffect(() => {
+    initializeGame();
+  }, [initializeGame]);
 
   const handleCardClick = (cardId: number) => {
     if (!canFlip) return;

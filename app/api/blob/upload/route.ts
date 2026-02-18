@@ -1,7 +1,11 @@
 import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
 import { NextResponse } from 'next/server';
+import { requireAdminSession } from '@/lib/adminSession';
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const unauthorized = await requireAdminSession();
+  if (unauthorized) return unauthorized;
+
   console.log("Blob upload API called");
   console.log("BLOB_READ_WRITE_TOKEN exists:", !!process.env.BLOB_READ_WRITE_TOKEN);
 
@@ -12,7 +16,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     const jsonResponse = await handleUpload({
       body,
       request,
-      onBeforeGenerateToken: async (pathname) => {
+      onBeforeGenerateToken: async () => {
         // Validate file type before generating upload token
         const allowedTypes = [
           'image/jpeg',

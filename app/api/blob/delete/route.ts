@@ -1,7 +1,11 @@
 import { del } from '@vercel/blob';
 import { NextResponse } from 'next/server';
+import { requireAdminSession } from '@/lib/adminSession';
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const unauthorized = await requireAdminSession();
+  if (unauthorized) return unauthorized;
+
   try {
     const { url } = await request.json();
 
