@@ -50,6 +50,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Sensory Redevelopment", href: "/sensory-redevelopment" },
   { label: "The Next Chapter", href: "/the-next-chapter" },
   { label: "Our Programmes", href: "/our-programmes" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Our Vision", href: "/our-vision" },
   { label: "Our Coaches", href: "/our-coaches" },
   { label: "Enquire now", href: "/enquire-now" },
@@ -62,7 +63,15 @@ export const PROGRAMME_PAGES: NavLink[] = [
 ];
 
 export const PRIMARY_NAV: NavLink[] = [
-  { label: "Home", href: "/" },
+  {
+    label: "Home",
+    href: "/",
+    children: [
+      { label: "Gallery", href: "/gallery" },
+      { label: "Testimonials", href: "/testimonials" },
+      { label: "Our Coaches", href: "/our-coaches" },
+    ],
+  },
   {
     label: "Programmes",
     href: "/our-programmes",
@@ -70,8 +79,6 @@ export const PRIMARY_NAV: NavLink[] = [
   },
   { label: "Weekend Sessions", href: "/shop/sessions" },
   { label: "Our Vision", href: "/our-vision" },
-  { label: "Testimonials", href: "/testimonials" },
-  { label: "Our Coaches", href: "/our-coaches" },
 ];
 
 export const PROGRAMME_SHORTCUTS = PROGRAMME_PAGES;

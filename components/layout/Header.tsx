@@ -79,8 +79,14 @@ export function Header() {
               />
             </div>
             <div className="brand__copy">
-              <span className="brand__name">Learning Through Motion</span>
-              <span className="brand__tagline">Growing Towards Independence</span>
+              <span className="brand__name">
+                <span>Learning</span>
+                <span>Through Motion</span>
+              </span>
+              <span className="brand__tagline">
+                <span>Growing Towards</span>
+                <span>Independence</span>
+              </span>
             </div>
           </Link>
 
@@ -119,14 +125,15 @@ export function Header() {
                   >
                     {hasChildren ? (
                       <>
-                        <button
+                        <Link
+                          href={item.href}
                           className={`nav-link nav-link--dropdown ${isActive ? "is-active" : ""}`}
-                          aria-expanded={isSubmenuOpen}
+                          onClick={handleNavigate}
                           aria-haspopup="true"
                         >
                           {item.label}
                           <span className="dropdown-arrow" aria-hidden="true">▾</span>
-                        </button>
+                        </Link>
                         <ul className={`dropdown-menu ${isSubmenuOpen ? "is-open" : ""}`}>
                           {item.children?.map((child) => (
                             <li key={child.href} className="dropdown-item">

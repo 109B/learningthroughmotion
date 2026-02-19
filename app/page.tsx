@@ -69,10 +69,12 @@ export default async function Home() {
             </div>
 
             <div className="hero__visual">
-              <ImageCarousel
-                images={carouselImages}
-                interval={5000}
-              />
+              <div className="home-carousel-wrap">
+                <ImageCarousel
+                  images={carouselImages}
+                  interval={5000}
+                />
+              </div>
             </div>
           </div>
 

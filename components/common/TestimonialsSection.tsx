@@ -13,6 +13,15 @@ type TestimonialsSectionProps = {
     showAllLink?: boolean;
 };
 
+function stableHash(value: string) {
+    let hash = 2166136261;
+    for (let i = 0; i < value.length; i++) {
+        hash ^= value.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+    }
+    return hash >>> 0;
+}
+
 export function TestimonialsSection({
     limit,
     randomize = false,
@@ -25,11 +34,14 @@ export function TestimonialsSection({
         let items = [...TESTIMONIALS];
 
         if (randomize) {
-            // Fisher-Yates shuffle
-            for (let i = items.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [items[i], items[j]] = [items[j], items[i]];
-            }
+            // Deterministic ordering avoids hydration mismatch between SSR and client.
+            items = items
+                .map((item, index) => ({
+                    item,
+                    order: stableHash(`${item.author}|${item.quote}|${index}`),
+                }))
+                .sort((a, b) => a.order - b.order)
+                .map(({ item }) => item);
         }
 
         if (limit) {

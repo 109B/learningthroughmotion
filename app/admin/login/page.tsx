@@ -24,7 +24,7 @@ export default function AdminLoginPage() {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        router.push("/admin/images");
+        router.push("/admin");
         router.refresh();
       } else {
         setError(data.error || "Invalid password");
@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
       }}>
         <h1 style={{ marginBottom: "10px", color: "#1e3a5f" }}>Admin Login</h1>
         <p style={{ color: "#666", marginBottom: "30px", fontSize: "14px" }}>
-          Enter the admin password to manage site media.
+          Enter the admin password to access the delivery handbook and roadmap.
         </p>
 
         <form onSubmit={handleSubmit}>

@@ -1,138 +1,159 @@
-// Learning Through Motion - Carousel Image Helper
-import fs from 'fs';
-import path from 'path';
-import { list } from '@vercel/blob';
 
-// Helper to add timeout to promises
-function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
-  return Promise.race([
-    promise,
-    new Promise<T>((_, reject) =>
-      setTimeout(() => reject(new Error('Timeout')), timeoutMs)
-    )
-  ]);
+type CloudinaryResource = {
+  asset_id: string;
+  secure_url: string;
+  created_at?: string;
+  asset_folder?: string;
+  resource_type: "image" | "video";
+};
+
+type CloudinarySearchResponse = {
+  resources: CloudinaryResource[];
+};
+
+type CarouselImage = {
+  src: string;
+  alt: string;
+};
+
+const CONTEXT_LABELS: Record<string, string> = {
+  homepage: "Learning Through Motion",
+  maths: "Maths Through Sport",
+  sensory: "Sensory Sessions",
+  "next-chapter": "The Next Chapter",
+  coaches: "Our Coaches",
+  programmes: "Our Programmes",
+};
+
+function withTransform(url: string, transform: string) {
+  return url.replace("/upload/", `/upload/${transform}/`);
 }
 
-// Get images from Vercel Blob storage for a specific section
-async function getBlobImages(context: string) {
-  try {
-    // Only fetch from blob if token is available
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
-      return [];
-    }
-
-    // Add 5 second timeout to prevent hanging when rate limited
-    const { blobs } = await withTimeout(list(), 5000);
-
-    // Filter blobs that match this context/section
-    const sectionBlobs = blobs.filter(blob => {
-      const parts = blob.pathname.split('/');
-      return parts[0] === context;
-    });
-
-    return sectionBlobs.map(blob => ({
-      src: blob.url,
-      alt: `${getContextLabel(context)} session in action`
-    }));
-  } catch {
-    // Silently fail and return empty - will use local images instead
-    console.warn('Blob storage unavailable, using local images only');
-    return [];
-  }
+function parseFolders(value?: string) {
+  if (!value) return [];
+  return value
+    .split(",")
+    .map((folder) => folder.trim())
+    .filter(Boolean);
 }
 
-// Get images from local filesystem
-function getLocalImages(context: string) {
-  const carouselDir = path.join(process.cwd(), 'public', 'images', 'carousel', context);
+function getCloudinaryConfig() {
+  const defaultFolders = parseFolders(process.env.CLOUDINARY_GALLERY_FOLDER);
+  const maxResults = Number(process.env.CLOUDINARY_GALLERY_MAX_RESULTS || "40");
 
-  // Check if directory exists
-  if (!fs.existsSync(carouselDir)) {
-    return [];
-  }
+  return {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    apiKey: process.env.CLOUDINARY_API_KEY,
+    apiSecret: process.env.CLOUDINARY_API_SECRET,
+    defaultFolders,
+    maxResults,
+  };
+}
 
-  // Read all files from the directory
-  const files = fs.readdirSync(carouselDir);
+function getFoldersForContext(context: string) {
+  const perContextEnv = process.env[`CLOUDINARY_CAROUSEL_FOLDERS_${context.toUpperCase().replace(/-/g, "_")}`];
+  if (perContextEnv) return parseFolders(perContextEnv);
 
-  // Filter for image files (excluding .DS_Store and comingsoon.png placeholder)
-  const imageFiles = files.filter(file => {
-    const ext = path.extname(file).toLowerCase();
-    return ['.jpg', '.jpeg', '.png', '.webp'].includes(ext) &&
-           !file.includes('comingsoon') &&
-           !file.startsWith('.');
+  const defaultFolders = parseFolders(process.env.CLOUDINARY_GALLERY_FOLDER);
+  const defaultsByContext: Record<string, string[]> = {
+    maths: ["Maths Through Sport"],
+    sensory: ["Sensory Development", "Weekend Sensory"],
+    homepage: defaultFolders,
+    programmes: defaultFolders,
+    "next-chapter": defaultFolders,
+    coaches: defaultFolders,
+  };
+
+  return defaultsByContext[context] || defaultFolders;
+}
+
+function getVideoFolders() {
+  const explicit = parseFolders(process.env.CLOUDINARY_VIDEO_FOLDERS);
+  if (explicit.length > 0) return explicit;
+  return parseFolders(process.env.CLOUDINARY_GALLERY_FOLDER);
+}
+
+function buildFolderExpression(folders: string[]) {
+  if (folders.length === 0) return "";
+  const parts = folders.map((folder) => {
+    const escaped = folder.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+    return `asset_folder="${escaped}"`;
+  });
+  return ` AND (${parts.join(" OR ")})`;
+}
+
+async function searchCloudinaryResources(
+  resourceType: "image" | "video",
+  folders: string[],
+  maxResults: number
+) {
+  const config = getCloudinaryConfig();
+  if (!config.cloudName || !config.apiKey || !config.apiSecret) return [];
+  if (folders.length === 0) return [];
+
+  const endpoint = `https://api.cloudinary.com/v1_1/${config.cloudName}/resources/search`;
+  const authHeader = `Basic ${Buffer.from(`${config.apiKey}:${config.apiSecret}`).toString("base64")}`;
+  const expression = `resource_type:${resourceType}${buildFolderExpression(folders)}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      Authorization: authHeader,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      expression,
+      max_results: maxResults,
+      sort_by: [{ created_at: "desc" }],
+    }),
+    next: { revalidate: 300 },
   });
 
-  // Sort files alphabetically for consistent order
-  imageFiles.sort();
+  if (!response.ok) {
+    console.warn(`Cloudinary ${resourceType} query failed (${response.status})`);
+    return [];
+  }
 
-  // Map to carousel image objects
-  return imageFiles.map(file => ({
-    src: `/images/carousel/${context}/${file}`,
-    alt: `${getContextLabel(context)} session in action`
-  }));
+  const data = (await response.json()) as CloudinarySearchResponse;
+  return data.resources || [];
 }
 
 export async function getCarouselImages(context: string) {
-  // Get images from both local filesystem and blob storage
-  const localImages = getLocalImages(context);
-  const blobImages = await getBlobImages(context);
+  const cloudinaryFolders = getFoldersForContext(context);
+  const config = getCloudinaryConfig();
 
-  // Combine both sources (blob images first, then local)
-  return [...blobImages, ...localImages];
+  const cloudinaryResources = await searchCloudinaryResources(
+    "image",
+    cloudinaryFolders,
+    Math.max(config.maxResults, 24)
+  );
+
+  const cloudinaryImages: CarouselImage[] = cloudinaryResources.map((resource) => ({
+    src: withTransform(resource.secure_url, "f_auto,q_auto,c_fill,w_1200,h_800"),
+    alt: `${CONTEXT_LABELS[context] || context} session in action`,
+  }));
+
+  return cloudinaryImages;
 }
 
-// Get a mixed selection from all programme carousels for homepage
-// Includes dedicated homepage images plus images from programme pages
 export async function getMixedCarouselImages() {
-  const sections = ['homepage', 'maths', 'sensory', 'next-chapter'];
-  const allImages: { src: string; alt: string }[] = [];
+  const contexts = ["homepage", "maths", "sensory", "next-chapter"];
+  const allImages: CarouselImage[] = [];
 
-  for (const section of sections) {
-    const images = await getCarouselImages(section);
+  for (const context of contexts) {
+    const images = await getCarouselImages(context);
     allImages.push(...images);
   }
 
-  // Shuffle the array to get a random mix
-  const shuffled = allImages.sort(() => Math.random() - 0.5);
-
-  return shuffled;
+  return allImages.sort(() => Math.random() - 0.5);
 }
 
-function getContextLabel(context: string): string {
-  const labels: Record<string, string> = {
-    'homepage': 'Learning Through Motion',
-    'maths': 'Maths Through Sport',
-    'sensory': 'Sensory Sessions',
-    'next-chapter': 'The Next Chapter',
-    'coaches': 'Our Coaches',
-    'programmes': 'Our Programmes',
-  };
-
-  return labels[context] || context;
-}
-
-// Get hero video URL for a specific section
 export async function getHeroVideo(section: string): Promise<string | null> {
-  try {
-    if (!process.env.BLOB_READ_WRITE_TOKEN) {
-      return null;
-    }
+  void section;
+  const folders = getVideoFolders();
+  const resources = await searchCloudinaryResources("video", folders, 20);
+  if (resources.length === 0) return null;
 
-    // Add 5 second timeout to prevent hanging when rate limited
-    const { blobs } = await withTimeout(list(), 5000);
-
-    // Find video in the hero section
-    const videoExtensions = ['.mp4', '.mov', '.webm'];
-    const heroVideo = blobs.find(blob => {
-      const parts = blob.pathname.split('/');
-      if (parts[0] !== section) return false;
-      const ext = blob.pathname.slice(blob.pathname.lastIndexOf('.')).toLowerCase();
-      return videoExtensions.includes(ext);
-    });
-
-    return heroVideo?.url || null;
-  } catch {
-    // Silently fail - video section just won't show
-    console.warn('Blob storage unavailable for video');
-    return null;
-  }
+  const newest = resources.sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""))[0];
+  return withTransform(newest.secure_url, "q_auto,vc_auto,w_1280");
 }

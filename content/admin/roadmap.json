@@ -1,0 +1,99 @@
+{
+  "updatedAt": "2026-02-19T22:15:00.000Z",
+  "version": 2,
+  "workItems": [
+    {
+      "id": "EPIC-3M-001",
+      "type": "epic",
+      "title": "Stabilise and harden core platform",
+      "description": "Complete Cloudinary migration and lock in predictable publishing workflows.",
+      "state": "active",
+      "horizon": "3m",
+      "tags": ["cloudinary", "stability"],
+      "acceptance": [
+        "Gallery and page media are fully cloud-managed",
+        "Admin documentation and update pathways are stable"
+      ],
+      "updatedAt": "2026-02-19T22:15:00.000Z"
+    },
+    {
+      "id": "FEAT-3M-001",
+      "type": "feature",
+      "parentId": "EPIC-3M-001",
+      "title": "Cloudinary folder governance",
+      "description": "Standardise folder naming and media ownership conventions for client self-service.",
+      "state": "active",
+      "horizon": "3m",
+      "assignee": "Engineering",
+      "tags": ["ops", "media"],
+      "acceptance": [
+        "Folder map is documented",
+        "Media retrieval works consistently across surfaces"
+      ],
+      "targetDate": "2026-05-31T00:00:00.000Z",
+      "updatedAt": "2026-02-19T22:15:00.000Z"
+    },
+    {
+      "id": "STORY-3M-001",
+      "type": "story",
+      "parentId": "FEAT-3M-001",
+      "title": "As admin, I can update gallery folders without code edits",
+      "description": "Expose folder mapping in environment-driven config and verify fallback handling.",
+      "state": "active",
+      "horizon": "3m",
+      "assignee": "Engineering",
+      "tags": ["admin", "gallery"],
+      "acceptance": [
+        "Folder names can be changed through config",
+        "Invalid folder errors are clearly surfaced"
+      ],
+      "targetDate": "2026-04-15T00:00:00.000Z",
+      "updatedAt": "2026-02-19T22:15:00.000Z"
+    },
+    {
+      "id": "TASK-3M-001",
+      "type": "task",
+      "parentId": "STORY-3M-001",
+      "title": "Validate all existing Cloudinary folder mappings",
+      "description": "Run checklist against Home, Programmes, Gallery, and video sections.",
+      "state": "new",
+      "horizon": "3m",
+      "assignee": "Project Lead",
+      "tags": ["qa"],
+      "acceptance": [
+        "Checklist completed",
+        "Any missing media sources logged"
+      ],
+      "targetDate": "2026-03-20T00:00:00.000Z",
+      "updatedAt": "2026-02-19T22:15:00.000Z"
+    },
+    {
+      "id": "EPIC-6M-001",
+      "type": "epic",
+      "title": "Operational maturity and role-based control",
+      "description": "Introduce clearer contributor/approver workflows and visibility.",
+      "state": "new",
+      "horizon": "6m",
+      "tags": ["governance", "admin"],
+      "acceptance": [
+        "Contribution workflow defined",
+        "Roadmap reporting supports client reviews"
+      ],
+      "updatedAt": "2026-02-19T22:15:00.000Z"
+    },
+    {
+      "id": "EPIC-12M-001",
+      "type": "epic",
+      "title": "Scale delivery with automation and reporting",
+      "description": "Increase quality and speed with automation around media and content QA.",
+      "state": "new",
+      "horizon": "12m",
+      "tags": ["automation", "analytics"],
+      "acceptance": [
+        "Automated checks run regularly",
+        "Monthly trend reporting is available"
+      ],
+      "updatedAt": "2026-02-19T22:15:00.000Z"
+    }
+  ]
+}

@@ -1,60 +1,120 @@
-// Learning Through Motion - Programme Card Images Helper
-// Fetches programme card images from Vercel Blob storage, with fallback to static images
-
-import { list } from "@vercel/blob";
 import { PROGRAMMES } from "@/content/siteContent";
+
+type CloudinaryResource = {
+  asset_id: string;
+  secure_url: string;
+  created_at?: string;
+  asset_folder?: string;
+};
+
+type CloudinarySearchResponse = {
+  resources: CloudinaryResource[];
+};
 
 type ProgrammeCardImage = {
   slug: string;
   imageUrl: string;
 };
 
-// Map programme slugs to their blob storage section IDs
-const PROGRAMME_BLOB_MAP: Record<string, string> = {
-  "maths-through-sport": "programme-card-maths",
-  "sensory-redevelopment": "programme-card-sensory",
-  "the-next-chapter": "programme-card-next-chapter",
+type ProgrammeCardConfig = {
+  slug: string;
+  folder: string;
 };
 
-/**
- * Get programme card images, checking blob storage first and falling back to static images
- */
-export async function getProgrammeCardImages(): Promise<ProgrammeCardImage[]> {
-  const blobImages: Record<string, string> = {};
+const PROGRAMME_PLACEHOLDER = "/images/comingsoon.png";
 
-  // Try to get images from blob storage
-  try {
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
-      const { blobs } = await list();
+function getConfig(): ProgrammeCardConfig[] {
+  return [
+    {
+      slug: "maths-through-sport",
+      folder: process.env.CLOUDINARY_PROGRAMME_CARD_FOLDER_MATHS || "HOME_CARD_MATHS",
+    },
+    {
+      slug: "sensory-redevelopment",
+      folder: process.env.CLOUDINARY_PROGRAMME_CARD_FOLDER_SENSORY || "HOME_CARD_SENSORY",
+    },
+    {
+      slug: "the-next-chapter",
+      folder: process.env.CLOUDINARY_PROGRAMME_CARD_FOLDER_NEXT_CHAPTER || "HOME_CARD_NEXT_CHAPTER",
+    },
+  ];
+}
 
-      // Find images for each programme card section
-      for (const [slug, sectionId] of Object.entries(PROGRAMME_BLOB_MAP)) {
-        const sectionBlobs = blobs.filter(
-          (blob) =>
-            blob.pathname.startsWith(`${sectionId}/`) &&
-            /\.(jpg|jpeg|png|webp|heic|heif)$/i.test(blob.pathname)
-        );
+function withTransform(url: string, transform: string) {
+  return url.replace("/upload/", `/upload/${transform}/`);
+}
 
-        // Use the most recently uploaded image for each section
-        if (sectionBlobs.length > 0) {
-          // Sort by upload date descending (most recent first)
-          sectionBlobs.sort((a, b) => {
-            const dateA = a.uploadedAt ? new Date(a.uploadedAt).getTime() : 0;
-            const dateB = b.uploadedAt ? new Date(b.uploadedAt).getTime() : 0;
-            return dateB - dateA;
-          });
-          blobImages[slug] = sectionBlobs[0].url;
-        }
-      }
-    }
-  } catch (error) {
-    console.error("Failed to fetch programme card images from blob storage:", error);
-    // Continue with fallback to static images
+function buildFolderExpression(folders: string[]) {
+  if (folders.length === 0) return "";
+  const parts = folders.map((folder) => {
+    const escaped = folder.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+    return `asset_folder="${escaped}"`;
+  });
+  return `(${parts.join(" OR ")})`;
+}
+
+async function fetchProgrammeCardImages() {
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+  const apiKey = process.env.CLOUDINARY_API_KEY;
+  const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+  if (!cloudName || !apiKey || !apiSecret) return [];
+
+  const config = getConfig().filter((item) => item.folder.trim().length > 0);
+  if (config.length === 0) return [];
+
+  const endpoint = `https://api.cloudinary.com/v1_1/${cloudName}/resources/search`;
+  const authHeader = `Basic ${Buffer.from(`${apiKey}:${apiSecret}`).toString("base64")}`;
+  const expression = `resource_type:image AND ${buildFolderExpression(config.map((item) => item.folder))}`;
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      Authorization: authHeader,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      expression,
+      max_results: 100,
+      sort_by: [{ created_at: "desc" }],
+    }),
+    next: { revalidate: 300 },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Cloudinary programme card query failed (${response.status})`);
   }
 
-  // Build the result array with blob images or fallback to static
+  const data = (await response.json()) as CloudinarySearchResponse;
+  return data.resources || [];
+}
+
+export async function getProgrammeCardImages(): Promise<ProgrammeCardImage[]> {
+  const mappedImages: Record<string, string> = {};
+  const config = getConfig();
+
+  try {
+    const resources = await fetchProgrammeCardImages();
+
+    for (const { slug, folder } of config) {
+      const match = resources.find((resource) => resource.asset_folder === folder);
+      if (!match) continue;
+
+      mappedImages[slug] = withTransform(
+        match.secure_url,
+        "f_auto,q_auto,c_fill,w_900,h_700"
+      );
+    }
+  } catch (error) {
+    console.error("Failed to load programme card images from Cloudinary:", error);
+  }
+
   return PROGRAMMES.map((programme) => ({
     slug: programme.slug,
-    imageUrl: blobImages[programme.slug] || programme.heroImage || "",
+    imageUrl:
+      mappedImages[programme.slug] ||
+      programme.heroImage ||
+      PROGRAMME_PLACEHOLDER ||
+      "",
   }));
 }
