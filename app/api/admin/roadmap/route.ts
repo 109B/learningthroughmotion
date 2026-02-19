@@ -2,7 +2,12 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 import { requireAdminSession } from "@/lib/adminSession";
-import { buildDefaultRoadmap, normalizeRoadmapPayload, type RoadmapFile } from "@/lib/adminRoadmap";
+import {
+  buildDefaultRoadmap,
+  normalizeRoadmapPayload,
+  type RoadmapFile,
+  type WorkItemHorizon,
+} from "@/lib/adminRoadmap";
 
 export const runtime = "nodejs";
 
@@ -48,7 +53,11 @@ function migrateLegacyRoadmap(input: LegacyRoadmap): RoadmapFile {
 
   const workItems = milestones.flatMap((milestone, index) => {
     const phase = (milestone.phase || "").toLowerCase();
-    const horizon = phase.includes("3") ? "3m" : phase.includes("6") ? "6m" : "12m";
+    const horizon: WorkItemHorizon = phase.includes("3")
+      ? "3m"
+      : phase.includes("6")
+        ? "6m"
+        : "12m";
     const epicId = `EPIC-${horizon.toUpperCase()}-${String(index + 1).padStart(3, "0")}`;
 
     const epic = {
