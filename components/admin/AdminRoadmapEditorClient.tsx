@@ -228,27 +228,31 @@ export default function AdminRoadmapEditorPage() {
 
   return (
     <main style={{ padding: "32px 24px", maxWidth: "1200px", margin: "0 auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px", marginBottom: "16px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px", marginBottom: "16px", background: "linear-gradient(135deg, #1e3a5f 0%, #2b578f 100%)", padding: "18px", borderRadius: "14px", color: "#fff" }}>
         <div>
-          <p style={{ margin: 0, fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase", color: "#1e3a5f", fontWeight: 700 }}>
+          <p style={{ margin: 0, fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", fontWeight: 700 }}>
             Admin Roadmap
           </p>
-          <h1 style={{ margin: "8px 0 0 0" }}>ADO Work Items (3 / 6 / 12 Months)</h1>
-          <p style={{ margin: "6px 0 0 0", color: "#666" }}>
+          <h1 style={{ margin: "8px 0 0 0", color: "#fff" }}>ADO Work Items (3 / 6 / 12 Months)</h1>
+          <p style={{ margin: "6px 0 0 0", color: "rgba(255,255,255,0.9)" }}>
             Epics, Features, Stories, and Tasks with parent linkage and status tracking.
           </p>
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
-          <Link href="/admin" style={{ padding: "8px 12px", border: "1px solid #ddd", borderRadius: "8px" }}>
+          <Link href="/admin" style={{ padding: "10px 12px", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "10px", color: "#fff" }}>
             Back to Admin
           </Link>
-          <button onClick={handleSave} style={{ padding: "8px 12px", border: "1px solid #1e3a5f", background: "#1e3a5f", color: "#fff", borderRadius: "8px", cursor: "pointer" }}>
+          <button onClick={handleSave} style={{ padding: "10px 14px", border: "1px solid #16a34a", background: "#16a34a", color: "#fff", borderRadius: "10px", cursor: "pointer", fontWeight: 700 }}>
             Save
           </button>
         </div>
       </div>
 
-      {status && <p style={{ marginTop: 0, color: "#1e3a5f" }}>{status}</p>}
+      {status && (
+        <p style={{ marginTop: 0, marginBottom: "14px", color: "#1e3a5f", background: "#eef4fc", border: "1px solid #c7d6ea", borderRadius: "10px", padding: "10px 12px" }}>
+          {status}
+        </p>
+      )}
 
       <div style={{ display: "grid", gap: "14px" }}>
         {horizonOrder.map((horizon) => {

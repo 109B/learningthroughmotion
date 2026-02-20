@@ -172,32 +172,36 @@ export default function AdminSessionsEditorPage() {
 
   return (
     <main style={{ padding: "32px 24px", maxWidth: "1200px", margin: "0 auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap", marginBottom: "16px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap", marginBottom: "16px", background: "linear-gradient(135deg, #1e3a5f 0%, #2b578f 100%)", padding: "18px", borderRadius: "14px", color: "#fff" }}>
         <div>
-          <p style={{ margin: 0, fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase", color: "#1e3a5f", fontWeight: 700 }}>
+          <p style={{ margin: 0, fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", fontWeight: 700 }}>
             Admin Sessions
           </p>
-          <h1 style={{ margin: "8px 0 0 0" }}>Weekend Session Blocks</h1>
-          <p style={{ margin: "6px 0 0 0", color: "#666" }}>
+          <h1 style={{ margin: "8px 0 0 0", color: "#fff" }}>Weekend Session Blocks</h1>
+          <p style={{ margin: "6px 0 0 0", color: "rgba(255,255,255,0.9)" }}>
             Update dates, prices, and status shown on the booking page.
           </p>
         </div>
         <div style={{ display: "flex", gap: "8px" }}>
-          <Link href="/admin" style={{ padding: "8px 12px", border: "1px solid #ddd", borderRadius: "8px" }}>
+          <Link href="/admin" style={{ padding: "10px 12px", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "10px", color: "#fff" }}>
             Back to Admin
           </Link>
-          <button onClick={addBlock} style={{ padding: "8px 12px", border: "1px solid #ddd", borderRadius: "8px", background: "#fff", cursor: "pointer" }}>
+          <button onClick={addBlock} style={{ padding: "10px 12px", border: "1px solid #fff", borderRadius: "10px", background: "#fff", cursor: "pointer", color: "#1e3a5f", fontWeight: 700 }}>
             Add Block
           </button>
-          <button onClick={handleSave} style={{ padding: "8px 12px", border: "1px solid #1e3a5f", borderRadius: "8px", background: "#1e3a5f", color: "#fff", cursor: "pointer" }}>
+          <button onClick={handleSave} style={{ padding: "10px 14px", border: "1px solid #16a34a", borderRadius: "10px", background: "#16a34a", color: "#fff", cursor: "pointer", fontWeight: 700 }}>
             Save
           </button>
         </div>
       </div>
 
-      {status && <p style={{ marginTop: 0, color: "#1e3a5f" }}>{status}</p>}
+      {status && (
+        <p style={{ marginTop: 0, marginBottom: "14px", color: "#1e3a5f", background: "#eef4fc", border: "1px solid #c7d6ea", borderRadius: "10px", padding: "10px 12px" }}>
+          {status}
+        </p>
+      )}
 
-      <section style={{ border: "1px solid #e6e6e6", borderRadius: "12px", background: "#fff", padding: "14px", marginBottom: "14px" }}>
+      <section style={{ border: "1px solid #d7e2ee", borderRadius: "12px", background: "#f7fbff", padding: "14px", marginBottom: "14px" }}>
         <h2 style={{ marginTop: 0 }}>Session Times</h2>
         <input
           type="text"
@@ -215,7 +219,13 @@ export default function AdminSessionsEditorPage() {
 
       <div style={{ display: "grid", gap: "12px" }}>
         {data.blocks.map((block) => (
-          <article key={block.id} style={{ border: "1px solid #e6e6e6", borderRadius: "12px", background: "#fff", padding: "14px" }}>
+          <article key={block.id} style={{ border: "1px solid #dce5ef", borderRadius: "12px", background: "#fff", padding: "14px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px", gap: "8px", flexWrap: "wrap" }}>
+              <strong style={{ color: "#1e3a5f" }}>{block.name}</strong>
+              <span style={{ fontSize: "12px", background: block.status === "published" ? "#dcfce7" : "#f1f5f9", color: block.status === "published" ? "#166534" : "#475569", padding: "4px 8px", borderRadius: "999px", textTransform: "uppercase", fontWeight: 700 }}>
+                {block.status}
+              </span>
+            </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "10px" }}>
               <label>
                 Name
@@ -293,13 +303,13 @@ export default function AdminSessionsEditorPage() {
             <div style={{ marginTop: "10px" }}>
               <button
                 onClick={() => duplicateBlock(block)}
-                style={{ padding: "6px 10px", border: "1px solid #1e3a5f", borderRadius: "6px", background: "#fff", color: "#1e3a5f", cursor: "pointer", marginRight: "8px" }}
+                style={{ padding: "8px 10px", border: "1px solid #1e3a5f", borderRadius: "8px", background: "#eef4fc", color: "#1e3a5f", cursor: "pointer", marginRight: "8px", fontWeight: 600 }}
               >
                 Duplicate Block
               </button>
               <button
                 onClick={() => removeBlock(block.id)}
-                style={{ padding: "6px 10px", border: "1px solid #ef4444", borderRadius: "6px", background: "#fff", color: "#ef4444", cursor: "pointer" }}
+                style={{ padding: "8px 10px", border: "1px solid #ef4444", borderRadius: "8px", background: "#fff5f5", color: "#ef4444", cursor: "pointer", fontWeight: 600 }}
               >
                 Remove Block
               </button>

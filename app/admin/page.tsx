@@ -48,29 +48,91 @@ export default async function AdminDocsPortalPage() {
 
   return (
     <main style={{ padding: "32px 24px", maxWidth: "1280px", margin: "0 auto" }}>
-      <div style={{ marginBottom: "24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+      <div
+        style={{
+          marginBottom: "20px",
+          borderRadius: "16px",
+          padding: "20px",
+          background: "linear-gradient(135deg, #1e3a5f 0%, #2b578f 100%)",
+          color: "#fff",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "12px",
+          flexWrap: "wrap",
+          boxShadow: "0 10px 24px rgba(30, 58, 95, 0.25)",
+        }}
+      >
         <div>
-          <p style={{ margin: 0, fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase", color: "#1e3a5f", fontWeight: 700 }}>
+          <p style={{ margin: 0, fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", fontWeight: 700 }}>
             Admin Docs
           </p>
-          <h1 style={{ margin: "8px 0 0 0", fontSize: "2rem" }}>Learning Through Motion Delivery Handbook</h1>
+          <h1 style={{ margin: "8px 0 0 0", fontSize: "2rem", color: "#fff" }}>Learning Through Motion Delivery Handbook</h1>
+          <p style={{ margin: "8px 0 0 0", color: "rgba(255,255,255,0.9)" }}>
+            Choose a task below to update live content quickly.
+          </p>
         </div>
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          <Link href="/admin/sessions" style={{ padding: "8px 14px", border: "1px solid #1e3a5f", borderRadius: "8px", background: "#1e3a5f", color: "#fff", fontWeight: 600 }}>
+          <Link href="/admin/sessions" style={{ padding: "10px 14px", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "10px", background: "#fff", color: "#1e3a5f", fontWeight: 700 }}>
             Edit Weekend Session Blocks
           </Link>
-          <Link href="/admin/login" style={{ padding: "8px 14px", border: "1px solid #d7d7d7", borderRadius: "8px" }}>
+          <Link href="/admin/login" style={{ padding: "10px 14px", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "10px", color: "#fff" }}>
             Back to Login
           </Link>
         </div>
       </div>
 
+      <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "12px", marginBottom: "20px" }}>
+        <Link
+          href="/admin/sessions"
+          style={{
+            border: "1px solid #c7d6ea",
+            borderRadius: "12px",
+            background: "#eef4fc",
+            padding: "14px",
+            display: "grid",
+            gap: "4px",
+          }}
+        >
+          <strong style={{ color: "#1e3a5f" }}>Update Session Dates</strong>
+          <span style={{ color: "#466384", fontSize: "0.92rem" }}>Change blocks, dates, and status for /shop/sessions</span>
+        </Link>
+        <Link
+          href="/admin/roadmap"
+          style={{
+            border: "1px solid #c8e4d8",
+            borderRadius: "12px",
+            background: "#edf9f3",
+            padding: "14px",
+            display: "grid",
+            gap: "4px",
+          }}
+        >
+          <strong style={{ color: "#14532d" }}>Edit Roadmap</strong>
+          <span style={{ color: "#2c6e46", fontSize: "0.92rem" }}>Maintain the 3 / 6 / 12 month delivery view</span>
+        </Link>
+        <a
+          href="#cloudinary-guard"
+          style={{
+            border: "1px solid #e7d3b2",
+            borderRadius: "12px",
+            background: "#fff6eb",
+            padding: "14px",
+            display: "grid",
+            gap: "4px",
+          }}
+        >
+          <strong style={{ color: "#7a4c10" }}>Check Credit Guard</strong>
+          <span style={{ color: "#8f6530", fontSize: "0.92rem" }}>Review Cloudinary low-media mode status</span>
+        </a>
+      </section>
+
       <div style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: "20px" }}>
-        <aside style={{ position: "sticky", top: "110px", alignSelf: "start", border: "1px solid #e6e6e6", borderRadius: "12px", background: "#fff", padding: "14px" }}>
+        <aside style={{ position: "sticky", top: "110px", alignSelf: "start", border: "1px solid #d7e2ee", borderRadius: "12px", background: "#f7fbff", padding: "14px" }}>
           <p style={{ margin: "0 0 10px 0", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.06em", color: "#666" }}>
             Navigation
           </p>
-          <ul style={{ margin: 0, paddingLeft: "18px", display: "grid", gap: "8px" }}>
+          <ul style={{ margin: 0, paddingLeft: "18px", display: "grid", gap: "10px" }}>
             {sections.map((section) => (
               <li key={section.id}>
                 <a href={`#${section.id}`}>{section.title}</a>
@@ -90,10 +152,11 @@ export default async function AdminDocsPortalPage() {
 
         <section style={{ display: "grid", gap: "16px" }}>
           <article
+            id="cloudinary-guard"
             style={{
               border: "1px solid #e6e6e6",
               borderRadius: "12px",
-              background: "#fff",
+              background: budgetStatus.exceeded ? "#fff6eb" : "#effaf4",
               padding: "18px 20px",
             }}
           >
