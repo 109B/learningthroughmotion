@@ -179,9 +179,6 @@ export function normalizeSessionsPayload(input: unknown): AdminSessionsFile | nu
 export async function readAdminSessionsFile() {
   const redisKey = getSessionsStoreKey();
   const redisResult = await upstashCommand(["GET", redisKey]);
-  if (isUpstashConfigured() && redisResult === null && process.env.NODE_ENV === "production") {
-    throw new Error("Upstash is configured but unavailable for reading session blocks.");
-  }
   if (typeof redisResult === "string" && redisResult.trim().length > 0) {
     try {
       const parsed = JSON.parse(redisResult) as unknown;
