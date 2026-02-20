@@ -34,6 +34,46 @@ export type AdminSessionsFile = {
 
 const sessionsFilePath = path.join(process.cwd(), "content", "admin", "sessions.json");
 const VALID_STATUSES: SessionStatus[] = ["draft", "published", "full", "completed"];
+const DEFAULT_SESSIONS_STORE_KEY = "admin:sessions:v1";
+
+function getUpstashConfig() {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+  return { url, token };
+}
+
+function isUpstashConfigured() {
+  return Boolean(process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN);
+}
+
+function buildUpstashCommandUrl(baseUrl: string, command: string[]) {
+  const cleanBase = baseUrl.replace(/\/+$/, "");
+  const encoded = command.map((part) => encodeURIComponent(part));
+  return `${cleanBase}/${encoded.join("/")}`;
+}
+
+async function upstashCommand(command: string[]) {
+  const config = getUpstashConfig();
+  if (!config) return null;
+
+  try {
+    const response = await fetch(buildUpstashCommandUrl(config.url, command), {
+      headers: { Authorization: `Bearer ${config.token}` },
+      cache: "no-store",
+    });
+
+    if (!response.ok) return null;
+    const json = (await response.json()) as { result?: unknown };
+    return json.result;
+  } catch {
+    return null;
+  }
+}
+
+function getSessionsStoreKey() {
+  return process.env.ADMIN_SESSIONS_STORE_KEY || DEFAULT_SESSIONS_STORE_KEY;
+}
 
 function toIsoDate(value: Date | string | null | undefined) {
   if (!value) return null;
@@ -137,6 +177,21 @@ export function normalizeSessionsPayload(input: unknown): AdminSessionsFile | nu
 }
 
 export async function readAdminSessionsFile() {
+  const redisKey = getSessionsStoreKey();
+  const redisResult = await upstashCommand(["GET", redisKey]);
+  if (isUpstashConfigured() && redisResult === null && process.env.NODE_ENV === "production") {
+    throw new Error("Upstash is configured but unavailable for reading session blocks.");
+  }
+  if (typeof redisResult === "string" && redisResult.trim().length > 0) {
+    try {
+      const parsed = JSON.parse(redisResult) as unknown;
+      const normalized = normalizeSessionsPayload(parsed);
+      if (normalized) return normalized;
+    } catch {
+      // Continue with filesystem fallback.
+    }
+  }
+
   try {
     const content = await fs.readFile(sessionsFilePath, "utf8");
     const parsed = JSON.parse(content) as unknown;
@@ -152,6 +207,13 @@ export async function readAdminSessionsFile() {
 }
 
 export async function writeAdminSessionsFile(file: AdminSessionsFile) {
+  const redisKey = getSessionsStoreKey();
+  const redisSaved = await upstashCommand(["SET", redisKey, JSON.stringify(file)]);
+  if (redisSaved !== null) return;
+  if (isUpstashConfigured() && process.env.NODE_ENV === "production") {
+    throw new Error("Upstash is configured but unavailable for saving session blocks.");
+  }
+
   await fs.writeFile(sessionsFilePath, `${JSON.stringify(file, null, 2)}\n`, "utf8");
 }
 

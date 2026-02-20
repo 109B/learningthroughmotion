@@ -51,6 +51,20 @@ export default async function SessionsPage() {
                   <span className="trust-badge__text">Parent involvement welcomed</span>
                 </div>
               </div>
+
+              <div className="hero__actions">
+                <a className="btn" href="#available-blocks">
+                  View Live Blocks
+                </a>
+                {featuredBlock && (
+                  <Link
+                    className="btn btn--ghost"
+                    href={`/enquire-now?topic=session-booking&block=${encodeURIComponent(featuredBlock.name)}`}
+                  >
+                    Buy Next Block
+                  </Link>
+                )}
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -67,6 +81,9 @@ export default async function SessionsPage() {
               <h3>Quick Booking</h3>
               {featuredBlock ? (
                 <>
+                  <p className="eyebrow" style={{ marginBottom: "0.25rem" }}>
+                    Next Available
+                  </p>
                   <p style={{ marginBottom: "0.5rem" }}>
                     <strong>{featuredBlock.name}</strong>
                   </p>

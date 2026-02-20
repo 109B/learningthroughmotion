@@ -55,9 +55,14 @@ export default async function AdminDocsPortalPage() {
           </p>
           <h1 style={{ margin: "8px 0 0 0", fontSize: "2rem" }}>Learning Through Motion Delivery Handbook</h1>
         </div>
-        <Link href="/admin/login" style={{ padding: "8px 14px", border: "1px solid #d7d7d7", borderRadius: "8px" }}>
-          Back to Login
-        </Link>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          <Link href="/admin/sessions" style={{ padding: "8px 14px", border: "1px solid #1e3a5f", borderRadius: "8px", background: "#1e3a5f", color: "#fff", fontWeight: 600 }}>
+            Edit Weekend Session Blocks
+          </Link>
+          <Link href="/admin/login" style={{ padding: "8px 14px", border: "1px solid #d7d7d7", borderRadius: "8px" }}>
+            Back to Login
+          </Link>
+        </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "260px 1fr", gap: "20px" }}>
