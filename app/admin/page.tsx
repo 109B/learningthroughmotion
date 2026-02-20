@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import roadmap from "@/content/admin/roadmap.json";
 import { formatHorizonLabel, type AdoWorkItem, type WorkItemHorizon, type WorkItemType } from "@/lib/adminRoadmap";
+import { getCloudinaryBudgetStatus } from "@/lib/cloudinaryBudget";
+import { hasValidAdminSession } from "@/lib/adminSession";
 
 const sections = [
   {
@@ -36,7 +39,13 @@ function getItems(horizon: WorkItemHorizon, type: WorkItemType) {
   return (roadmap.workItems as AdoWorkItem[]).filter((item) => item.horizon === horizon && item.type === type);
 }
 
-export default function AdminDocsPortalPage() {
+export default async function AdminDocsPortalPage() {
+  if (!(await hasValidAdminSession())) {
+    redirect("/admin/login");
+  }
+
+  const budgetStatus = await getCloudinaryBudgetStatus();
+
   return (
     <main style={{ padding: "32px 24px", maxWidth: "1280px", margin: "0 auto" }}>
       <div style={{ marginBottom: "24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
@@ -68,10 +77,33 @@ export default function AdminDocsPortalPage() {
             <li>
               <Link href="/admin/roadmap">Edit ADO Board</Link>
             </li>
+            <li>
+              <Link href="/admin/sessions">Edit Session Dates</Link>
+            </li>
           </ul>
         </aside>
 
         <section style={{ display: "grid", gap: "16px" }}>
+          <article
+            style={{
+              border: "1px solid #e6e6e6",
+              borderRadius: "12px",
+              background: "#fff",
+              padding: "18px 20px",
+            }}
+          >
+            <h2 style={{ marginTop: 0, marginBottom: "8px", fontSize: "1.35rem" }}>
+              Cloudinary Credit Guard
+            </h2>
+            <p style={{ marginTop: 0, marginBottom: "8px", color: "#444" }}>
+              Mode:{" "}
+              <strong style={{ color: budgetStatus.exceeded ? "#9a3412" : "#166534" }}>
+                {budgetStatus.exceeded ? "Low-media mode active" : "Normal mode"}
+              </strong>
+            </p>
+            <p style={{ margin: 0, color: "#666" }}>{budgetStatus.reason}</p>
+          </article>
+
           {sections.map((section) => (
             <article id={section.id} key={section.id} style={{ border: "1px solid #e6e6e6", borderRadius: "12px", background: "#fff", padding: "18px 20px" }}>
               <h2 style={{ marginTop: 0, marginBottom: "8px", fontSize: "1.35rem" }}>{section.title}</h2>

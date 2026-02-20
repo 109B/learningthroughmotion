@@ -1,3 +1,5 @@
+import { getCloudinaryBudgetStatus } from "@/lib/cloudinaryBudget";
+
 type CloudinaryResource = {
   asset_id: string;
   public_id: string;
@@ -131,6 +133,20 @@ function toVideo(resource: CloudinaryResource): CloudinaryGalleryVideo {
 
 export async function getCloudinaryGalleryMedia(): Promise<CloudinaryGalleryResult> {
   const config = getCloudinaryConfig();
+  const budgetStatus = await getCloudinaryBudgetStatus();
+
+  if (budgetStatus.exceeded) {
+    return {
+      folders: config.folders,
+      folderGalleries: config.folders.map((folder) => ({
+        folder,
+        images: [],
+        videos: [],
+      })),
+      error: "Gallery is temporarily running in low-media mode to preserve monthly credits.",
+      warnings: [budgetStatus.reason],
+    };
+  }
 
   if (!config.cloudName || !config.apiKey || !config.apiSecret) {
     return {

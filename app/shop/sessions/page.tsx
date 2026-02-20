@@ -2,18 +2,27 @@
 
 import type { Metadata } from 'next';
 import { SessionBlockCard } from '@/components/booking/SessionBlockCard';
-import { SESSION_BLOCKS, PROGRAMME_INFO, SESSION_TIMES } from '@/content/sessionData';
+import { PROGRAMME_INFO } from '@/content/sessionData';
 import { Section } from '@/components/common/Section';
 import { FadeIn } from '@/components/common/FadeIn';
 import Link from 'next/link';
+import { getLiveSessionData } from '@/lib/sessionBlocks';
 
 export const metadata: Metadata = {
   title: 'Weekend Sensory Sessions',
   description: 'Weekend sensory sessions for children aged 4-12 with SEND at Bishop Bridgeman C.E. Primary School. Small group sizes, expert coaching, and a supportive environment.',
 };
 
-export default function SessionsPage() {
-  const blocks = SESSION_BLOCKS;
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" }).format(date);
+
+export default async function SessionsPage() {
+  const { blocks, sessionTimes } = await getLiveSessionData();
+  const visibleBlocks = blocks
+    .filter((block) => block.status !== "draft" && block.status !== "completed")
+    .sort((a, b) => a.start_date.getTime() - b.start_date.getTime());
+
+  const featuredBlock = visibleBlocks.find((block) => block.status === "published") || visibleBlocks[0];
 
   return (
     <>
@@ -47,25 +56,46 @@ export default function SessionsPage() {
         </div>
       </section>
 
-      {/* Location & Times Section */}
-      <Section title="Location & Session Times" tone="muted">
+      <Section
+        tone="default"
+        title="Book a Session Block"
+        intro="Our upcoming blocks are below. Choose a block now and we will confirm your place quickly."
+      >
         <FadeIn>
           <div className="content-boxes content-boxes--2col">
+            <div className="content-box">
+              <h3>Quick Booking</h3>
+              {featuredBlock ? (
+                <>
+                  <p style={{ marginBottom: "0.5rem" }}>
+                    <strong>{featuredBlock.name}</strong>
+                  </p>
+                  <p style={{ marginBottom: "0.75rem" }}>
+                    {formatDate(featuredBlock.start_date)}{featuredBlock.end_date ? ` - ${formatDate(featuredBlock.end_date)}` : ""}
+                  </p>
+                  <div className="hero__actions">
+                    <a className="btn" href="#available-blocks">View All Blocks</a>
+                    <Link className="btn btn--ghost" href={`/enquire-now?topic=session-booking&block=${encodeURIComponent(featuredBlock.name)}`}>
+                      Buy This Block
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <p>No live blocks are currently available. Please enquire and we will contact you with upcoming dates.</p>
+              )}
+            </div>
+
             <div className="content-box">
               <h3>
                 <span className="icon" aria-hidden="true">📍</span> Location
               </h3>
               <p><strong>Bishop Bridgeman C.E. Primary School</strong></p>
-              <p>Sessions run on weekends throughout the school year in half-termly blocks.</p>
-            </div>
-
-            <div className="content-box">
               <h3>
                 <span className="icon" aria-hidden="true">🕐</span> Session Times
               </h3>
               <p>Choose the time slot that works best for your family:</p>
               <ul>
-                {SESSION_TIMES.map((time) => (
+                {sessionTimes.map((time) => (
                   <li key={time}><strong>{time}</strong></li>
                 ))}
               </ul>
@@ -75,10 +105,11 @@ export default function SessionsPage() {
       </Section>
 
       <Section
+        id="available-blocks"
         title="Available Session Blocks"
         intro="Choose from our upcoming programmes. Sessions run in half-termly blocks."
       >
-        {blocks.length === 0 ? (
+        {visibleBlocks.length === 0 ? (
           <div className="empty-state">
             <h2>No Sessions Available</h2>
             <p>
@@ -90,7 +121,7 @@ export default function SessionsPage() {
         ) : (
           <FadeIn>
             <div className="cards-grid">
-              {blocks.map((block) => (
+              {visibleBlocks.map((block) => (
                 <SessionBlockCard key={block.id} block={block} />
               ))}
             </div>

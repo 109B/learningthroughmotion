@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { createHmac, timingSafeEqual } from "crypto";
 
-const SESSION_COOKIE_NAME = "admin_session";
+export const SESSION_COOKIE_NAME = "admin_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 24;
 
 type SessionPayload = {
@@ -10,7 +10,11 @@ type SessionPayload = {
 };
 
 function getSessionSecret() {
-  return process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD || "";
+  const secret = process.env.ADMIN_SESSION_SECRET || "";
+  if (process.env.NODE_ENV === "production") {
+    return secret;
+  }
+  return secret || process.env.ADMIN_PASSWORD || "";
 }
 
 function sign(data: string, secret: string) {
@@ -30,7 +34,7 @@ export function createAdminSessionToken() {
   return `${encodedPayload}.${signature}`;
 }
 
-function verifyAdminSessionToken(token: string) {
+export function verifyAdminSessionToken(token: string) {
   const secret = getSessionSecret();
   if (!secret) return false;
 
@@ -57,11 +61,14 @@ function verifyAdminSessionToken(token: string) {
   }
 }
 
-export async function requireAdminSession() {
+export async function hasValidAdminSession() {
   const cookieStore = await cookies();
   const adminSession = cookieStore.get(SESSION_COOKIE_NAME);
+  return Boolean(adminSession && verifyAdminSessionToken(adminSession.value));
+}
 
-  if (!adminSession || !verifyAdminSessionToken(adminSession.value)) {
+export async function requireAdminSession() {
+  if (!(await hasValidAdminSession())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

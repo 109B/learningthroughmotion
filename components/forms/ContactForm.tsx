@@ -5,9 +5,15 @@ import { CONTACT_DETAILS } from "@/content/siteContent";
 
 type ContactFormProps = {
   showNextSteps?: boolean;
+  initialMessage?: string;
+  initialSubject?: string;
 };
 
-export function ContactForm({ showNextSteps = false }: ContactFormProps) {
+export function ContactForm({
+  showNextSteps = false,
+  initialMessage = "",
+  initialSubject,
+}: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -29,9 +35,11 @@ export function ContactForm({ showNextSteps = false }: ContactFormProps) {
       .filter(Boolean)
       .join("%0D%0A");
 
-    window.location.href = `mailto:${CONTACT_DETAILS.email}?subject=New enquiry from ${encodeURIComponent(
-      name || "Learning Through Motion site"
-    )}&body=${body}`;
+    const subject =
+      initialSubject ||
+      `New enquiry from ${name || "Learning Through Motion site"}`;
+
+    window.location.href = `mailto:${CONTACT_DETAILS.email}?subject=${encodeURIComponent(subject)}&body=${body}`;
     form.reset();
     setStatus("sent");
   };
@@ -54,7 +62,7 @@ export function ContactForm({ showNextSteps = false }: ContactFormProps) {
           </label>
           <label>
             Message
-            <textarea name="message" rows={5} required />
+            <textarea name="message" rows={5} defaultValue={initialMessage} required />
           </label>
           <button type="submit" className="btn">
             Send enquiry

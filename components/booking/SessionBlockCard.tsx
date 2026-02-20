@@ -27,6 +27,7 @@ export function SessionBlockCard({ block }: Props) {
   // Calculate costs for both pricing options
   const payAsYouGoTotal = block.registration_fee + (15 * block.total_sessions);
   const fullBlockTotal = block.registration_fee + (12 * block.total_sessions);
+  const enquiryHref = `/enquire-now?topic=session-booking&block=${encodeURIComponent(block.name)}`;
 
   return (
     <article className="programme-card session-card">
@@ -76,11 +77,11 @@ export function SessionBlockCard({ block }: Props) {
             </button>
           ) : isAvailable ? (
             <Link
-              href="/enquire-now"
+              href={enquiryHref}
               className="btn"
-              aria-label={`Enquire about ${block.name}`}
+              aria-label={`Book ${block.name}`}
             >
-              Book a Discovery Call
+              Buy This Session Block
             </Link>
           ) : (
             <button className="btn" disabled aria-label={`${block.name} is not available`}>

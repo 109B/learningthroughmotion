@@ -946,15 +946,28 @@ main {
   background: #ffffff;
 }
 
+.hero--home {
+  padding: clamp(2rem, 4.5vw, 3rem) 0 clamp(2.25rem, 5vw, 3.25rem);
+}
+
+.hero--home .hero__content {
+  gap: clamp(2rem, 4vw, 3.25rem);
+  margin-bottom: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.hero--home .carousel {
+  margin-top: 1.5rem;
+}
+
 /* Video Showcase Section */
 .video-showcase {
   max-width: 900px;
   margin: 0 auto;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  cursor: pointer;
   position: relative;
   background: #000;
+  overflow: hidden;
 }
 
 .video-showcase--portrait {
@@ -965,24 +978,28 @@ main {
   opacity: 1;
 }
 
+.video-showcase:focus-within .video-showcase__expand {
+  opacity: 1;
+}
+
 .video-showcase__expand {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  right: 12px;
+  bottom: 12px;
   background: rgba(0, 0, 0, 0.7);
   color: white;
-  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 10px 14px;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   opacity: 0;
   transition: opacity 0.2s ease;
-  pointer-events: none;
   display: flex;
   align-items: center;
   gap: 8px;
   z-index: 5;
+  cursor: pointer;
 }
 
 .video-showcase__video {

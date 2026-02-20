@@ -119,6 +119,7 @@ export function MediaModal({
             autoPlay
             muted
             playsInline
+            preload="metadata"
             className="media-modal__video"
           />
         ) : (

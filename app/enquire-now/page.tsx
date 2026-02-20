@@ -9,7 +9,33 @@ export const metadata: Metadata = {
     "Get in touch with Learning Through Motion to discuss how our SEND programmes can support your school.",
 };
 
-export default function EnquireNowPage() {
+type EnquireNowPageProps = {
+  searchParams?: {
+    topic?: string;
+    block?: string;
+  };
+};
+
+function getPrefillContent(searchParams?: EnquireNowPageProps["searchParams"]) {
+  const topic = searchParams?.topic || "";
+  const block = searchParams?.block || "";
+
+  if (topic === "session-booking" && block) {
+    return {
+      subject: `Weekend Session Block Booking - ${block}`,
+      message: `I would like to book the "${block}" weekend session block.\n\nChild age:\nPreferred session time:\nAny additional support needs:\n`,
+    };
+  }
+
+  return {
+    subject: "",
+    message: "",
+  };
+}
+
+export default function EnquireNowPage({ searchParams }: EnquireNowPageProps) {
+  const prefill = getPrefillContent(searchParams);
+
   return (
     <>
       <section className="hero hero--compact">
@@ -45,7 +71,11 @@ export default function EnquireNowPage() {
                   <h2>Send us a message</h2>
                   <p>Fill out the form and we'll get back to you within 24 hours.</p>
                 </div>
-                <ContactForm showNextSteps={true} />
+                <ContactForm
+                  showNextSteps={true}
+                  initialMessage={prefill.message}
+                  initialSubject={prefill.subject}
+                />
               </div>
             </FadeIn>
           </div>

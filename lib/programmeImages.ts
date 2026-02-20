@@ -1,4 +1,5 @@
 import { PROGRAMMES } from "@/content/siteContent";
+import { isCloudinaryBudgetExceeded } from "@/lib/cloudinaryBudget";
 
 type CloudinaryResource = {
   asset_id: string;
@@ -54,6 +55,8 @@ function buildFolderExpression(folders: string[]) {
 }
 
 async function fetchProgrammeCardImages() {
+  if (await isCloudinaryBudgetExceeded()) return [];
+
   const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
   const apiSecret = process.env.CLOUDINARY_API_SECRET;

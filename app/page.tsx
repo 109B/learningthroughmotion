@@ -19,8 +19,17 @@ import { getProgrammeCardImages } from "@/lib/programmeImages";
 
 import { TestimonialsSection } from "@/components/common/TestimonialsSection";
 
+const HOMEPAGE_CAROUSEL_FALLBACKS = [
+  { src: "/images/heromain.jpg", alt: "Learning Through Motion in session" },
+  { src: "/images/heromain.png", alt: "Learning Through Motion activities" },
+  { src: "/images/comingsoon.png", alt: "Learning Through Motion programme preview" },
+];
+
 export default async function Home() {
   const carouselImages = await getMixedCarouselImages();
+  const homeCarouselImages = (carouselImages.length > 0
+    ? carouselImages
+    : HOMEPAGE_CAROUSEL_FALLBACKS).slice(0, 8);
   const heroVideoUrl = await getHeroVideo("hero-homepage");
   const programmeCardImages = await getProgrammeCardImages();
 
@@ -35,7 +44,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="hero hero--modern">
+      <section className="hero hero--modern hero--home">
         <div className="shell">
           <div className="hero__content">
             <div className="hero__text-section">
@@ -71,7 +80,7 @@ export default async function Home() {
             <div className="hero__visual">
               <div className="home-carousel-wrap">
                 <ImageCarousel
-                  images={carouselImages}
+                  images={homeCarouselImages}
                   interval={5000}
                 />
               </div>
@@ -158,7 +167,7 @@ export default async function Home() {
       {heroVideoUrl && (
         <Section tone="default" title="See Us In Action" eyebrow="Our Sessions">
           <FadeIn>
-            <VideoShowcase src={heroVideoUrl} />
+            <VideoShowcase src={heroVideoUrl} autoPlay={false} />
           </FadeIn>
         </Section>
       )}

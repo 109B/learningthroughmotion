@@ -1,4 +1,6 @@
 
+import { isCloudinaryBudgetExceeded } from "@/lib/cloudinaryBudget";
+
 type CloudinaryResource = {
   asset_id: string;
   secure_url: string;
@@ -24,6 +26,9 @@ const CONTEXT_LABELS: Record<string, string> = {
   coaches: "Our Coaches",
   programmes: "Our Programmes",
 };
+
+const CAROUSEL_IMAGE_TRANSFORM = "f_auto,q_auto:eco,c_fill,w_960,h_640";
+const HERO_VIDEO_TRANSFORM = "q_auto:eco,vc_auto,w_960";
 
 function withTransform(url: string, transform: string) {
   return url.replace("/upload/", `/upload/${transform}/`);
@@ -119,6 +124,10 @@ async function searchCloudinaryResources(
 }
 
 export async function getCarouselImages(context: string) {
+  if (await isCloudinaryBudgetExceeded()) {
+    return [];
+  }
+
   const cloudinaryFolders = getFoldersForContext(context);
   const config = getCloudinaryConfig();
 
@@ -129,7 +138,7 @@ export async function getCarouselImages(context: string) {
   );
 
   const cloudinaryImages: CarouselImage[] = cloudinaryResources.map((resource) => ({
-    src: withTransform(resource.secure_url, "f_auto,q_auto,c_fill,w_1200,h_800"),
+    src: withTransform(resource.secure_url, CAROUSEL_IMAGE_TRANSFORM),
     alt: `${CONTEXT_LABELS[context] || context} session in action`,
   }));
 
@@ -137,23 +146,38 @@ export async function getCarouselImages(context: string) {
 }
 
 export async function getMixedCarouselImages() {
-  const contexts = ["homepage", "maths", "sensory", "next-chapter"];
-  const allImages: CarouselImage[] = [];
+  // Prefer the dedicated homepage folders to avoid unnecessary fetches.
+  const homepageImages = await getCarouselImages("homepage");
+  if (homepageImages.length > 0) {
+    const uniqueHomepageImages = homepageImages.filter(
+      (image, index, collection) => collection.findIndex((candidate) => candidate.src === image.src) === index
+    );
+    return uniqueHomepageImages.sort(() => Math.random() - 0.5);
+  }
 
-  for (const context of contexts) {
+  const fallbackContexts = ["maths", "sensory", "next-chapter"];
+  const allImages: CarouselImage[] = [];
+  for (const context of fallbackContexts) {
     const images = await getCarouselImages(context);
     allImages.push(...images);
   }
 
-  return allImages.sort(() => Math.random() - 0.5);
+  const uniqueFallbackImages = allImages.filter(
+    (image, index, collection) => collection.findIndex((candidate) => candidate.src === image.src) === index
+  );
+  return uniqueFallbackImages.sort(() => Math.random() - 0.5);
 }
 
 export async function getHeroVideo(section: string): Promise<string | null> {
   void section;
+  if (await isCloudinaryBudgetExceeded()) {
+    return null;
+  }
+
   const folders = getVideoFolders();
   const resources = await searchCloudinaryResources("video", folders, 20);
   if (resources.length === 0) return null;
 
   const newest = resources.sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""))[0];
-  return withTransform(newest.secure_url, "q_auto,vc_auto,w_1280");
+  return withTransform(newest.secure_url, HERO_VIDEO_TRANSFORM);
 }
