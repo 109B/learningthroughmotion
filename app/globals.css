@@ -1771,6 +1771,8 @@ body.modal-open {
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: 1.25rem;
   flex: 1;
 }
@@ -1786,14 +1788,14 @@ body.modal-open {
 }
 
 .programme-card__content p {
-  flex: 1;
+  flex: 0 0 auto;
   line-height: 1.65;
   margin: 0;
 }
 
 .programme-card__footer {
-  margin-top: auto;
-  padding-top: 1rem;
+  margin-top: 0.5rem;
+  padding-top: 0;
 }
 
 /* Session Cards */
