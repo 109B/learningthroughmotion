@@ -76,6 +76,9 @@ export default async function AdminDocsPortalPage() {
           <Link href="/admin/sessions" style={{ padding: "10px 14px", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "10px", background: "#fff", color: "#1e3a5f", fontWeight: 700 }}>
             Edit Weekend Session Blocks
           </Link>
+          <Link href="/admin/site-images" style={{ padding: "10px 14px", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "10px", background: "rgba(255,255,255,0.16)", color: "#fff", fontWeight: 700 }}>
+            Edit Site Images
+          </Link>
           <Link href="/admin/login" style={{ padding: "10px 14px", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "10px", color: "#fff" }}>
             Back to Login
           </Link>
@@ -125,6 +128,20 @@ export default async function AdminDocsPortalPage() {
           <strong style={{ color: "#4c1d95" }}>Edit Programme Images</strong>
           <span style={{ color: "#5b34a8", fontSize: "0.92rem" }}>Change card images shown in programme boxes</span>
         </Link>
+        <Link
+          href="/admin/site-images"
+          style={{
+            border: "1px solid #cdd8f6",
+            borderRadius: "12px",
+            background: "#eef2ff",
+            padding: "14px",
+            display: "grid",
+            gap: "4px",
+          }}
+        >
+          <strong style={{ color: "#3730a3" }}>Edit Site Images</strong>
+          <span style={{ color: "#4338ca", fontSize: "0.92rem" }}>Update logo, home fallback, and shared image URLs</span>
+        </Link>
         <a
           href="#cloudinary-guard"
           style={{
@@ -163,6 +180,9 @@ export default async function AdminDocsPortalPage() {
             </li>
             <li>
               <Link href="/admin/programmes">Edit Programme Images</Link>
+            </li>
+            <li>
+              <Link href="/admin/site-images">Edit Site Images</Link>
             </li>
           </ul>
         </aside>

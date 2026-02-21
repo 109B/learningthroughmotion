@@ -3,15 +3,16 @@ import { Section } from "@/components/common/Section";
 import { ProgrammeCards } from "@/components/common/ProgrammeCards";
 import { FadeIn } from "@/components/common/FadeIn";
 import {
-  HOME_GALLERY,
   PROGRAMMES,
   PROGRAMMES_PAGE_COPY,
 } from "@/content/siteContent";
 
 import { getCarouselImages } from "@/lib/carousel";
 import { getProgrammeCardImages } from "@/lib/programmeImages";
+import { getResolvedSiteImages } from "@/lib/siteImageOverrides";
 
 export default async function OurProgrammesPage() {
+  const siteImages = await getResolvedSiteImages();
   const carouselImages = await getCarouselImages("programmes");
   const programmeCardImages = await getProgrammeCardImages();
 
@@ -30,8 +31,8 @@ export default async function OurProgrammesPage() {
         eyebrow="Overview"
         title="Programmes that grow confidence through movement"
         intro="Every plan is shaped around your timetable, cohort, and EHCP outcomes. We blend maths, mentoring, and sensory redevelopment to keep learners switched on."
-        imageSrc={HOME_GALLERY[0]?.src}
-        imageAlt={HOME_GALLERY[0]?.alt}
+        imageSrc={siteImages.home_gallery_1}
+        imageAlt="Learning Through Motion programme image"
         ctaHref="/enquire-now"
         ctaLabel="Discuss availability"
         carouselImages={carouselImages}

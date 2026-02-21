@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-export function LogoBadge() {
+type LogoBadgeProps = {
+  iconSrc?: string;
+};
+
+export function LogoBadge({ iconSrc = "/images/109-logo-circle1.png" }: LogoBadgeProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -33,7 +37,7 @@ export function LogoBadge() {
       >
         <span className="logo-badge__text">Built by 1Zero9</span>
         <img
-          src="/images/109-logo-circle1.png"
+          src={iconSrc}
           alt="1zero9 logo"
           width="24"
           height="24"

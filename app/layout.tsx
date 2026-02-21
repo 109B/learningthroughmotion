@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SkipNav } from "@/components/layout/SkipNav";
 import { StickyEnquiry } from "@/components/common/StickyEnquiry";
 import { LogoBadge } from "@/components/common/LogoBadge";
+import { getResolvedSiteImages } from "@/lib/siteImageOverrides";
 
 // Using Atkinson Hyperlegible for headings too for better accessibility
 // Serif fonts like Playfair can be challenging for dyslexic readers
@@ -38,11 +39,13 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteImages = await getResolvedSiteImages();
+
   return (
     <html lang="en">
       {/*
@@ -57,11 +60,16 @@ export default function RootLayout({
       */}
       <body className={`${heading.variable} ${body.variable}`}>
         <SkipNav />
-        <Header />
+        <Header
+          images={{
+            logoDefault: siteImages.header_logo_default || "/images/logo.png",
+            logoHover: siteImages.header_logo_hover || "/images/smile.png",
+          }}
+        />
         <main id="main-content">{children}</main>
         <Footer />
         <StickyEnquiry />
-        <LogoBadge />
+        <LogoBadge iconSrc={siteImages.brand_badge_logo || "/images/109-logo-circle1.png"} />
       </body>
     </html>
   );

@@ -16,20 +16,30 @@ import {
 } from "@/content/siteContent";
 import { getMixedCarouselImages, getHeroVideo } from "@/lib/carousel";
 import { getProgrammeCardImages } from "@/lib/programmeImages";
+import { getResolvedSiteImages } from "@/lib/siteImageOverrides";
 
 import { TestimonialsSection } from "@/components/common/TestimonialsSection";
 
-const HOMEPAGE_CAROUSEL_FALLBACKS = [
-  { src: "/images/heromain.jpg", alt: "Learning Through Motion in session" },
-  { src: "/images/heromain.png", alt: "Learning Through Motion activities" },
-  { src: "/images/comingsoon.png", alt: "Learning Through Motion programme preview" },
-];
-
 export default async function Home() {
+  const siteImages = await getResolvedSiteImages();
+  const homepageCarouselFallbacks = [
+    {
+      src: siteImages.home_carousel_fallback_1 || "/images/heromain.jpg",
+      alt: "Learning Through Motion in session",
+    },
+    {
+      src: siteImages.home_carousel_fallback_2 || "/images/heromain.png",
+      alt: "Learning Through Motion activities",
+    },
+    {
+      src: siteImages.home_carousel_fallback_3 || "/images/comingsoon.png",
+      alt: "Learning Through Motion programme preview",
+    },
+  ];
   const carouselImages = await getMixedCarouselImages();
   const homeCarouselImages = (carouselImages.length > 0
     ? carouselImages
-    : HOMEPAGE_CAROUSEL_FALLBACKS).slice(0, 8);
+    : homepageCarouselFallbacks).slice(0, 8);
   const heroVideoUrl = await getHeroVideo("hero-homepage");
   const programmeCardImages = await getProgrammeCardImages();
 

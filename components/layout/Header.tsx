@@ -6,7 +6,21 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { PRIMARY_NAV } from "@/content/siteContent";
 
-export function Header() {
+type HeaderImageConfig = {
+  logoDefault: string;
+  logoHover: string;
+};
+
+type HeaderProps = {
+  images?: HeaderImageConfig;
+};
+
+const DEFAULT_HEADER_IMAGES: HeaderImageConfig = {
+  logoDefault: "/images/logo.png",
+  logoHover: "/images/smile.png",
+};
+
+export function Header({ images = DEFAULT_HEADER_IMAGES }: HeaderProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
@@ -16,8 +30,8 @@ export function Header() {
   // Preload the smile image for instant swap
   useEffect(() => {
     const img = new window.Image();
-    img.src = "/images/smile.png";
-  }, []);
+    img.src = images.logoHover;
+  }, [images.logoHover]);
 
   // Handle scroll to shrink header
   useEffect(() => {
@@ -62,7 +76,7 @@ export function Header() {
               onMouseLeave={() => setIsLogoHovered(false)}
             >
               <Image
-                src="/images/logo.png"
+                src={images.logoDefault}
                 alt="Learning Through Motion logo"
                 width={135}
                 height={135}
@@ -70,7 +84,7 @@ export function Header() {
                 priority
               />
               <Image
-                src="/images/smile.png"
+                src={images.logoHover}
                 alt="Learning Through Motion smile"
                 width={75}
                 height={75}

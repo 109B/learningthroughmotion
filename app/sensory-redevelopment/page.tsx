@@ -4,16 +4,21 @@ import { Section } from "@/components/common/Section";
 import { FadeIn } from "@/components/common/FadeIn";
 import { PROGRAMMES } from "@/content/siteContent";
 import { getCarouselImages } from "@/lib/carousel";
+import { getProgrammeCardImages } from "@/lib/programmeImages";
 
 export default async function SensoryRedevelopmentPage() {
   const programme = PROGRAMMES.find(
     (item) => item.slug === "sensory-redevelopment"
   );
   const carouselImages = await getCarouselImages("sensory");
+  const programmeCardImages = await getProgrammeCardImages();
 
   if (!programme) {
     return null;
   }
+
+  const dynamicImage = programmeCardImages.find((img) => img.slug === programme.slug);
+  const heroImage = dynamicImage?.imageUrl || programme.heroImage;
 
   return (
     <>
@@ -23,7 +28,7 @@ export default async function SensoryRedevelopmentPage() {
         intro={programme.excerpt}
         ctaHref="/enquire-now"
         ctaLabel="Book a discovery call"
-        imageSrc={programme.heroImage}
+        imageSrc={heroImage}
         carouselImages={carouselImages}
       />
 
