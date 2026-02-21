@@ -32,6 +32,7 @@ export default function AdminSessionsEditorPage() {
   });
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
+  const [blocksToAdd, setBlocksToAdd] = useState(1);
 
   useEffect(() => {
     const load = async () => {
@@ -107,15 +108,15 @@ export default function AdminSessionsEditorPage() {
     }));
   };
 
-  const addBlock = () => {
-    const now = new Date().toISOString();
-    setData((prev) => ({
-      ...prev,
-      blocks: [
-        ...prev.blocks,
-        {
-          id: `block-${Date.now()}`,
-          name: "New Session Block",
+  const addBlock = (count = 1) => {
+    const safeCount = Math.min(Math.max(1, count), 12);
+    const baseTime = Date.now();
+    setData((prev) => {
+      const newBlocks = Array.from({ length: safeCount }, (_, index) => {
+        const now = new Date(baseTime + index * 1000).toISOString();
+        return {
+          id: `block-${baseTime}-${index + 1}`,
+          name: safeCount === 1 ? "New Session Block" : `New Session Block ${index + 1}`,
           description: "",
           start_date: now,
           end_date: now,
@@ -125,15 +126,20 @@ export default function AdminSessionsEditorPage() {
           capacity: 6,
           current_bookings: 0,
           location: "Bishop Bridgeman C.E. Primary School",
-          status: "draft",
+          status: "draft" as const,
           registration_fee: 10,
           session_fee: 15,
           total_sessions: 6,
           created_at: now,
           updated_at: now,
-        },
-      ],
-    }));
+        };
+      });
+
+      return {
+        ...prev,
+        blocks: [...prev.blocks, ...newBlocks],
+      };
+    });
   };
 
   const handleSave = async () => {
@@ -172,7 +178,7 @@ export default function AdminSessionsEditorPage() {
 
   return (
     <main style={{ padding: "32px 24px", maxWidth: "1200px", margin: "0 auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap", marginBottom: "16px", background: "linear-gradient(135deg, #1e3a5f 0%, #2b578f 100%)", padding: "18px", borderRadius: "14px", color: "#fff" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap", marginBottom: "16px", background: "linear-gradient(135deg, #1e3a5f 0%, #2b578f 100%)", padding: "18px", borderRadius: "14px", color: "#fff", position: "sticky", top: "108px", zIndex: 60, boxShadow: "0 10px 24px rgba(30,58,95,0.25)" }}>
         <div>
           <p style={{ margin: 0, fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", fontWeight: 700 }}>
             Admin Sessions
@@ -182,12 +188,23 @@ export default function AdminSessionsEditorPage() {
             Update dates, prices, and status shown on the booking page.
           </p>
         </div>
-        <div style={{ display: "flex", gap: "8px" }}>
+        <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
           <Link href="/admin" style={{ padding: "10px 12px", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "10px", color: "#fff" }}>
             Back to Admin
           </Link>
-          <button onClick={addBlock} style={{ padding: "10px 12px", border: "1px solid #fff", borderRadius: "10px", background: "#fff", cursor: "pointer", color: "#1e3a5f", fontWeight: 700 }}>
-            Add Block
+          <label style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.28)", borderRadius: "10px", padding: "8px 10px" }}>
+            <span style={{ fontSize: "0.85rem", whiteSpace: "nowrap" }}>How many blocks?</span>
+            <input
+              type="number"
+              min={1}
+              max={12}
+              value={blocksToAdd}
+              onChange={(event) => setBlocksToAdd(Math.min(12, Math.max(1, Number(event.target.value) || 1)))}
+              style={{ width: "58px", padding: "6px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.35)", background: "#fff", color: "#1e3a5f", fontWeight: 700 }}
+            />
+          </label>
+          <button onClick={() => addBlock(blocksToAdd)} style={{ padding: "10px 12px", border: "1px solid #fff", borderRadius: "10px", background: "#fff", cursor: "pointer", color: "#1e3a5f", fontWeight: 700 }}>
+            Add Block(s)
           </button>
           <button onClick={handleSave} style={{ padding: "10px 14px", border: "1px solid #16a34a", borderRadius: "10px", background: "#16a34a", color: "#fff", cursor: "pointer", fontWeight: 700 }}>
             Save

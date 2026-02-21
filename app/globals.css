@@ -3116,6 +3116,11 @@ body.modal-open {
   padding: 2rem 0 1.5rem;
 }
 
+.hero--sessions {
+  padding-top: 0.75rem;
+  padding-bottom: 1.25rem;
+}
+
 .hero__text-section--centered {
   text-align: left;
   max-width: 800px;

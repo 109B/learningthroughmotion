@@ -26,7 +26,7 @@ export default async function SessionsPage() {
 
   return (
     <>
-      <section className="hero hero--compact">
+      <section className="hero hero--compact hero--sessions">
         <div className="shell">
           <FadeIn>
             <div className="hero__text-section">
