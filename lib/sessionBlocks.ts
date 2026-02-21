@@ -20,6 +20,7 @@ export type AdminSessionBlock = {
   status: SessionStatus;
   registration_fee: number;
   session_fee: number;
+  full_block_session_fee: number;
   total_sessions: number;
   created_at: string;
   updated_at: string;
@@ -98,6 +99,7 @@ function toAdminBlock(block: SessionBlock): AdminSessionBlock {
     status: block.status,
     registration_fee: block.registration_fee,
     session_fee: block.session_fee,
+    full_block_session_fee: block.full_block_session_fee,
     total_sessions: block.total_sessions,
     created_at: toIsoDate(block.created_at) || new Date().toISOString(),
     updated_at: toIsoDate(block.updated_at) || new Date().toISOString(),
@@ -158,6 +160,10 @@ export function normalizeSessionsPayload(input: unknown): AdminSessionsFile | nu
       status: (block.status as SessionStatus) || "draft",
       registration_fee: Math.max(0, Number(block.registration_fee ?? 10)),
       session_fee: Math.max(0, Number(block.session_fee ?? 15)),
+      full_block_session_fee: Math.max(
+        0,
+        Number(block.full_block_session_fee ?? Math.max(0, Number(block.session_fee ?? 15) - 3))
+      ),
       total_sessions: Math.max(1, Number(block.total_sessions ?? 6)),
       created_at: createdAt,
       updated_at: updatedAt,

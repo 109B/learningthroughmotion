@@ -23,6 +23,16 @@ function fromDateInputValue(value: string) {
   return new Date(`${value}T00:00:00.000Z`).toISOString();
 }
 
+const DAY_OPTIONS = [
+  { value: 0, label: "Sunday" },
+  { value: 1, label: "Monday" },
+  { value: 2, label: "Tuesday" },
+  { value: 3, label: "Wednesday" },
+  { value: 4, label: "Thursday" },
+  { value: 5, label: "Friday" },
+  { value: 6, label: "Saturday" },
+];
+
 export default function AdminSessionsEditorPage() {
   const [data, setData] = useState<AdminSessionsFile>({
     updatedAt: "",
@@ -129,6 +139,7 @@ export default function AdminSessionsEditorPage() {
           status: "draft" as const,
           registration_fee: 10,
           session_fee: 15,
+          full_block_session_fee: 12,
           total_sessions: 6,
           created_at: now,
           updated_at: now,
@@ -243,7 +254,16 @@ export default function AdminSessionsEditorPage() {
                 {block.status}
               </span>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "10px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "10px" }}>
+              <label>
+                Block ID
+                <input
+                  type="text"
+                  value={block.id}
+                  onChange={(event) => updateBlock(block.id, { id: event.target.value })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                />
+              </label>
               <label>
                 Name
                 <input
@@ -272,6 +292,38 @@ export default function AdminSessionsEditorPage() {
                 />
               </label>
               <label>
+                Day
+                <select
+                  value={block.day_of_week}
+                  onChange={(event) => updateBlock(block.id, { day_of_week: Number(event.target.value) })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                >
+                  {DAY_OPTIONS.map((day) => (
+                    <option key={day.value} value={day.value}>
+                      {day.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Time Start
+                <input
+                  type="time"
+                  value={block.time_start}
+                  onChange={(event) => updateBlock(block.id, { time_start: event.target.value })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                />
+              </label>
+              <label>
+                Time End
+                <input
+                  type="time"
+                  value={block.time_end}
+                  onChange={(event) => updateBlock(block.id, { time_end: event.target.value })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                />
+              </label>
+              <label>
                 Sessions
                 <input
                   type="number"
@@ -292,6 +344,16 @@ export default function AdminSessionsEditorPage() {
                 />
               </label>
               <label>
+                Current Bookings
+                <input
+                  type="number"
+                  min={0}
+                  value={block.current_bookings}
+                  onChange={(event) => updateBlock(block.id, { current_bookings: Math.max(0, Number(event.target.value) || 0) })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                />
+              </label>
+              <label>
                 Status
                 <select
                   value={block.status}
@@ -305,6 +367,48 @@ export default function AdminSessionsEditorPage() {
                   ))}
                 </select>
               </label>
+              <label>
+                Registration Fee (£)
+                <input
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  value={block.registration_fee}
+                  onChange={(event) => updateBlock(block.id, { registration_fee: Math.max(0, Number(event.target.value) || 0) })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                />
+              </label>
+              <label>
+                Pay-As-You-Go (£/session)
+                <input
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  value={block.session_fee}
+                  onChange={(event) => updateBlock(block.id, { session_fee: Math.max(0, Number(event.target.value) || 0) })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                />
+              </label>
+              <label>
+                Full Block (£/session)
+                <input
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  value={block.full_block_session_fee}
+                  onChange={(event) => updateBlock(block.id, { full_block_session_fee: Math.max(0, Number(event.target.value) || 0) })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                />
+              </label>
+              <label>
+                Location
+                <input
+                  type="text"
+                  value={block.location || ""}
+                  onChange={(event) => updateBlock(block.id, { location: event.target.value || null })}
+                  style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
+                />
+              </label>
             </div>
 
             <label style={{ display: "block", marginTop: "10px" }}>
@@ -316,6 +420,10 @@ export default function AdminSessionsEditorPage() {
                 style={{ width: "100%", padding: "8px", border: "1px solid #ddd", borderRadius: "6px" }}
               />
             </label>
+
+            <p style={{ margin: "10px 0 0 0", fontSize: "12px", color: "#667085" }}>
+              Created: {new Date(block.created_at).toLocaleString("en-GB")} | Last updated: {new Date(block.updated_at).toLocaleString("en-GB")}
+            </p>
 
             <div style={{ marginTop: "10px" }}>
               <button

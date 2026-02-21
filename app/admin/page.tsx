@@ -111,6 +111,20 @@ export default async function AdminDocsPortalPage() {
           <strong style={{ color: "#14532d" }}>Edit Roadmap</strong>
           <span style={{ color: "#2c6e46", fontSize: "0.92rem" }}>Maintain the 3 / 6 / 12 month delivery view</span>
         </Link>
+        <Link
+          href="/admin/programmes"
+          style={{
+            border: "1px solid #d7d2ef",
+            borderRadius: "12px",
+            background: "#f5f3ff",
+            padding: "14px",
+            display: "grid",
+            gap: "4px",
+          }}
+        >
+          <strong style={{ color: "#4c1d95" }}>Edit Programme Images</strong>
+          <span style={{ color: "#5b34a8", fontSize: "0.92rem" }}>Change card images shown in programme boxes</span>
+        </Link>
         <a
           href="#cloudinary-guard"
           style={{
@@ -146,6 +160,9 @@ export default async function AdminDocsPortalPage() {
             </li>
             <li>
               <Link href="/admin/sessions">Edit Session Dates</Link>
+            </li>
+            <li>
+              <Link href="/admin/programmes">Edit Programme Images</Link>
             </li>
           </ul>
         </aside>

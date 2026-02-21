@@ -1,0 +1,21 @@
+{
+  "updatedAt": "2026-02-21T00:00:00.000Z",
+  "version": 1,
+  "overrides": [
+    {
+      "slug": "maths-through-sport",
+      "imageUrl": "https://files.websitebuilder.prositehosting.co.uk/45/39/45397caf-ca8f-482b-98e6-01ca8bf50395.png",
+      "updatedAt": "2026-02-21T00:00:00.000Z"
+    },
+    {
+      "slug": "sensory-redevelopment",
+      "imageUrl": "https://files.websitebuilder.prositehosting.co.uk/62/f8/62f87fc5-6c92-421c-93be-82a4720f8739.jpg",
+      "updatedAt": "2026-02-21T00:00:00.000Z"
+    },
+    {
+      "slug": "the-next-chapter",
+      "imageUrl": "https://files.websitebuilder.prositehosting.co.uk/7e/44/7e446e97-fa38-4fda-902c-4a6346050a3f.jpg",
+      "updatedAt": "2026-02-21T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import { PROGRAMMES } from "@/content/siteContent";
 import { isCloudinaryBudgetExceeded } from "@/lib/cloudinaryBudget";
+import { getProgrammeCardOverrideMap } from "@/lib/programmeCardOverrides";
 
 type CloudinaryResource = {
   asset_id: string;
@@ -95,6 +96,7 @@ async function fetchProgrammeCardImages() {
 export async function getProgrammeCardImages(): Promise<ProgrammeCardImage[]> {
   const mappedImages: Record<string, string> = {};
   const config = getConfig();
+  const overrideMap = await getProgrammeCardOverrideMap();
 
   try {
     const resources = await fetchProgrammeCardImages();
@@ -115,6 +117,7 @@ export async function getProgrammeCardImages(): Promise<ProgrammeCardImage[]> {
   return PROGRAMMES.map((programme) => ({
     slug: programme.slug,
     imageUrl:
+      overrideMap.get(programme.slug) ||
       mappedImages[programme.slug] ||
       programme.heroImage ||
       PROGRAMME_PLACEHOLDER ||

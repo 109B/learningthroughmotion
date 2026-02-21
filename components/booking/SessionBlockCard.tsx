@@ -25,8 +25,8 @@ export function SessionBlockCard({ block }: Props) {
   const isAvailable = block.status === 'published' && !isFull;
 
   // Calculate costs for both pricing options
-  const payAsYouGoTotal = block.registration_fee + (15 * block.total_sessions);
-  const fullBlockTotal = block.registration_fee + (12 * block.total_sessions);
+  const payAsYouGoTotal = block.registration_fee + (block.session_fee * block.total_sessions);
+  const fullBlockTotal = block.registration_fee + (block.full_block_session_fee * block.total_sessions);
   const enquiryHref = `/enquire-now?topic=session-booking&block=${encodeURIComponent(block.name)}`;
 
   return (

@@ -29,47 +29,76 @@ export default async function SessionsPage() {
       <section className="hero hero--compact hero--sessions">
         <div className="shell">
           <FadeIn>
-            <div className="hero__text-section">
-              <p className="eyebrow">For Parents</p>
-              <h1 className="hero__title">Weekend Sensory Sessions</h1>
-              <p className="hero__description">
-                Weekly sessions for children aged 4-12 with SEND. Small groups of maximum 6 children,
-                expert coaching, and a supportive environment where every child can thrive.
-              </p>
+            <div className="sessions-hero-layout">
+              <div className="hero__text-section">
+                <p className="eyebrow">For Parents</p>
+                <h1 className="hero__title">Weekend Sensory Sessions</h1>
+                <p className="hero__description">
+                  Weekly sessions for children aged 4-12 with SEND. Small groups of maximum 6 children,
+                  expert coaching, and a supportive environment where every child can thrive.
+                </p>
 
-              <div className="hero__trust">
-                <div className="trust-badge">
-                  <span className="trust-badge__icon">✓</span>
-                  <span className="trust-badge__text">Maximum 6 children per session</span>
+                <div className="hero__trust">
+                  <div className="trust-badge">
+                    <span className="trust-badge__icon">✓</span>
+                    <span className="trust-badge__text">Maximum 6 children per session</span>
+                  </div>
+                  <div className="trust-badge">
+                    <span className="trust-badge__icon">✓</span>
+                    <span className="trust-badge__text">SEND-trained coaches</span>
+                  </div>
+                  <div className="trust-badge">
+                    <span className="trust-badge__icon">✓</span>
+                    <span className="trust-badge__text">Parent involvement welcomed</span>
+                  </div>
                 </div>
-                <div className="trust-badge">
-                  <span className="trust-badge__icon">✓</span>
-                  <span className="trust-badge__text">SEND-trained coaches</span>
-                </div>
-                <div className="trust-badge">
-                  <span className="trust-badge__icon">✓</span>
-                  <span className="trust-badge__text">Parent involvement welcomed</span>
+
+                <div className="hero__actions">
+                  <a className="btn" href="#available-blocks">
+                    View Live Blocks
+                  </a>
+                  {featuredBlock && (
+                    <Link
+                      className="btn btn--ghost"
+                      href={`/enquire-now?topic=session-booking&block=${encodeURIComponent(featuredBlock.name)}`}
+                    >
+                      Buy Next Block
+                    </Link>
+                  )}
                 </div>
               </div>
 
-              <div className="hero__actions">
-                <a className="btn" href="#available-blocks">
-                  View Live Blocks
-                </a>
-                {featuredBlock && (
-                  <Link
-                    className="btn btn--ghost"
-                    href={`/enquire-now?topic=session-booking&block=${encodeURIComponent(featuredBlock.name)}`}
-                  >
-                    Buy Next Block
-                  </Link>
+              <aside className="sessions-hero-card">
+                <p className="eyebrow">Next Available</p>
+                {featuredBlock ? (
+                  <>
+                    <h3>{featuredBlock.name}</h3>
+                    <p className="sessions-hero-card__meta">
+                      {formatDate(featuredBlock.start_date)}
+                      {featuredBlock.end_date ? ` - ${formatDate(featuredBlock.end_date)}` : ""}
+                    </p>
+                    <p className="sessions-hero-card__meta">
+                      {featuredBlock.time_start} - {featuredBlock.time_end}
+                    </p>
+                    <p className="sessions-hero-card__meta">
+                      {featuredBlock.location || "Bishop Bridgeman C.E. Primary School"}
+                    </p>
+                    <Link
+                      className="btn"
+                      href={`/enquire-now?topic=session-booking&block=${encodeURIComponent(featuredBlock.name)}`}
+                    >
+                      Buy This Block
+                    </Link>
+                  </>
+                ) : (
+                  <p>No live block currently available. Check below for updates.</p>
                 )}
-              </div>
+              </aside>
             </div>
           </FadeIn>
         </div>
       </section>
-
+      
       <Section
         tone="default"
         title="Book a Session Block"

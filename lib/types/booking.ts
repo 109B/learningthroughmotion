@@ -15,6 +15,7 @@ export type SessionBlock = {
   status: 'draft' | 'published' | 'full' | 'completed';
   registration_fee: number;
   session_fee: number;
+  full_block_session_fee: number;
   total_sessions: number;
   created_at: Date;
   updated_at: Date;
