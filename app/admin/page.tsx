@@ -39,6 +39,18 @@ function getItems(horizon: WorkItemHorizon, type: WorkItemType) {
   return (roadmap.workItems as AdoWorkItem[]).filter((item) => item.horizon === horizon && item.type === type);
 }
 
+const actionCardCtaStyle = {
+  marginTop: "10px",
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: "9px",
+  padding: "8px 12px",
+  fontSize: "0.85rem",
+  fontWeight: 700,
+  width: "fit-content",
+};
+
 export default async function AdminDocsPortalPage() {
   if (!(await hasValidAdminSession())) {
     redirect("/admin/login");
@@ -95,10 +107,12 @@ export default async function AdminDocsPortalPage() {
             padding: "14px",
             display: "grid",
             gap: "4px",
+            textDecoration: "none",
           }}
         >
           <strong style={{ color: "#1e3a5f" }}>Update Session Dates</strong>
           <span style={{ color: "#466384", fontSize: "0.92rem" }}>Change blocks, dates, and status for /shop/sessions</span>
+          <span style={{ ...actionCardCtaStyle, background: "#1e3a5f", color: "#fff" }}>Open editor</span>
         </Link>
         <Link
           href="/admin/roadmap"
@@ -109,10 +123,12 @@ export default async function AdminDocsPortalPage() {
             padding: "14px",
             display: "grid",
             gap: "4px",
+            textDecoration: "none",
           }}
         >
           <strong style={{ color: "#14532d" }}>Edit Roadmap</strong>
           <span style={{ color: "#2c6e46", fontSize: "0.92rem" }}>Maintain the 3 / 6 / 12 month delivery view</span>
+          <span style={{ ...actionCardCtaStyle, background: "#14532d", color: "#fff" }}>Open editor</span>
         </Link>
         <Link
           href="/admin/programmes"
@@ -123,10 +139,12 @@ export default async function AdminDocsPortalPage() {
             padding: "14px",
             display: "grid",
             gap: "4px",
+            textDecoration: "none",
           }}
         >
           <strong style={{ color: "#4c1d95" }}>Edit Programme Images</strong>
           <span style={{ color: "#5b34a8", fontSize: "0.92rem" }}>Change card images shown in programme boxes</span>
+          <span style={{ ...actionCardCtaStyle, background: "#4c1d95", color: "#fff" }}>Open editor</span>
         </Link>
         <Link
           href="/admin/site-images"
@@ -137,10 +155,12 @@ export default async function AdminDocsPortalPage() {
             padding: "14px",
             display: "grid",
             gap: "4px",
+            textDecoration: "none",
           }}
         >
           <strong style={{ color: "#3730a3" }}>Edit Site Images</strong>
           <span style={{ color: "#4338ca", fontSize: "0.92rem" }}>Update logo, home fallback, and shared image URLs</span>
+          <span style={{ ...actionCardCtaStyle, background: "#3730a3", color: "#fff" }}>Open editor</span>
         </Link>
         <a
           href="#cloudinary-guard"
@@ -151,10 +171,12 @@ export default async function AdminDocsPortalPage() {
             padding: "14px",
             display: "grid",
             gap: "4px",
+            textDecoration: "none",
           }}
         >
           <strong style={{ color: "#7a4c10" }}>Check Credit Guard</strong>
           <span style={{ color: "#8f6530", fontSize: "0.92rem" }}>Review Cloudinary low-media mode status</span>
+          <span style={{ ...actionCardCtaStyle, background: "#7a4c10", color: "#fff" }}>View status</span>
         </a>
       </section>
 
@@ -163,26 +185,62 @@ export default async function AdminDocsPortalPage() {
           <p style={{ margin: "0 0 10px 0", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.06em", color: "#666" }}>
             Navigation
           </p>
-          <ul style={{ margin: 0, paddingLeft: "18px", display: "grid", gap: "10px" }}>
+          <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: "8px" }}>
             {sections.map((section) => (
               <li key={section.id}>
-                <a href={`#${section.id}`}>{section.title}</a>
+                <a
+                  href={`#${section.id}`}
+                  style={{
+                    display: "block",
+                    padding: "8px 10px",
+                    borderRadius: "8px",
+                    border: "1px solid #d4dfeb",
+                    background: "#fff",
+                    color: "#1e3a5f",
+                    textDecoration: "none",
+                    fontWeight: 600,
+                  }}
+                >
+                  {section.title}
+                </a>
               </li>
             ))}
             <li>
-              <a href="#roadmap">ADO Board Snapshot</a>
+              <a
+                href="#roadmap"
+                style={{
+                  display: "block",
+                  padding: "8px 10px",
+                  borderRadius: "8px",
+                  border: "1px solid #d4dfeb",
+                  background: "#fff",
+                  color: "#1e3a5f",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                }}
+              >
+                ADO Board Snapshot
+              </a>
             </li>
             <li>
-              <Link href="/admin/roadmap">Edit ADO Board</Link>
+              <Link href="/admin/roadmap" style={{ display: "block", padding: "8px 10px", borderRadius: "8px", border: "1px solid #d4dfeb", background: "#eef9f1", color: "#14532d", textDecoration: "none", fontWeight: 700 }}>
+                Edit ADO Board
+              </Link>
             </li>
             <li>
-              <Link href="/admin/sessions">Edit Session Dates</Link>
+              <Link href="/admin/sessions" style={{ display: "block", padding: "8px 10px", borderRadius: "8px", border: "1px solid #d4dfeb", background: "#eef4fc", color: "#1e3a5f", textDecoration: "none", fontWeight: 700 }}>
+                Edit Session Dates
+              </Link>
             </li>
             <li>
-              <Link href="/admin/programmes">Edit Programme Images</Link>
+              <Link href="/admin/programmes" style={{ display: "block", padding: "8px 10px", borderRadius: "8px", border: "1px solid #d4dfeb", background: "#f5f3ff", color: "#4c1d95", textDecoration: "none", fontWeight: 700 }}>
+                Edit Programme Images
+              </Link>
             </li>
             <li>
-              <Link href="/admin/site-images">Edit Site Images</Link>
+              <Link href="/admin/site-images" style={{ display: "block", padding: "8px 10px", borderRadius: "8px", border: "1px solid #d4dfeb", background: "#eef2ff", color: "#3730a3", textDecoration: "none", fontWeight: 700 }}>
+                Edit Site Images
+              </Link>
             </li>
           </ul>
         </aside>
